@@ -1,0 +1,361 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{newtxtext,newtxmath}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=black}
+\setlist{leftmargin=1.2cm, itemsep=2pt, topsep=4pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[C]{%
+  \begin{minipage}{\textwidth}
+    \raggedleft
+    \textbf{Deep Learning Methods for Computer Vision in Autonomous Systems}\\
+    Bc. Richard Čerňanský\\
+    Ing. Matej Halinkovič
+  \end{minipage}%
+}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{60pt} % Increase header height for 3 lines
+\addtolength{\topmargin}{-10pt} % Adjust top margin
+\setlength{\headheight}{40pt}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\begin{center}
+Slovak University of Technology in Bratislava\\
+Faculty of Informatics and Information Technology\\
+Study programme: Intelligent Software Systems
+\end{center}
+\noindent\hrulefill
+
+\vspace*{5cm}
+
+{\LARGE\bfseries Deep Learning Methods for Computer Vision in Autonomous Systems\par}
+\vspace{0.6cm}
+{\large Research Proposal for a Master’s Thesis\par}
+
+\vspace{2.2cm}
+{\large Bc.\ Richard Čerňanský\par}
+{\large 2025/2026\par}
+
+\vfill
+\begin{flushleft}
+Thesis supervisor: Ing. Matej Halinkovič
+\end{flushleft}
+\end{titlepage}
+
+\onehalfspacing
+
+% add physics based cites, modular vs. end-to-end, plan for DPx
+
+\section{Introduction}
+\quad Autonomous vehicles must not only see the road but also anticipate what happens next. Trajectory prediction estimates how cars, cyclists, and pedestrians are likely to move over the next few seconds. Done well, it turns a cautious robot into a considerate road user: the car plans smoother merges, yields earlier, and avoids last-second braking. The difficulty is that traffic is messy, intentions change, sensors are imperfect, and several futures can be plausible at once. Modern systems therefore combine cues from cameras, LiDAR, and maps to form a consistent view of the scene and predict multiple probability-scored futures rather than a single guess. This work explores practical ways to fuse inputs, model interactions between agents, and express uncertainty, aiming for predictions that are accurate, fast enough for on-board use, and easy to integrate into real-time planning.
+
+
+\section{Motivation}
+\quad Real traffic is highly dynamic and unpredictable: other drivers may behave erratically, and sensors provide noisy or incomplete data. Diverse maneuvers, complex interactions, and uncertainty in sensory information make prediction challenging, yet solving these challenges is vital for improving AV safety. In addition, autonomous systems operate under strict constraints on latency and reliability \cite{huang2022survey}. Predictions must be computed in real time on embedded hardware and remain accurate over long horizons to be useful for high-speed driving. Industry recognizes the need for fast execution, uncertainty handling, and generalization in prediction models to ensure robust operation in varied conditions \cite{Ettinger2021WOMD,Wayformer2022,ISO21448}. Reliable trajectory prediction is therefore a critical enabler for safe autonomous driving and motivates intensive research into methods that can forecast the multi-agent future under uncertainty and with practical efficiency.
+
+
+\section{Problem Statement}
+
+\quad Trajectory prediction with multimodal sensor input presents several core challenges. Modern autonomous vehicles are equipped with cameras, LiDAR, radar, and HD maps, each providing complementary information about the environment \cite{madjid2025survey}. Fusing these heterogeneous data streams is non-trivial: they have different formats, update rates, fields of view, and noise characteristics. A naive approach might bolt together separate modules for each modality, but this can lead to complex systems that are hard to scale or tune. The research problem is centered on how to design a deep learning model that integrates multi-sensor data into a coherent view of the scene, enabling better trajectory forecasts. Key challenges include:
+
+\subsection{Data Fusion}
+\quad Combine cameras, LiDAR or radar, and HD maps into one scene view. Compare early, BEV or attention-based intermediate fusion, and late fusion. Prevent overload or overspecialization through learned alignment and robust training \cite{madjid2025survey}.
+
+\subsection{Dynamic Environments}
+\quad Traffic is nonstationary and many futures are plausible. Aleatoric uncertainty means the same history can lead to different outcomes. Predict a calibrated set of socially compliant trajectories so planning can weigh alternatives in real time \cite{madjid2025survey}.
+
+\subsection{Interaction Modeling}
+\quad Agent motions are coupled and constrained by lanes and rules. Use structured representations such as graphs and attention to capture agent to agent and agent to map relations. Poor interaction modeling leads to infeasible predictions \cite{huang2022survey}.
+
+\subsection{Real-World Constraints}
+\quad The system must run within an onboard real-time loop and scale to dense traffic. Balance model capacity with memory and compute efficiency to stay deployable, not only accurate \cite{Wayformer2022,huang2022survey}. \\
+
+\quad In summary, the problem is how to develop a deep learning-based trajectory prediction approach that fuses multimodal sensor data, deals with noisy dynamic environments, models agent interactions, and produces reliable, uncertainty-aware trajectory forecasts in real time.
+
+\section{Taxonomy of Trajectory Prediction Methods}
+\quad The literature on trajectory forecasting for autonomous driving can be categorized into four broad families \cite{madjid2025survey}:
+
+\subsection{Physics-Based Methods}
+\quad These rely on kinematic or dynamic models of motion, using physical equations to extrapolate future positions. Examples include constant-velocity or constant-acceleration models (Single-Trajectory simulation), Kalman filters which estimate state with uncertainty, and Monte Carlo simulations that sample many possible motions. Physics-based approaches are simple and fast, but they struggle with complex maneuvers or sudden behavior changes since they lack contextual understanding. Some variants combine multiple motion models to handle different maneuvers (Multiple-Model methods).
+
+
+\subsection{Classic Machine Learning Methods}
+\quad These methods learn motion patterns from data using statistical models, but without deep neural networks. Common approaches include Hidden Markov Models (HMMs), Gaussian Processes, Dynamic Bayesian Networks, and Gaussian Mixture Models. They can capture uncertainty to a degree (e.g., an HMM can model discrete maneuver states, Gaussian Processes provide a distribution over trajectories) and were popular before deep learning. However, their capacity to model very complex, high-dimensional scenarios is limited compared to modern deep nets.
+
+
+\subsection{Deep Learning Methods}
+\quad Deep models now dominate trajectory prediction. RNNs and LSTMs capture temporal history, CNNs extract spatial cues from rasterized agents and maps, GNNs model agent to lane relations, and Transformers provide long-range, heterogeneous context with attention. Generative decoders (VAEs, GANs, normalizing flows, diffusion) yield multi-hypothesis futures with calibrated uncertainty. State-of-the-art systems pair a strong scene encoder with multi-modal decoders and explicit interaction and map context. Robustness comes from multimodal fusion: early fusion on raw or shallow features, intermediate fusion with cross-modal attention or learned BEV alignment, and late fusion via ensembling or confidence weighting. The goal is a probability-scored, socially compliant, map-consistent set of trajectories that runs in real time.
+
+\subsection{Reinforcement Learning Methods}
+\quad These methods treat prediction as a sequential decision problem. Here, an agent learns a policy (via reward feedback) to mimic human driving behavior, effectively “planning” likely trajectories. RL-based predictors can naturally handle multi-agent interactions by modeling how agents might react to each other, and can ensure physically feasible outputs through learned policy constraints. However, RL methods can be data-hungry and harder to train/stabilize, and historically have been more common in planning than in pure trajectory forecasting. They are an active research area for capturing game-theoretic interactions and long-horizon planning in prediction.
+
+\subsection{Modular vs. End-to-End approaches}
+
+\textbf{Definitions.} A \emph{modular} stack decomposes the pipeline into perception $\rightarrow$ tracking $\rightarrow$ map reasoning $\rightarrow$ prediction (and planning), with typed interfaces (objects, lanes, lights) \cite{Wayformer2022,VectorNet2020,TNT2020,DenseTNT2021}. An \emph{end-to-end} (E2E) stack trains a unified model to map raw sensors directly to trajectories (or planner-friendly representations), optionally with intermediate supervision \cite{BEVerse2022,Hu2021FIERY,MultiXNet2020}. Recent works also explore \emph{semi end-to-end} designs that share a unified BEV backbone and train multiple heads jointly for detection, mapping, and motion forecasting \cite{Hu2021FIERY,BEVerse2022}.
+
+\subsubsection{Modular stacks — advantages}
+\begin{itemize}
+  \item \textbf{Interpretability \& diagnosability:} intermediate outputs (detections, tracks, lanes) can be inspected, unit-tested, and bounded; faults can be isolated to a component. This aligns with safety engineering \cite{ISO21448}.
+  \item \textbf{Contracted interfaces \& graceful degradation:} planning can reason over explicit objects and lanes; fallbacks are easier when a component underperforms.
+  \item \textbf{Deterministic budgeting:} latency, memory, and compute can be budgeted per module for real-time loops.
+\end{itemize}
+
+\subsubsection{Modular stacks — limitations}
+\begin{itemize}
+  \item \textbf{Error compounding and information bottlenecks:} early discretization (NMS, class thresholds) discards uncertainty; downstream stages cannot recover missed cues \cite{huang2022survey}.
+  \item \textbf{Objective mismatch:} components are trained on proxy losses (e.g., mAP for detection) that do not directly optimize forecasting quality.
+  \item \textbf{Complex integration cost:} many interfaces demand dataset- and domain-specific tuning.
+\end{itemize}
+
+\subsubsection{End-to-end stacks — advantages}
+\begin{itemize}
+  \item \textbf{Joint optimization:} shared features couple perception and forecasting, reducing handoff losses and leveraging weak cues across modalities \cite{BEVerse2022}.
+  \item \textbf{Robustness to intermediate errors:} the model can learn to bypass brittle interfaces and propagate uncertainty to the output distribution.
+  \item \textbf{Simplicity of training target:} directly optimizes forecasting objectives (ADE/FDE, minADE/minFDE, mAP).
+\end{itemize}
+
+\subsubsection{End-to-end stacks — limitations}
+\begin{itemize}
+  \item \textbf{Verification \& certification:} opaque internals complicate assurance cases and safety sign-off \cite{ISO21448}.
+  \item \textbf{Data \& compute demand:} strong supervision and large-scale training are typically required; closed-loop stability must be validated.
+  \item \textbf{Debuggability:} failure analysis is harder without explicit intermediate artifacts.
+\end{itemize}
+
+\section{Analysis of the State of the Art}
+\subsection{Classical foundations}
+\subsubsection{Kalman filtering (KF)}
+\quad The modern baseline for linear, Gaussian state-space estimation. It introduced recursive minimum-variance estimation and remains the conceptual backbone for belief over state in motion models. It predicts trajectories as a two step process of filtering (denoising current state from noisy measurements) and forecasting (rolling the dynamics forward and propagating covariance - gaussian). This approach is very fast, good for short-horizon extrapolation but the gaussian assumption makes predicting longer sequences (the predictions get progressively worse). \cite{Kalman1960}
+
+\subsubsection{Extended KF (EKF) and Unscented KF (UKF)}
+\quad For nonlinear dynamics/observations, EKF linearizes models locally; UKF propagates sigma points through true nonlinearities to avoid Jacobians and reduce linearization error, often outperforming EKF in practice. \cite{WanMerwe2000UKF}
+
+\subsubsection{Particle filtering (Sequential Monte Carlo)}
+\quad Handles non-Gaussian, highly nonlinear tracking by representing the posterior with weighted samples (the bootstrap filter). This unlocked robust multi-modal belief tracking for maneuvering targets. \cite{Gordon1993Bootstrap}
+
+\subsubsection{Markov Models}
+\quad A general-purpose probabilistic framework for intent/maneuver recognition and sequence modeling that influenced early behavior prediction pipelines. \cite{Rabiner1989HMM}
+
+\subsubsection{Social force models (crowds)}
+\quad For pedestrian motion, “forces” encode collision avoidance and social conventions. While hand-crafted, they established interaction modeling as essential for human-centric forecasting. \cite{Helbing1995SocialForce}
+
+\subsubsection{Gaussian Processes (GPs)}
+\quad Nonparametric Bayesian regression with principled uncertainty. Used to learn motion patterns and priors with continuous trajectories. \cite{RasmussenWilliams2006GPML}
+
+\subsubsection{Physiscs based models (CV, CA, CTRA)}
+Deterministic kinematic and dynamic models encode physics and agent constraints directly. Common choices include constant velocity, constant acceleration, and constant turn rate with acceleration (CTRA) [18, 19] for short horizon motion. Bicycle models enforce non-holonomic limits, curvature, jerk, and actuator bounds. These models are interpretable and data efficient, and they fit into MPC or act as priors or constraints within KF, UKF, or SMC fusion. They can be brittle under behavior shifts. Modern systems often add learned residuals or intent layers to capture unmodeled interactions.
+These assumptions still echo in today’s neural encoders, decoders, and losses.
+
+
+\subsection{Deep learning wave (2016–2019)}
+
+\subsubsection{Sequence RNNs (LSTM)}
+\quad Social-LSTM jointly reasons across agents with a pooling mechanism for interactions, replacing hand-designed forces with learned social context. \cite{Alahi2016SocialLSTM}
+
+\subsubsection{Diversity via generative modeling (GANs/CVAEs)}
+\quad Social-GAN introduced adversarial training + variety loss to generate multiple socially plausible futures (multi-modality). CVAE-style decoders popularized latent sampling for diverse trajectory hypotheses.
+These models introduced a shift from hand-crafted dynamics to learned interaction encoders and explicitly multi-modal output heads, anticipating later multi-hypothesis metrics and leaderboards. Contemporary surveys track this pivot from physics-based to learning-based forecasting. \cite{Gupta2018SocialGAN}
+
+
+\subsection{2020+ breakthroughs: vectorized maps, transformers, and unified BEV}
+
+\subsubsection{Vectorized road graphs \& multi-hypothesis heads}
+
+\quad \textbf{VectorNet (CVPR~2020)} Encodes lanes/agents as polylines, aggregating local-to-global vector features; seminal for representing HD maps natively. \cite{VectorNet2020} \\
+
+\textbf{LaneGCN (ECCV~2020)} Graph convolutions over lane graphs plus agent–lane interactions; strong accuracy/efficiency trade-offs. \cite{Liang2020LaneGCN} \\
+
+\textbf{TNT / DenseTNT (2020--2021)} Predicts a small set of likely endpoints/goals first, then generates goal-conditioned full trajectories. This aligns with endpoint-centric metrics (minFDE) and with how drivers commit to destinations (lane exit, stop line, merge point). \cite{TNT2020,DenseTNT2021}\\
+
+\textbf{CoverNet (CVPR~2020)} Discrete trajectory set coverage with calibrated probabilities; influential for classification-style multi-modal heads. \cite{CoverNet2020} \\
+
+\textbf{Trajectron++ (ECCV~2020)} Models multi-agent interactions explicitly and outputs probabilistic, multi-modal trajectories via a CVAE (latent-variable) decoder. Integrates map context and enables dynamic behavior modeling. It uses per node type Encoder LSTM and a Decoder LSTM inside the CVAE (per node type, shared) to roll out future trajectories given latent \(z\) and context. Popular codebase and benchmark. \cite{TrajectronPP2020} \\
+
+\subsubsection{Transformers for motion forecasting}
+\textbf{Wayformer (2022)} Wayformer treats everything in the scene as tokens, agent history points, nearby agents, roadgraph polylines/lane elements, and traffic-light states, and projects them to a common embedding. It then explores early, late, and hierarchical fusion, all built from the same multi-head self-attention backbone. Early fusion concatenates all tokens and runs one encoder; late fusion encodes each modality separately and fuses later; hierarchical fusion mixes both. Efficiency comes from factorized attention (temporal to spatial) and latent queries that compress context, while the decoder produces multi-hypothesis trajectories (mixture outputs with confidences). The result is a simple, homogeneous ``transformer-as-universal-fuser'' that scales across datasets (WOMD/Argoverse) without hand-crafted fusion modules, and cleanly ablates what each modality adds. \cite{Wayformer2022}\\
+
+\textbf{Scene Transformer / hierarchical \& heterogeneous variants (2020--2022)} These models encode agent\(\leftrightarrow\)agent and agent\(\leftrightarrow\)map relations with attention but introduce structure to keep computation bounded in dense scenes. Typical designs run local self-attention within an agent’s temporal tokens, cross-attention to a small neighborhood of other agents, and attention to relevant lane/map segments (often vectorized polylines). A hierarchy aggregates fine-grained tokens into coarser scene summaries (clusters, pooled lane segments) and then broadcasts context back to agents, enabling long-range interaction reasoning without quadratic cost. Relational biases (e.g., distance, heading, lane connectivity) are injected as edge features or attention biases. For output, these encoders pair with multi-modal heads (goal/endpoint-conditioned decoders, \(K\)-trajectory heads, or likelihood models) to produce diverse, probability-scored futures that respect lane topology and social constraints. \cite{Ngiam2021SceneTransformer}\\
+
+\subsubsection{Vision-centric, unified BEV perception-to-prediction}
+\quad \textbf{LSS (Lift-Splat-Shoot, ECCV~2020)} Introduced efficient camera-only BEV via implicit 3D unprojection; later became a backbone for unified BEV stacks. \cite{Philion2020LSS}\\
+
+\textbf{FIERY (ICCV~2021)} Predicts future instance segmentation and motion directly in BEV from monocular surround cameras, producing probabilistic futures convertible to trajectories, a key step toward vision-only forecasting. \cite{Hu2021FIERY} \\
+
+\textbf{BEVerse (2022--2023)} Unifies detection, mapping, and motion forecasting in a single multi-camera BEV representation, reducing error accumulation between modules and enabling joint optimization.  \cite{BEVerse2022}\\
+
+\textbf{MultiXNet (2020)} Early end-to-end LiDAR-centric model combining detection and prediction with multi-class, multi-modal outputs; symbolic for perception-to-forecasting pipelines beyond two-stage stacks. \cite{MultiXNet2020}\\
+
+\textbf{ReasonNet} ReasonNet–style modules are multi-step, learned reasoning controllers that operate over visual tokens (CNN/ViT features, region proposals, BEV cells). A small recurrent controller (MLP/LSTM/transformer) runs iterative attention over a visual memory, updates an internal state, and uses gating/termination to decide the number of steps, querying regions, composing evidence (relations, attributes, counts), and refining hypotheses before emitting an answer or structured prediction. The trade-off is extra latency and training stability; the payoff is stronger multi-hop inference than one-shot feed-forward heads, especially when decisions hinge on relational cues. \cite{ReasonNet}\\
+
+The field converged on vectorized maps and attention for scalable scene reasoning, and on unified BEV encoders that fuse cameras (optionally LiDAR/radar) and jointly train detection, mapping, and forecasting. This improved sample efficiency, temporal consistency, and real-time integration. Recent surveys and leaderboards reflect this differentiation (vector-graph vs.\ unified-BEV, and LiDAR+camera vs.\ camera-only). \\
+
+\section{Datasets}
+
+\quad Research in trajectory prediction has been accelerated by large-scale autonomous driving datasets that provide rich multimodal sensor data and trajectory annotations. Some prominent datasets include:
+
+\begin{itemize}
+    \item \textbf{KITTI (2012):} Early AV benchmark with stereo, LiDAR, and GPS/IMU, great for detection, tracking, and SLAM. It is small (~150 scenes) and supports only short-horizon forecasting, so it’s limited for learning social behavior. \cite{Geiger2012KITTI}
+    \item \textbf{nuScenes (2020):} Large multimodal suite (6 cameras, 5 radars, 1 LiDAR, $360^\circ$) with 1{,}000 twenty-second scenes, 3D boxes, and HD maps. It added a prediction challenge ($\approx 6$ s horizon) and is ideal for multi-sensor fusion and map-aware forecasting. \cite{Caesar2020nuScenes}
+    \item \textbf{Argoverse (2019):} Includes a Motion Forecasting set with 324k five-second scenarios and rich HD lane graphs (Miami/Pittsburgh). It popularized map-based prediction and uses ADE/FDE and Miss Rate; Argoverse 2 expands coverage. \cite{Chang2019Argoverse}
+    \item \textbf{Waymo Open Motion (2021):} Very large-scale forecasting dataset (>100k twenty-second scenarios at 10 Hz) with HD maps and many interactive scenes. It introduced mAP and Miss Rate for multi-modal sets and is a key benchmark for vectorized/transformer models. \cite{Ettinger2021WOMD}
+    \item \textbf{Lyft Level 5:} Large urban dataset with synchronized LiDAR/cameras and HD maps, similar in format to nuScenes. Widely used for 3D detection/tracking and baseline motion forecasting with map context. \cite{Kesten2019Lyft}
+    \item \textbf{ApolloScape:} Chinese urban driving data covering detection, segmentation, tracking, and mapping. Useful for perception and localization; less standardized for forecasting than nuScenes/Argoverse. \cite{Huang2018ApolloScape}
+    \end{itemize}
+
+\section{Evaluation Metrics}
+\quad Across these benchmarks, common metrics to evaluate trajectory prediction include \cite{madjid2025survey,Ettinger2021WOMD}:
+
+\begin{itemize}
+    \item \textbf{Average Displacement Error (ADE):} the average Euclidean distance between the predicted trajectory and the ground-truth trajectory over all time steps. It measures overall prediction accuracy.
+    \item \textbf{Final Displacement Error (FDE):} the Euclidean distance between the predicted final position (at the prediction horizon, e.g., \(3\,\mathrm{s}\) or \(6\,\mathrm{s}\)) and the true final position. This emphasizes endpoint accuracy (did the model correctly predict where the agent ends up?).
+    \item \textbf{minADE and minFDE (multi-modal prediction):} for models that output \(K\) possible futures per agent, these take the error of the closest prediction to ground truth (assume the model’s best hypothesis). minADE/FDE reflect the best-case performance of a probabilistic predictor.
+    \item \textbf{Miss Rate (MR):} usually defined as the fraction of cases where none of the \(K\) predicted trajectories is within a certain distance (e.g., \(2\,\mathrm{m}\)) of the ground truth at the final time. A lower miss rate means the model almost always has at least one prediction near the true outcome, which is important for safety.
+    \item \textbf{Mean Average Precision (mAP):} introduced in Waymo’s benchmark, mAP treats trajectory prediction as a detection problem in trajectory space. It evaluates the precision–recall curve of the model’s predicted set of trajectories against ground truth, taking into account both spatial tolerance and assigned confidence scores. It effectively rewards methods that produce a set of diverse predictions that cover the ground truth while avoiding too many implausible guesses.
+    \item \textbf{Other metrics:} Negative Log-Likelihood (NLL) for probabilistic methods (measuring the quality of the predicted probability distribution), and occasionally collision rate or overlap metrics to ensure predicted trajectories are physically feasible (not crashing into others or violating road constraints).
+\end{itemize}
+
+Using these metrics in combination provides a comprehensive evaluation: ADE/FDE for accuracy, minADE/minFDE and MR for multimodal coverage, and mAP for overall usefulness of the prediction set. The literature often reports all of them to compare methods. For instance, a method might achieve lower ADE than another (better average accuracy), but if its miss rate is high it means it sometimes totally misses possible outcomes, a trade-off the proposal’s approach must consider.
+
+\section{Problem Elaboration}
+\quad Based on the literature review, several gaps and research questions emerge. A few key research directions will guide this thesis:
+
+\subsection*{RQ1: How can we improve long-horizon trajectory forecasting in dense traffic scenarios using multimodal inputs and multimodal output trajectories?}
+We frame this as an architectural design problem: compare scene representations (vectorized lane/agent graphs vs. unified BEV grids), choose the fusion stage/mechanism (early projections vs. intermediate cross-modal attention, gating, or learned BEV/3D alignment, vs. late confidence aggregation). Design the temporal–interaction core (factorized temporal/spatial attention or relation-typed GNN message passing to stabilize long-horizon rollouts. Select a multi-hypothesis decoder (endpoint/goal-conditioned anchors with residual refinement/ enforce feasibility and integrate efficiency enablers to meet real-time budgets. Effectiveness will be judged by ADE/FDE, minADE/minFDE@K, Miss Rate, endpoint mAP, off-road/collision rates, calibration quality, and latency, targeting consistent gains at 5–10 s horizons while remaining deployable.
+
+\subsection*{RQ2: How to ensure uncertainty-aware and socially acceptable predictions in urban scenarios using deep learning models?}
+We want to explore diverse, probability-calibrated sets of futures using probabilistic decoders discrete set heads (endpoint/anchor + residuals). Social compliance will be enforced through interaction encoders (graph/transformer over agents or other possible actors) and environment topology. Ablations vary decoder type, number of samples/K modes, interaction strength, and uncertainty estimators. Evaluation uses minADE/minFDE@K, endpoint mAP, Miss Rate, plus qualitative audits. The aim is a recipe balancing diversity, realism, and computation.
+
+\subsection*{RQ3: With the chosen input modalities (e.g., cameras, LiDAR, and their BEV projections), which scene representations and training objectives yield reliable and compact trajectory prediction?}
+We will build different predictors with plug-in encoders (camera, LiDAR) and a modality-agnostic backbone and temporal cores (factorized attention, causal conv/RNN). Decoders will compare different endpoint heads (K-trajectory, probabilistic objectives). We will select the most compact setup by jointly optimizing ADE/FDE, minADE/minFDE@K, Miss Rate, endpoint mAP or latency/memory.
+By addressing these questions, the thesis will target gaps identified in current research: the need for better sensor fusion methods, the need for uncertainty-aware models that interact safely, and the need for solutions that remain reliable across varied conditions.
+
+
+
+\section{Goals and Expected Outcomes}
+\begin{itemize}
+  \item Develop a multimodal trajectory prediction model that fuses camera and LiDAR to generate real-time, probability-scored multi-horizon trajectories.
+  \item Establish quantitative evaluation on public benchmarks targeting gains in ADE/FDE, minADE/minFDE@K, MR, mAP, and latency.
+  \item Assess uncertainty and safety through probability calibration, failure-mode analysis, and risk-aware behavior audits.
+  \item Demonstrate generalization across scenarios and datasets with limited degradation relative to in-domain results.
+  \item Produce academic contributions and documentation, including a rigorous review, reproducible code, and a polished thesis manuscript.
+\end{itemize}
+
+\section{Conclusion}
+This work aims to deliver a practical trajectory prediction framework that improves accuracy, coverage, and calibration while remaining deployable in real time. It also provides clear evidence and tooling that advance multimodal forecasting research and its safe integration into autonomous systems.
+
+
+\section{Plan for Three Semesters for DPI, DPII, DPIII (Integration-Focused Research)}
+
+\subsection*{DPI — framing, baseline integration, and pilot experiments}
+\textbf{Objectives}
+\begin{itemize}
+  \item Clarify research questions, system boundaries, and interfaces between perception and prediction.
+  \item Establish a unified data and evaluation setup.
+  \item Integrate simple baselines to validate the end-to-end pipeline.
+\end{itemize}
+\textbf{Activities \& experiments (continuous)}
+\begin{itemize}
+  \item Iterative ingestion and sanity checks of inputs, metrics, and outputs.
+  \item Pilot training and robustness probes to reveal bottlenecks.
+\end{itemize}
+\textbf{Timeline (indicative)}
+\begin{itemize}
+  \item Weeks 1--4: Setup of data, metrics, and minimal pipeline; first pilot runs.
+  \item Weeks 5--9: Baseline training and light ablations; stability and robustness checks.
+  \item Weeks 10--13: Consolidation of results; refinement of interfaces and evaluation scripts.
+  \item Week 14: Short report and baseline demo.
+\end{itemize}
+\textbf{Deliverables}
+\begin{itemize}
+  \item Short report, baseline results, and a minimal working integration demo.
+\end{itemize}
+
+\subsection*{DPII — integrated model design with ongoing ablations}
+\textbf{Objectives}
+\begin{itemize}
+  \item Design an integrated architecture that respects the established interfaces.
+  \item Compare alternative fusion and representation choices under a common contract.
+  \item Incorporate uncertainty handling and interaction reasoning where beneficial.
+\end{itemize}
+\textbf{Activities \& experiments (continuous)}
+\begin{itemize}
+  \item Replaceable components evaluated under identical inputs and outputs.
+  \item Ablations on model choices, training regimes, and calibration.
+\end{itemize}
+\textbf{Timeline (indicative)}
+\begin{itemize}
+  \item Weeks 1--4: First integrated model plugged into the pipeline; sanity checks.
+  \item Weeks 5--9: Systematic ablations of fusion/representation options; calibration tracking.
+  \item Weeks 10--13: Performance tuning for throughput and memory; error analysis.
+  \item Week 14: Interim report and updated integration checklist.
+\end{itemize}
+\textbf{Deliverables}
+\begin{itemize}
+  \item Interim report, ablation summaries, and updated integration checklist.
+\end{itemize}
+
+\subsection*{DPIII — hardening, broad evaluation, and thesis}
+\textbf{Objectives}
+\begin{itemize}
+  \item Harden the integrated system for reliable operation under varied conditions.
+  \item Conduct broad quantitative evaluation and targeted qualitative analysis.
+  \item Document findings and implications in the thesis.
+\end{itemize}
+\textbf{Activities \& experiments (continuous)}
+\begin{itemize}
+  \item Robustness and sensitivity studies; consolidation of metrics and evidence.
+  \item Preparation of reproducible artifacts and final figures.
+\end{itemize}
+\textbf{Timeline (indicative)}
+\begin{itemize}
+  \item Weeks 1--4: Final training runs and checkpoint selection; robustness studies.
+  \item Weeks 5--9: Cross-condition evaluation and stress tests; calibration and risk audits.
+  \item Weeks 10--13: Results consolidation; reproducibility package and figures.
+  \item Week 14: Thesis submission, final presentation, and demo.
+\end{itemize}
+\textbf{Deliverables}
+\begin{itemize}
+  \item Final thesis, repository with artifacts, and a concise demo.
+\end{itemize}
+
+\section*{Diploma Project 1 (DP1) Assignment}
+\quad In Diploma Project 1 you will analyse the current use of deep 
+learning methods for computer vision in autonomous systems and 
+identify a concrete yet broadly applicable research problem related 
+to perception, scene understanding, or motion prediction. 
+Based on a critical review of recent work on deep learning for 
+autonomous driving \cite{madjid2025survey,huang2022survey,Wayformer2022}, 
+you will formulate clear research objectives, 
+define the required input–output behaviour of the system, and specify suitable 
+evaluation criteria, such as accuracy, robustness, 
+computational efficiency, and reproducibility. 
+You will propose a conceptual design of a deep learning 
+solution that processes realistic sensor data 
+(for example camera images or simple multimodal inputs) and 
+supports safer and more reliable decision making in an 
+autonomous system. You will implement an experimental 
+prototype, select or prepare a small but representative 
+dataset, and conduct systematic experiments to compare the 
+proposed approach with simple baselines. Finally, you will 
+document the methodology, results, and limitations, and 
+summarise recommendations for further development and for 
+integration of the proposed solution into larger software or 
+research systems.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+
+
+\end{document}
