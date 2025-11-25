@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1764015173.21965 "main.aux" "main.bbl" "main" 1764015244.84153 0
+["bibtex main"] 1764083684.92931 "main.aux" "main.bbl" "main" 1764083685.93354 0
   "./bibliography.bib" 1763029325.28671 10743 532244f22f8489df0167e1ba6b2b111f ""
   "/usr/local/texlive/2024/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1764015244.54448 7928 5a868762c68a62d71c17f17d38b9f91a "pdflatex"
+  "main.aux" 1764083685.64681 7897 e7964946813b43639636c2e1b18e7dbf "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1764015243.87964 "/Users/richardcernansky/Desktop/diplomovka/zamer/main.tex" "main.pdf" "main" 1764015244.84172 0
-  "/Users/richardcernansky/Desktop/diplomovka/zamer/main.tex" 1764015243.69053 33840 7f7797c4e67b74082e6fd71876b3b43d ""
+["pdflatex"] 1764083685.03473 "/Users/richardcernansky/Desktop/diplomovka/zamer/main.tex" "main.pdf" "main" 1764083685.93367 0
+  "/Users/richardcernansky/Desktop/diplomovka/zamer/main.tex" 1764083683.751 33407 0d6dbfa6c548f7798ceb986efb581e4a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc" 1698694482 2914 fdbc4a54b9bc76f4551b5303f2737d33 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc" 1422827479 2083 60e36f8eac802fcaf19eabe2633b406e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc" 1529098226 3124 3813fd4c981d99822890a2861b0d274c ""
@@ -125,10 +125,10 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1733312353.91201 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1733312303 8221429 ac6dbdced22ee8dfacda136694b71f0f ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "main.aux" 1764015244.54448 7928 5a868762c68a62d71c17f17d38b9f91a "pdflatex"
-  "main.bbl" 1764015173.3159 8707 1a45e30ba1af1527acf90bd7b14a27df "bibtex main"
-  "main.out" 1764015244.54527 8249 04ef1605cdfbb994bd317502fc38eb06 "pdflatex"
-  "main.tex" 1764015243.69053 33840 7f7797c4e67b74082e6fd71876b3b43d ""
+  "main.aux" 1764083685.64681 7897 e7964946813b43639636c2e1b18e7dbf "pdflatex"
+  "main.bbl" 1764083685.03252 8707 1a45e30ba1af1527acf90bd7b14a27df "bibtex main"
+  "main.out" 1764083685.64761 8082 1d5957667a0313911403daea8b545dde "pdflatex"
+  "main.tex" 1764083683.751 33407 0d6dbfa6c548f7798ceb986efb581e4a ""
   (generated)
   "main.aux"
   "main.log"

@@ -254,103 +254,104 @@ By addressing these questions, the thesis will target gaps identified in current
 This work aims to deliver a practical trajectory prediction framework that improves accuracy, coverage, and calibration while remaining deployable in real time. It also provides clear evidence and tooling that advance multimodal forecasting research and its safe integration into autonomous systems.
 
 
-\section{Plan for Three Semesters for DPI, DPII, DPIII (Integration-Focused Research)}
+\section{Plan for Three Semesters for DPI, DPII, DPIII} 
 
-\subsection*{DPI — framing, baseline integration, and pilot experiments}
+\subsection*{DPI — problem framing and first baseline}
 \textbf{Objectives}
 \begin{itemize}
-  \item Clarify research questions, system boundaries, and interfaces between perception and prediction.
-  \item Establish a unified data and evaluation setup.
-  \item Integrate simple baselines to validate the end-to-end pipeline.
+  \item Define the main research questions and system boundaries.
+  \item Prepare data, metrics, and a basic evaluation setup.
+  \item Implement at least one simple baseline model.
 \end{itemize}
-\textbf{Activities \& experiments (continuous)}
+\textbf{Activities}
 \begin{itemize}
-  \item Iterative ingestion and sanity checks of inputs, metrics, and outputs.
-  \item Pilot training and robustness probes to reveal bottlenecks.
+  \item Data preparation and checks of inputs, labels, and metrics.
+  \item Training and testing of the baseline model, basic error analysis.
 \end{itemize}
 \textbf{Timeline (indicative)}
 \begin{itemize}
-  \item Weeks 1--4: Setup of data, metrics, and minimal pipeline; first pilot runs.
-  \item Weeks 5--9: Baseline training and light ablations; stability and robustness checks.
-  \item Weeks 10--13: Consolidation of results; refinement of interfaces and evaluation scripts.
-  \item Week 14: Short report and baseline demo.
+  \item Weeks 1--4: Data setup, metrics, and minimal pipeline; first runs.
+  \item Weeks 5--9: Baseline training and initial experiments.
+  \item Weeks 10--14: Stabilisation of the pipeline and short summary.
 \end{itemize}
 \textbf{Deliverables}
 \begin{itemize}
-  \item Short report, baseline results, and a minimal working integration demo.
+  \item Short written report with baseline results and a working prototype.
 \end{itemize}
 
-\subsection*{DPII — integrated model design with ongoing ablations}
+\subsection*{DPII — model design and comparison of setups}
 \textbf{Objectives}
 \begin{itemize}
-  \item Design an integrated architecture that respects the established interfaces.
-  \item Compare alternative fusion and representation choices under a common contract.
-  \item Incorporate uncertainty handling and interaction reasoning where beneficial.
+  \item Design and implement the main deep learning architecture.
+  \item Compare several model variants (e.g., single-modal vs.\ multimodal).
+  \item Analyse accuracy, robustness, and computational cost.
 \end{itemize}
-\textbf{Activities \& experiments (continuous)}
+\textbf{Activities}
 \begin{itemize}
-  \item Replaceable components evaluated under identical inputs and outputs.
-  \item Ablations on model choices, training regimes, and calibration.
+  \item Implementation of model variants under a common interface.
+  \item Systematic experiments and basic hyperparameter tuning.
 \end{itemize}
 \textbf{Timeline (indicative)}
 \begin{itemize}
-  \item Weeks 1--4: First integrated model plugged into the pipeline; sanity checks.
-  \item Weeks 5--9: Systematic ablations of fusion/representation options; calibration tracking.
-  \item Weeks 10--13: Performance tuning for throughput and memory; error analysis.
-  \item Week 14: Interim report and updated integration checklist.
+  \item Weeks 1--4: First integrated model in the pipeline; sanity checks.
+  \item Weeks 5--9: Experiments with different model variants and settings.
+  \item Weeks 10--14: Performance tuning and interim summary.
 \end{itemize}
 \textbf{Deliverables}
 \begin{itemize}
-  \item Interim report, ablation summaries, and updated integration checklist.
+  \item Interim report with comparison of model setups and main findings.
 \end{itemize}
 
-\subsection*{DPIII — hardening, broad evaluation, and thesis}
+\subsection*{DPIII — final experiments and thesis}
 \textbf{Objectives}
 \begin{itemize}
-  \item Harden the integrated system for reliable operation under varied conditions.
-  \item Conduct broad quantitative evaluation and targeted qualitative analysis.
-  \item Document findings and implications in the thesis.
+  \item Finalise the chosen model configuration.
+  \item Run extended experiments and evaluate trade-offs in detail.
+  \item Complete the written thesis and prepare the final presentation.
 \end{itemize}
-\textbf{Activities \& experiments (continuous)}
+\textbf{Activities}
 \begin{itemize}
-  \item Robustness and sensitivity studies; consolidation of metrics and evidence.
-  \item Preparation of reproducible artifacts and final figures.
+  \item Final training runs and evaluation on all selected scenarios.
+  \item Preparation of tables, figures, and reproducible scripts.
 \end{itemize}
 \textbf{Timeline (indicative)}
 \begin{itemize}
-  \item Weeks 1--4: Final training runs and checkpoint selection; robustness studies.
-  \item Weeks 5--9: Cross-condition evaluation and stress tests; calibration and risk audits.
-  \item Weeks 10--13: Results consolidation; reproducibility package and figures.
-  \item Week 14: Thesis submission, final presentation, and demo.
+  \item Weeks 1--4: Final experiments and robustness checks.
+  \item Weeks 5--9: Detailed analysis and consolidation of results.
+  \item Weeks 10--14: Writing, polishing, and defence preparation.
 \end{itemize}
 \textbf{Deliverables}
 \begin{itemize}
-  \item Final thesis, repository with artifacts, and a concise demo.
+  \item Final thesis, code repository with experiments, and a demo for defence.
 \end{itemize}
+
 
 \section*{Diploma Project 1 (DP1) Assignment}
-\quad In Diploma Project 1 you will analyse the current use of deep 
-learning methods for computer vision in autonomous systems and 
-identify a concrete yet broadly applicable research problem related 
-to perception, scene understanding, or motion prediction. 
-Based on a critical review of recent work on deep learning for 
-autonomous driving \cite{madjid2025survey,huang2022survey,Wayformer2022}, 
-you will formulate clear research objectives, 
-define the required input–output behaviour of the system, and specify suitable 
-evaluation criteria, such as accuracy, robustness, 
-computational efficiency, and reproducibility. 
-You will propose a conceptual design of a deep learning 
-solution that processes realistic sensor data 
-(for example camera images or simple multimodal inputs) and 
-supports safer and more reliable decision making in an 
-autonomous system. You will implement an experimental 
-prototype, select or prepare a small but representative 
-dataset, and conduct systematic experiments to compare the 
-proposed approach with simple baselines. Finally, you will 
-document the methodology, results, and limitations, and 
-summarise recommendations for further development and for 
-integration of the proposed solution into larger software or 
-research systems.
+\quad In Diploma Project 1 you will analyse the current use of deep
+learning methods for computer vision in autonomous systems and
+identify a concrete yet broadly applicable research problem related
+to perception, scene understanding, or motion prediction
+\cite{madjid2025survey}. You will focus on exploring and comparing
+alternative deep learning model configurations for single-sensor
+inputs (e.g., camera-only) and multimodal inputs (e.g., combinations
+of cameras or LiDAR) that are suitable for deployment in
+autonomous systems \cite{Wayformer2022}. Based on a critical review
+of recent work on deep learning for autonomous driving, you will
+formulate clear research objectives, define the required
+input–output behaviour of the system, and specify suitable evaluation
+criteria, with particular emphasis on the trade-offs between
+prediction accuracy, robustness, and computational efficiency
+\cite{huang2022survey}. You will propose a conceptual design of one
+or more deep learning solutions that process realistic sensor data
+and support decision making in an autonomous system. You will
+implement an experimental prototype, select a 
+representative dataset, and conduct systematic experiments to compare
+the proposed configurations with simple baselines, analysing both
+performance and resource requirements. Finally, you will document the
+methodology, results, and limitations, and summarise recommendations
+for further development and for integration of the proposed solution
+into larger software or research systems.
+
 
 
 \bibliographystyle{IEEEtran}
