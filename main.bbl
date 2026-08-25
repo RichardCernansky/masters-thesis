@@ -104,7 +104,7 @@ J.~Ngiam, B.~Caine, V.~Vasudevan, Z.~Zhang, H.~L. Chiang, J.~Ling, R.~Roelofs, A
 \bibitem{Philion2020LSS}
 B.~Philion and S.~Fidler, ``Lift, splat, shoot: Encoding images from arbitrary camera rigs by implicitly unprojecting to {B}ird's-{E}ye view,'' in \emph{European Conference on Computer Vision (ECCV)}, 2020.
 
-\bibitem{ReasonNet}
+\bibitem{Shao2023ReasonNet}
 H.~Shao, L.~Wang, R.~Chen, S.~L. Waslander, H.~Li, and Y.~Liu, ``Reasonnet: End-to-end driving with temporal and global reasoning,'' in \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2023.
 
 \bibitem{Geiger2012KITTI}
@@ -121,5 +121,23 @@ R.~Kesten, M.~Usman, J.~Houston, T.~Pandya, and et~al., ``Level 5 {AV} dataset 2
 
 \bibitem{Huang2018ApolloScape}
 X.~Huang, P.~Wang, X.~Cheng, D.~Zhou, Q.~Geng, and R.~Yang, ``{ApolloScape}: 3d car understanding from monocular images,'' in \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)}, 2018.
+
+\bibitem{Lang2019PointPillars}
+A.~H. Lang, S.~Vora, H.~Caesar, L.~Zhou, J.~Yang, and O.~Beijbom, ``Pointpillars: Fast encoders for object detection from point clouds,'' in \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2019.
+
+\bibitem{Huang2020LSTMPillars}
+R.~Huang, W.~Zhang, A.~Kundu, C.~Pantofaru, D.~A. Ross, T.~Funkhouser, and A.~Fathi, ``An {LSTM} approach to temporal {3D} object detection in {LiDAR} point clouds,'' in \emph{European Conference on Computer Vision (ECCV)}, 2020.
+
+\bibitem{Hammarstrand2024TimePillars}
+E.~L. Calvo, B.~Taveira, F.~Kahl, N.~Gustafsson, J.~Larsson, and A.~Tonderski, ``Timepillars: Temporally-recurrent {3D} {LiDAR} object detection,'' 2024.
+
+\bibitem{Yin2021CenterPoint}
+T.~Yin, X.~Zhou, and P.~Kr{\"a}henb{\"u}hl, ``Center-based {3D} object detection and tracking,'' in \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2021.
+
+\bibitem{OpenPCDet2020}
+{OpenPCDet Development Team}, ``{OpenPCDet}: An open-source toolbox for {3D} object detection from point clouds,'' \url{https://github.com/open-mmlab/OpenPCDet}, 2020.
+
+\bibitem{Cheng2021STCN}
+H.~K. Cheng, Y.-W. Tai, and C.-K. Tang, ``Rethinking space-time networks with improved memory coverage for efficient video object segmentation,'' in \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2021.
 
 \end{thebibliography}

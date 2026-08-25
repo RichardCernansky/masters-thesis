@@ -6,6 +6,8 @@
 \usepackage{newtxtext,newtxmath}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
 \hypersetup{colorlinks=true, linkcolor=black, urlcolor=black}
 \setlist{leftmargin=1.2cm, itemsep=2pt, topsep=4pt}
 \usepackage{fancyhdr}
@@ -195,7 +197,7 @@ These models introduced a shift from hand-crafted dynamics to learned interactio
 
 \textbf{MultiXNet (2020)} Early end-to-end LiDAR-centric model combining detection and prediction with multi-class, multi-modal outputs; symbolic for perception-to-forecasting pipelines beyond two-stage stacks. \cite{MultiXNet2020}\\
 
-\textbf{ReasonNet} ReasonNet–style modules are multi-step, learned reasoning controllers that operate over visual tokens (CNN/ViT features, region proposals, BEV cells). A small recurrent controller (MLP/LSTM/transformer) runs iterative attention over a visual memory, updates an internal state, and uses gating/termination to decide the number of steps, querying regions, composing evidence (relations, attributes, counts), and refining hypotheses before emitting an answer or structured prediction. The trade-off is extra latency and training stability; the payoff is stronger multi-hop inference than one-shot feed-forward heads, especially when decisions hinge on relational cues. \cite{ReasonNet}\\
+\textbf{ReasonNet} ReasonNet–style modules are multi-step, learned reasoning controllers that operate over visual tokens (CNN/ViT features, region proposals, BEV cells). A small recurrent controller (MLP/LSTM/transformer) runs iterative attention over a visual memory, updates an internal state, and uses gating/termination to decide the number of steps, querying regions, composing evidence (relations, attributes, counts), and refining hypotheses before emitting an answer or structured prediction. The trade-off is extra latency and training stability; the payoff is stronger multi-hop inference than one-shot feed-forward heads, especially when decisions hinge on relational cues. \cite{Shao2023ReasonNet}\\
 
 The field converged on vectorized maps and attention for scalable scene reasoning, and on unified BEV encoders that fuse cameras (optionally LiDAR/radar) and jointly train detection, mapping, and forecasting. This improved sample efficiency, temporal consistency, and real-time integration. Recent surveys and leaderboards reflect this differentiation (vector-graph vs.\ unified-BEV, and LiDAR+camera vs.\ camera-only). \\
 
@@ -333,7 +335,7 @@ identify a concrete yet broadly applicable research problem related
 to perception, scene understanding, or motion prediction
 \cite{madjid2025survey}. You will focus on exploring and comparing
 alternative deep learning model configurations for single-sensor
-inputs (e.g., camera-only) and multimodal inputs (e.g., combinations
+inputs (e.g. camera-only) and multimodal inputs (e.g. combinations
 of cameras or LiDAR) that are suitable for deployment in
 autonomous systems \cite{Wayformer2022}. Based on a critical review
 of recent work on deep learning for autonomous driving, you will
@@ -351,6 +353,483 @@ performance and resource requirements. Finally, you will document the
 methodology, results, and limitations, and summarise recommendations
 for further development and for integration of the proposed solution
 into larger software or research systems.
+
+
+% ============================================================
+% EXPERIMENTS
+% ============================================================
+
+\section{DP1 Experiments}
+
+\quad This section presents two experiments on temporal LiDAR
+detection on the nuScenes dataset~\cite{Caesar2020nuScenes}.
+The objective is twofold: to establish a strong single-frame
+baseline, and to investigate two families of temporal extensions
+that exploit the sequential nature of LiDAR sweeps. The first
+family is the convolutional-recurrent extension of
+PointPillars~\cite{Lang2019PointPillars} popularised by LSTM
+Pillars~\cite{Huang2020LSTMPillars} and
+TimePillars~\cite{Hammarstrand2024TimePillars}. The second family is
+the attention-based memory bank introduced by
+ReasonNet~\cite{Shao2023ReasonNet}, reimplemented on top of a
+pretrained CenterPoint detector~\cite{Yin2021CenterPoint}. Both
+families underperform the single-frame baseline: the first by a
+small and well-understood margin, the second by a catastrophic
+collapse traced to a failure of the attention mechanism. The
+negative results are diagnostic rather than terminal: they
+characterise the failure modes of temporal LiDAR-only detectors
+built on a frozen perception backbone.
+All experiments are conducted within the OpenPCDet
+framework~\cite{OpenPCDet2020}, on the nuScenes train/val splits,
+on two NVIDIA GeForce RTX~4090 GPUs (24\,GB VRAM each).
+
+\subsection{Setup}
+\quad All models share the same input configuration. The LiDAR
+point cloud is cropped to the range
+$[-51.2, -51.2, -5.0, 51.2, 51.2, 3.0]\,\text{m}$ and voxelised
+with a pillar size of $(0.2, 0.2, 8.0)\,\text{m}$, yielding a
+$512 \times 512$ BEV grid. The CenterPoint head receives features
+at stride $4$ (BEV resolution $128 \times 128$ at $0.8\,\text{m}$
+per cell) and predicts the standard nuScenes outputs (heatmap,
+centre offset, height, 3D size, yaw, and 2D velocity) for ten
+classes. Evaluation follows the nuScenes protocol on the official
+validation split, reporting mean Average Precision (mAP), the
+nuScenes Detection Score (NDS), and the five true-positive error
+metrics (mATE, mASE, mAOE, mAVE, mAAE).
+
+\subsection{Baseline: Single-Frame CenterPoint}
+\quad The baseline is a CenterPoint detector with a PointPillars
+encoder, trained on the nuScenes train split for 20 epochs with the
+default OpenPCDet recipe: AdamW with weight decay $0.01$, one-cycle
+learning-rate schedule, and a batch size of 4 per GPU. The trained
+weights are used both as the reference single-frame model and as
+initialisation for the two temporal variants discussed below.
+
+\quad On the nuScenes validation split, the baseline reaches an NDS
+of $0.6171$ and an mAP of $0.5146$, which is consistent with the
+publicly reported numbers for the OpenPCDet implementation of
+CenterPoint and slightly above the original PointPillars baseline.
+The per-class and true-positive metrics are reported in
+Tables~\ref{tab:overall} and~\ref{tab:perclass}, alongside the two
+temporal variants.
+
+\subsection{First Attempt: Recurrent Temporal Extension}
+
+\subsubsection{Motivation and Pipeline}
+\quad LSTM Pillars~\cite{Huang2020LSTMPillars} and
+TimePillars~\cite{Hammarstrand2024TimePillars} both show that a
+convolutional recurrent module placed after the pillar encoder of
+a single-frame detector can recover temporal cues from consecutive
+LiDAR sweeps. The first experiment reproduces this idea on nuScenes. The proposed model, denoted
+\emph{TemporalPointPillar}, processes the $N$ most recent LiDAR
+keyframes through the shared (pretrained) Pillar Feature Net to
+obtain a sequence of BEV feature maps $\{F_1, \dots, F_N\}$, and
+then applies a convolutional recurrent cell:
+\[
+H_t = \mathrm{RecurrentCell}(F_t,\, H_{t-1}), \qquad H_0 = 0.
+\]
+The final hidden state $H_N$ is passed through the (pretrained) 2D
+backbone and CenterPoint head exactly as in the single-frame case.
+Two variants were implemented and trained, one using a ConvLSTM
+cell and one using a ConvGRU cell, both with a $3 \times 3$
+spatial kernel. The pretrained PFN and backbone were fine-tuned
+with a reduced learning rate, the detection head was kept frozen
+for the first epochs, and the recurrent module was trained from
+scratch.
+
+\subsubsection{Results}
+\quad Neither variant matched the single-frame baseline. The best
+ConvLSTM checkpoint (epoch~6) reached an NDS of $0.5988$ and an
+mAP of $0.5013$, i.e.\ a regression of $-0.018$ NDS and $-0.013$
+mAP relative to the baseline. The ConvGRU variant produced
+numerically similar results and is omitted from the tables for
+brevity. Qualitative inspection of the predictions revealed
+stretched and laterally displaced bounding boxes, particularly
+when the ego vehicle was moving fastest, and a general reduction
+of recall on small classes. The true-positive metrics also
+degraded uniformly: the orientation error increased from $0.408$
+to $0.467\,\text{rad}$ and the translation error from
+$0.308\,\text{m}$ to $0.319\,\text{m}$, indicating that the
+temporal features fed to the head were not just less informative
+but actively misaligned. Notably, the per-class results
+(Table~\ref{tab:perclass}) reveal exceptions to the general
+regression: the ConvLSTM model improved over the baseline on
+\emph{motorcycle} ($0.489$ vs.\ $0.477$), \emph{bicycle}
+($0.262$ vs.\ $0.205$), \emph{construction vehicle} ($0.132$
+vs.\ $0.129$), and \emph{trailer} ($0.377$ vs.\ $0.356$).
+These classes share either small size, atypical aspect ratios,
+or motion patterns that benefit from temporal context across
+consecutive frames, suggesting that short-term memory is
+genuinely helpful for them even when the overall head
+distribution is misaligned.
+
+\subsubsection{Failure Analysis}
+\quad Five interacting factors were identified as responsible for
+the observed degradation.
+
+\textbf{Distribution mismatch at the detection head.} The
+pretrained CenterPoint head was optimised on the feature statistics
+produced by a single-frame backbone applied to one BEV map. The
+ConvLSTM and ConvGRU layers apply sigmoid/tanh gates and accumulate
+activations across time, which shifts both the mean and the
+variance of the BEV feature map fed to the head. The head
+therefore received an input distribution it had never been trained
+on, which alone is sufficient to corrupt classification scores and
+regression offsets even when the underlying temporal information
+is informative.
+
+\textbf{Absence of ego-motion compensation.} The BEV grids of
+consecutive keyframes are expressed in different ego coordinate
+systems, because the ego vehicle moves several metres between
+captures at $10\,\text{Hz}$. The implementation did not include any
+explicit warping of past feature maps to the current ego frame, so
+the recurrent cell was fusing features that, at the same spatial
+coordinate $(i, j)$, referred to different points in the world.
+This is precisely the failure mode that TimePillars addresses with
+a convolutional transformation module guided by an auxiliary task.
+The stretched boxes observed qualitatively are a direct
+manifestation of this misalignment.
+
+\textbf{Spatial blur from $3 \times 3$ temporal convolution on fine
+voxels.} With a voxel size of $0.2\,\text{m}$, a $3 \times 3$
+ConvLSTM/ConvGRU kernel mixes information across a $1.2\,\text{m}$
+receptive field at every recurrent step. For pedestrians and
+traffic cones, this is comparable to or larger than the object
+itself, so each recurrent step smears the object's features into
+neighbouring cells. The class-level results in
+Table~\ref{tab:perclass} are broadly consistent with this: the
+three largest absolute AP drops are barrier ($-0.055$), truck
+($-0.044$), and traffic cone ($-0.042$), with pedestrian close
+behind ($-0.040$). Bicycle is a notable exception: despite its
+small footprint, it gained $+0.057$ AP, indicating that
+distinctive inter-frame motion cues outweigh the blur penalty for
+this class.
+
+\textbf{Sweep concatenation in the data loader.} The loader was subsequently
+rewritten to load each sweep as a separate frame in its own ego
+coordinate system, which is a prerequisite for any meaningful
+temporal model.
+
+
+\subsubsection{Implications for the Next Experiment}
+\quad The failure of this first experiment points to three concrete
+fixes. First, a $3 \times 3$ recurrent kernel on a fine BEV grid
+blurs small objects, so a different temporal mechanism is needed.
+Second, the pretrained detection head is sensitive to any change
+in its input features, so the temporal module must add information
+as a residual rather than replacing the single-frame features.
+Third, aligning past and present BEV grids cannot be left to a
+recurrent cell operating cell-by-cell; the correspondence must be
+handled explicitly. Together these point towards an
+attention-based memory bank, in the style of
+ReasonNet~\cite{Shao2023ReasonNet}.
+
+\subsection{Second Attempt: ReasonNet-Style Temporal Memory Bank}
+
+\subsubsection{Motivation}
+\quad ReasonNet~\cite{Shao2023ReasonNet} introduces a temporal
+reasoning module that maintains a short-term and a long-term memory
+bank of BEV features extracted from past frames, and reads from
+them through a content-based attention mechanism. At each
+timestep, the current BEV feature map is used to construct a set
+of queries that attend over the keys stored in the bank, and the
+retrieved values are fused with the current feature map before
+being passed to the detection head. Compared to a recurrent cell,
+this design has three properties that directly address the failure
+modes of the first experiment. The spatial correspondence between
+past and present features is established by the query/key
+dot-product rather than by their grid position, so the absence of
+ego-motion compensation is, to first order, hidden by the
+attention mechanism. The output of the fusion can be expressed as
+a residual update on the current feature map, which keeps the
+input distribution of the head close to the single-frame
+statistics it was trained on. And the spatial receptive field of
+the query encoder can be chosen independently of the temporal
+mechanism, so the spatial-blur trade-off of the $3 \times 3$
+recurrent kernel does not apply.
+
+\subsubsection{Architecture}
+\quad The proposed model, denoted \emph{TemporalPointPillar-MB}
+(memory bank), is built on top of the pretrained single-frame
+CenterPoint described above. Given a sequence of LiDAR keyframes,
+each frame is processed by the shared (pretrained) Pillar Feature
+Net and the 2D backbone, producing a BEV feature map
+$F_t \in \mathbb{R}^{C \times H \times W}$ with $C = 384$ channels
+at resolution $128 \times 128$.
+
+\quad At each timestep $t$, a query encoder
+$\phi_q : \mathbb{R}^{C} \to \mathbb{R}^{D}$ produces a query map
+$Q_t \in \mathbb{R}^{D \times H \times W}$ from $F_t$, and a key
+encoder $\phi_k$ produces, from past frames, a corresponding key
+map $K_\tau$ that is stored in the bank together with the raw
+feature map $F_\tau$ as its value. Both encoders are implemented
+as a $3 \times 3$ convolution followed by two $1 \times 1$
+convolutions, giving a $5 \times 5$ effective receptive field.
+Features are $\ell_2$-normalised along the channel dimension, so
+the similarity between a query position $i$ and a key position $j$
+is bounded:
+\[
+s_{ij} \;=\; \mathrm{softmax}_j\!\left(
+  -\,\lVert Q_t(i) - K_\tau(j) \rVert_2
+\right).
+\]
+The attention is then used to read from the value bank, producing
+a retrieved feature map $R_t$, and the fused output is constructed
+as a residual update,
+\[
+\tilde{F}_t \;=\; F_t \;+\; \mathrm{GN}(W_{\!o}\, R_t),
+\]
+where $W_{\!o}$ is a $1 \times 1$ projection and $\mathrm{GN}$ a
+group normalisation layer. At initialisation $W_{\!o}$ is small,
+so the detection head receives $\tilde{F}_t \approx F_t$ and is
+expected to reproduce the baseline scores from the first epoch.
+The memory update itself proceeds in two stages: a short-term bank
+that keeps the last $T_s$ frames in raw form, and a long-term bank
+that admits selected positions from the short-term bank according
+to a usage-based promotion rule similar to the one in
+ReasonNet~\cite{Shao2023ReasonNet}.
+The long-term bank was disabled ($t_l = 0$) for this experiment:
+only the short-term memory bank was trained and evaluated, and the
+long-term promotion mechanism was not used.
+
+\subsubsection{Results}
+\quad Despite the residual formulation, the model collapsed
+during training. The best checkpoint (epoch~8) reached an NDS of
+$0.0309$ and an mAP of $0.0016$, more than an order of magnitude
+below the baseline. The collapse is class-imbalanced: only
+\emph{car} retained any detection capability, with a per-class AP
+of $0.0162$, and all other nine nuScenes classes dropped to AP
+exactly $0$ (Table~\ref{tab:perclass}). The true-positive errors
+saturated at their worst-case values (mATE $= 0.956\,\text{m}$,
+mASE $= 0.864$, mAOE $= 1.192\,\text{rad}$, mAVE $= 1.129\,
+\text{m/s}$, mAAE $= 0.880$), which in the nuScenes protocol
+indicates that there are essentially no matched detections to
+compute meaningful errors on.
+
+\subsubsection{Diagnostic Visualisations and Failure Analysis}
+\quad The collapse was investigated using a debug pipeline that
+renders, for selected query positions, the spatial distribution of
+the attention weights they place on the short-term memory bank,
+together with summary maps of the memory occupancy and the
+detection-head outputs. Two representative panels are shown in
+Figures~\ref{fig:mb-diagnostic} and~\ref{fig:mb-collapse}.
+
+\quad Figure~\ref{fig:mb-diagnostic} reports the full diagnostic
+suite for a single training step. The top row shows the BEV
+energy $\lVert F_t \rVert$ (left), the post-fusion energy
+$\lVert \tilde{F}_t \rVert$ (centre), and their per-cell absolute
+difference (right). The fused map preserves the gross spatial
+structure of the input but the difference map is concentrated in
+a small number of bright cells at the periphery rather than on
+the objects in the scene. The middle row shows the predicted
+heatmap channel \texttt{mp\_ch0}, the average short-term memory
+usage \texttt{st\_usage\_mean}, and the mean of \texttt{mp\_ch0}
+over the short-term frames (\texttt{st\_mp0\_mean}). The
+\texttt{st\_usage\_mean} map is essentially uniform across the
+$128 \times 128$ grid, with high-usage cells localised at the
+margins where there are no objects. The bottom row shows the
+attention maps from three query positions (cyan crosses); each
+map is nearly uniform over the entire BEV grid, with the only
+deviations from uniformity being mass leaked towards the same
+peripheral cells visible in the usage map.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\linewidth]{figures/attention1.png}
+\caption{Early collapse diagnostic for \emph{TemporalPointPillar-MB}
+(short-term bank only). Top: BEV energy, post-fusion energy, and
+per-cell difference $|\tilde{F}_t - F_t|$. Middle: heatmap
+\texttt{mp\_ch0}, short-term usage \texttt{st\_usage\_mean}, and
+\texttt{st\_mp0\_mean}. Bottom: attention maps from three query
+positions (cyan crosses). Usage is near-uniform and attention
+concentrates on peripheral cells---the signature of a collapsed
+memory.}
+\label{fig:mb-diagnostic}
+\end{figure}
+
+\quad Figure~\ref{fig:mb-collapse} shows a later snapshot in which
+the same three quantities (\texttt{mp\_ch0},
+\texttt{st\_usage\_mean}, \texttt{st\_mp0\_mean}) are reported
+together with three query-attention maps. The collapse is more
+advanced: the attention maps are saturated, with the same dominant
+cells (top-left and top-right corners) receiving most of the mass
+from every query position, regardless of where the cyan cross is
+placed. At this point the memory bank has degenerated into a
+position-agnostic retriever that returns essentially the same
+context vector for every query, which is then mixed back into the
+BEV map through the residual and overwhelms the object signal
+that the pretrained head expects.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\linewidth]{figures/attention2.png}
+\caption{Advanced collapse state on a different sample
+(short-term bank only). Top: \texttt{mp\_ch0},
+\texttt{st\_usage\_mean}, and \texttt{st\_mp0\_mean}. Bottom:
+attention maps from three query positions ($\mathtt{mp0}$ values
+above). Attention saturates at the same corner cells for every
+query, confirming the bank has become a position-agnostic
+retriever---consistent with the class collapse in
+Table~\ref{tab:perclass}.}
+\label{fig:mb-collapse}
+\end{figure}
+
+\quad Three concrete causes were identified for this collapse.
+
+\textbf{Insufficient discriminability of the query/key encoder.}
+For the residual update to be useful, queries placed on
+semantically distinct positions must produce distinct attention
+patterns. The $5 \times 5$ effective receptive field of the
+query/key encoder is sufficient in principle to distinguish
+neighbouring objects of the same class, but only if the encoder
+is trained with a loss that incentivises this discriminability.
+The detection loss alone does not: any encoder that returns the
+same query for every position drives the residual towards a
+constant offset and recovers a degraded but stable version of the
+baseline scores, which is a local minimum of the loss landscape.
+The uniform attention maps in Figures~\ref{fig:mb-diagnostic} and
+\ref{fig:mb-collapse} are consistent with the model having
+settled into this local minimum during early training and having
+then drifted away from it without recovering object-specific
+attention.
+
+\textbf{Distance-based similarity in an unbounded feature space.}
+The implementation used a softmax over the negative $\ell_2$
+distance between $\ell_2$-normalised query and key vectors. While
+this is mathematically well-posed and bounds the distance to
+$[0, 4]$, in practice the softmax is very flat for any moderate
+temperature, because all pairs of normalised vectors lie on the
+unit hypersphere and most distances are concentrated near the
+mean of the distribution. Without an explicit temperature scaling
+or a contrastive auxiliary loss, the resulting attention
+distribution is close to uniform, which is exactly what the
+diagnostic figures show. This problem is well-known in
+memory-based segmentation: STCN~\cite{Cheng2021STCN} showed that
+applying softmax over dot-product similarity causes a small subset
+of memory entries to dominate all queries regardless of content,
+collapsing effective memory coverage. STCN's solution was to use
+the raw (unnormalised) negative squared $\ell_2$ distance as the
+similarity score, which has a much wider dynamic range than the
+cosine-equivalent used here and does not require temperature
+tuning. Adopting this formulation, or adding an explicit
+temperature $\tau \ll 1$ to sharpen the cosine-based softmax,
+would be a direct fix for the flat-attention failure mode observed
+in this experiment.
+
+\textbf{Per-frame normalisation of cumulative attention weights.}
+The long-term promotion rule promotes positions that accumulate
+the most attention over time. This works correctly when attention
+is sharp, but softmax always sums to 1 per frame, so a collapsed
+flat distribution contributes the same total mass as an
+informative one. Once attention collapses, the promotion rule
+cannot distinguish useful keys from useless ones and provides no
+corrective effect~\cite{Shao2023ReasonNet}. This is why the
+long-term bank was disabled ($t_l = 0$) for this experiment.
+
+\subsubsection{Implications}
+\quad The second experiment confirms that the failure modes
+diagnosed in the first experiment cannot be fully addressed by
+substituting an attention mechanism for the recurrent cell, at
+least not without a training procedure that explicitly enforces
+attention discriminability (e.g.\ contrastive key learning with
+an InfoNCE-style loss, or ego-motion warping supervision). It
+also shows that the residual formulation, while necessary, is not
+sufficient: the collapse path through the local minimum of zero
+useful residual is too attractive for the detection loss alone to
+escape.
+
+\subsection{Quantitative Summary}
+\quad Tables~\ref{tab:overall} and~\ref{tab:perclass} report the
+overall and per-class metrics on the nuScenes validation split
+for the three trained models. The ConvLSTM is the best of the
+attempted temporal variants and is the closest to a publishable
+ablation point; it also shows selective per-class gains on
+\emph{motorcycle}, \emph{bicycle}, \emph{construction vehicle},
+and \emph{trailer}---the classes most likely to benefit from
+short-term temporal context.
+The memory-bank result is included because the nature of its
+failure informs the design choices discussed in the next
+subsection.
+
+\begin{table}[h]
+\centering
+\caption{Overall detection results on the nuScenes validation
+split. Higher is better for mAP and NDS; lower is better for the
+five true-positive errors. Numbers are absolute (mAP and NDS as
+fractions; errors in their native units).}
+\label{tab:overall}
+\small
+\begin{tabular}{lcccccccc}
+\hline
+Model & Epoch & mAP $\uparrow$ & NDS $\uparrow$ &
+mATE $\downarrow$ & mASE $\downarrow$ & mAOE $\downarrow$ &
+mAVE $\downarrow$ & mAAE $\downarrow$ \\
+\hline
+CenterPoint (baseline) &
+$20$ & $0.5146$ & $0.6171$ &
+$0.308$ & $0.259$ & $0.408$ & $0.234$ & $0.194$ \\
+ConvLSTM &
+$6$  & $0.5013$ & $0.5988$ &
+$0.319$ & $0.266$ & $0.467$ & $0.261$ & $0.205$ \\
+ReasonNet MB &
+$10$  & $0.0016$ & $0.0309$ &
+$0.956$ & $0.864$ & $1.192$ & $1.129$ & $0.880$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Per-class mean AP on the nuScenes validation split.
+ConvLSTM improves over the baseline on \emph{motorcycle},
+\emph{bicycle}, \emph{construction vehicle}, and \emph{trailer}
+while regressing on all remaining classes. The ReasonNet MB row
+shows the class-imbalanced nature of the collapse: only
+\emph{car} retains any detection capability, while all other
+classes drop to exactly zero.}
+\label{tab:perclass}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccccccc}
+\hline
+Model &
+car & truck & c.v. & bus & trailer &
+barrier & motor. & bicycle & ped. & cone \\
+\hline
+Baseline &
+$0.835$ & $0.520$ & $0.129$ & $0.641$ & $0.356$ &
+$0.598$ & $0.477$ & $0.205$ & $0.798$ & $0.588$ \\
+ConvLSTM (ep.\ 6) &
+$0.818$ & $0.476$ & $0.132$ & $0.612$ & $0.377$ &
+$0.543$ & $0.489$ & $0.262$ & $0.758$ & $0.546$ \\
+ReasonNet MB (ep.\ 8) &
+$0.016$ & $0.000$ & $0.000$ & $0.000$ & $0.000$ &
+$0.000$ & $0.000$ & $0.000$ & $0.000$ & $0.000$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Discussion}
+\quad The two experiments above produce four pieces of evidence
+that inform the continuation of this work. First, the OpenPCDet
+implementation of CenterPoint with a PointPillars encoder is a
+strong and reproducible single-frame baseline on nuScenes (NDS
+$0.6171$, mAP $0.5146$) and is the right starting point for any
+downstream component. Second, a naive application of the LSTM
+Pillars / TimePillars recipe~\cite{Huang2020LSTMPillars,Hammarstrand2024TimePillars} regresses NDS by about $0.018$ points
+and does so for reasons that are intrinsic to the
+recurrent-on-fine-BEV-grid design, not to the specific
+hyperparameters used. Third, the ReasonNet-style attention bank~\cite{Shao2023ReasonNet},
+in the form implemented here, collapses to a position-agnostic
+retriever and would require a substantially different training
+objective (contrastive key learning, ego-motion warping
+supervision, or temperature-scaled similarity) to escape the
+local minimum identified above. Fourth, and most importantly,
+both families of temporal extensions are bottlenecked by the same
+root cause: a pretrained detection head that is 
+sensitive to any perturbation of its input feature distribution,
+and a temporal mechanism that has to fight this sensitivity
+rather than exploit it.
 
 
 

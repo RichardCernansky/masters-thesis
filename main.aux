@@ -79,7 +79,7 @@
 \citation{Hu2021FIERY}
 \citation{BEVerse2022}
 \citation{MultiXNet2020}
-\citation{ReasonNet}
+\citation{Shao2023ReasonNet}
 \citation{Geiger2012KITTI}
 \citation{Caesar2020nuScenes}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Datasets}{8}{section.6}\protected@file@percent }
@@ -97,11 +97,52 @@
 \citation{madjid2025survey}
 \citation{Wayformer2022}
 \citation{huang2022survey}
+\citation{Caesar2020nuScenes}
+\citation{Lang2019PointPillars}
+\citation{Huang2020LSTMPillars}
+\citation{Hammarstrand2024TimePillars}
+\citation{Shao2023ReasonNet}
+\citation{Yin2021CenterPoint}
+\citation{OpenPCDet2020}
+\@writefile{toc}{\contentsline {section}{\numberline {12}DP1 Experiments}{14}{section.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}Setup}{14}{subsection.12.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}Baseline: Single-Frame CenterPoint}{14}{subsection.12.2}\protected@file@percent }
+\citation{Huang2020LSTMPillars}
+\citation{Hammarstrand2024TimePillars}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}First Attempt: Recurrent Temporal Extension}{15}{subsection.12.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.3.1}Motivation and Pipeline}{15}{subsubsection.12.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.3.2}Results}{15}{subsubsection.12.3.2}\protected@file@percent }
+\citation{Shao2023ReasonNet}
+\citation{Shao2023ReasonNet}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.3.3}Failure Analysis}{16}{subsubsection.12.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.3.4}Implications for the Next Experiment}{16}{subsubsection.12.3.4}\protected@file@percent }
+\citation{Shao2023ReasonNet}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Second Attempt: ReasonNet-Style Temporal Memory Bank}{17}{subsection.12.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.4.1}Motivation}{17}{subsubsection.12.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.4.2}Architecture}{17}{subsubsection.12.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.4.3}Results}{18}{subsubsection.12.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.4.4}Diagnostic Visualisations and Failure Analysis}{18}{subsubsection.12.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Early collapse diagnostic for \emph  {TemporalPointPillar-MB} (short-term bank only). Top: BEV energy, post-fusion energy, and per-cell difference $|\tilde  {F}_t - F_t|$. Middle: heatmap \texttt  {mp\_ch0}, short-term usage \texttt  {st\_usage\_mean}, and \texttt  {st\_mp0\_mean}. Bottom: attention maps from three query positions (cyan crosses). Usage is near-uniform and attention concentrates on peripheral cells---the signature of a collapsed memory.}}{19}{figure.1}\protected@file@percent }
+\newlabel{fig:mb-diagnostic}{{1}{19}{Early collapse diagnostic for \emph {TemporalPointPillar-MB} (short-term bank only). Top: BEV energy, post-fusion energy, and per-cell difference $|\tilde {F}_t - F_t|$. Middle: heatmap \texttt {mp\_ch0}, short-term usage \texttt {st\_usage\_mean}, and \texttt {st\_mp0\_mean}. Bottom: attention maps from three query positions (cyan crosses). Usage is near-uniform and attention concentrates on peripheral cells---the signature of a collapsed memory}{figure.1}{}}
+\citation{Cheng2021STCN}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Advanced collapse state on a different sample (short-term bank only). Top: \texttt  {mp\_ch0}, \texttt  {st\_usage\_mean}, and \texttt  {st\_mp0\_mean}. Bottom: attention maps from three query positions ($\mathtt  {mp0}$ values above). Attention saturates at the same corner cells for every query, confirming the bank has become a position-agnostic retriever---consistent with the class collapse in Table~\ref {tab:perclass}.}}{20}{figure.2}\protected@file@percent }
+\newlabel{fig:mb-collapse}{{2}{20}{Advanced collapse state on a different sample (short-term bank only). Top: \texttt {mp\_ch0}, \texttt {st\_usage\_mean}, and \texttt {st\_mp0\_mean}. Bottom: attention maps from three query positions ($\mathtt {mp0}$ values above). Attention saturates at the same corner cells for every query, confirming the bank has become a position-agnostic retriever---consistent with the class collapse in Table~\ref {tab:perclass}}{figure.2}{}}
+\citation{Shao2023ReasonNet}
+\citation{Huang2020LSTMPillars}
+\citation{Hammarstrand2024TimePillars}
+\citation{Shao2023ReasonNet}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {12.4.5}Implications}{21}{subsubsection.12.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Quantitative Summary}{21}{subsection.12.5}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{bibliography}
 \bibcite{huang2022survey}{1}
 \bibcite{Ettinger2021WOMD}{2}
 \bibcite{Wayformer2022}{3}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Overall detection results on the nuScenes validation split. Higher is better for mAP and NDS; lower is better for the five true-positive errors. Numbers are absolute (mAP and NDS as fractions; errors in their native units).}}{22}{table.1}\protected@file@percent }
+\newlabel{tab:overall}{{1}{22}{Overall detection results on the nuScenes validation split. Higher is better for mAP and NDS; lower is better for the five true-positive errors. Numbers are absolute (mAP and NDS as fractions; errors in their native units)}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Per-class mean AP on the nuScenes validation split. ConvLSTM improves over the baseline on \emph  {motorcycle}, \emph  {bicycle}, \emph  {construction vehicle}, and \emph  {trailer} while regressing on all remaining classes. The ReasonNet MB row shows the class-imbalanced nature of the collapse: only \emph  {car} retains any detection capability, while all other classes drop to exactly zero.}}{22}{table.2}\protected@file@percent }
+\newlabel{tab:perclass}{{2}{22}{Per-class mean AP on the nuScenes validation split. ConvLSTM improves over the baseline on \emph {motorcycle}, \emph {bicycle}, \emph {construction vehicle}, and \emph {trailer} while regressing on all remaining classes. The ReasonNet MB row shows the class-imbalanced nature of the collapse: only \emph {car} retains any detection capability, while all other classes drop to exactly zero}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.6}Discussion}{22}{subsection.12.6}\protected@file@percent }
 \bibcite{ISO21448}{4}
 \bibcite{madjid2025survey}{5}
 \bibcite{VectorNet2020}{6}
@@ -123,10 +164,16 @@
 \bibcite{TrajectronPP2020}{22}
 \bibcite{Ngiam2021SceneTransformer}{23}
 \bibcite{Philion2020LSS}{24}
-\bibcite{ReasonNet}{25}
+\bibcite{Shao2023ReasonNet}{25}
 \bibcite{Geiger2012KITTI}{26}
 \bibcite{Caesar2020nuScenes}{27}
 \bibcite{Chang2019Argoverse}{28}
 \bibcite{Kesten2019Lyft}{29}
 \bibcite{Huang2018ApolloScape}{30}
-\gdef \@abspage@last{17}
+\bibcite{Lang2019PointPillars}{31}
+\bibcite{Huang2020LSTMPillars}{32}
+\bibcite{Hammarstrand2024TimePillars}{33}
+\bibcite{Yin2021CenterPoint}{34}
+\bibcite{OpenPCDet2020}{35}
+\bibcite{Cheng2021STCN}{36}
+\gdef \@abspage@last{26}
