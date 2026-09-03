@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1779920016.75153 "main.aux" "main.bbl" "main" 1779920174.81416 0
-  "./bibliography.bib" 1779807581.04359 12735 fae517c0e95edcab092f08da08f71a18 ""
+["bibtex main"] 1788450463.44809 "main.aux" "main.bbl" "main" 1788450465.52088 0
+  "./bibliography.bib" 1787684021.3836 15393 3907ff8753bd4e0d4b0bc13e31d32cf0 ""
   "/usr/local/texlive/2026/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1779920174.52954 14446 97d2de334aa5cb8be331152da7b1fc90 "pdflatex"
+  "main.aux" 1788450465.20572 20260 30362a744267b21e18faa31ddef21b93 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1779920173.34189 "/Users/richard/Desktop/DP/zamer/main.tex" "main.pdf" "main" 1779920174.81434 0
-  "/Users/richard/Desktop/DP/zamer/main.tex" 1779920173.08397 57101 206df91be174e6f8bc79655d0ae20a2a ""
+["pdflatex"] 1788450463.55421 "/Users/richard/Desktop/DP/documentation/main.tex" "main.pdf" "main" 1788450465.52107 0
+  "/Users/richard/Desktop/DP/documentation/main.tex" 1788450462.29456 72569 fc7facf1a3fd87f8e6d63c051a7b2162 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc" 1698694482 2914 fdbc4a54b9bc76f4551b5303f2737d33 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc" 1422827479 2083 60e36f8eac802fcaf19eabe2633b406e ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc" 1529098226 3124 3813fd4c981d99822890a2861b0d274c ""
@@ -76,13 +76,14 @@
   "/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty" 1761946296 88471 b1bb09142edddebd46ba986341b867bd ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty" 1748806692 4474 c510a88aa5f51b8c773b50a7ee92befd ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amstext.sty" 1748806692 2444 9983e1d0683f102e3b190c64a49313aa ""
-  "/usr/local/texlive/2026/texmf-dist/tex/latex/base/article.cls" 1748806692 20144 b966087dda3b194755eb460d32e2ef75 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty" 1761946296 5275 6f9d359641b36842524cdb97716ab75f ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty" 1748806692 5525 1593ca62a2554dd7423fc8a4e5a82125 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/base/inputenc.sty" 1738182759 5048 0270515b828149155424600fd2d58ac5 ""
+  "/usr/local/texlive/2026/texmf-dist/tex/latex/base/report.cls" 1748806692 23203 f495085ac76be4e20c5e1e88646a241e ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/base/size12.clo" 1748806692 8449 8dc66c6c313c8eb2d774af83bca435dd ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/base/textcomp.sty" 1738182759 2846 e26604d3d895e65d874c07f30c291f3f ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/carlisle/scalefnt.sty" 1137109962 1360 df2086bf924b14b72d6121fe9502fcdb ""
+  "/usr/local/texlive/2026/texmf-dist/tex/latex/colortbl/colortbl.sty" 1747945524 12709 4ca3cf5f9f1d551b8a1090fba11ac95d ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty" 1738874546 52272 63d293bc0d496619edb57585740861a2 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1759437024 46885 8953c67ffba03252c6090aa19568b8ba ""
@@ -130,6 +131,7 @@
   "/usr/local/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty" 1576624809 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1750533675 9684 a33a14b82ce60d6e77cb9be689d79ee6 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/setspace/setspace.sty" 1670275497 22490 8cac309b79a4c53a4ffce4b1b07aead0 ""
+  "/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty" 1761946296 15651 9d7c62df82cb29a555c00550babfe364 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty" 1727642399 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1762376337 5006 d7e899bb5d9717c7f214e9bc0284de7b ""
@@ -140,13 +142,19 @@
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "figures/attention1.png" 1779723901.95438 412000 d9dfff5e6a09c4d06acbb5e05ed075c7 ""
   "figures/attention2.png" 1779723907.43073 925810 8ca96da5861963f75ed2916eb8f01fce ""
-  "main.aux" 1779920174.52954 14446 97d2de334aa5cb8be331152da7b1fc90 "pdflatex"
-  "main.bbl" 1779920016.9317 10120 244e2e4a524fb28d676963d8c4b27c7a "bibtex main"
-  "main.out" 1779920174.53054 10929 cf144652d83fcacfdfcd08a30c3457cf "pdflatex"
-  "main.tex" 1779920173.08397 57101 206df91be174e6f8bc79655d0ae20a2a ""
+  "figures/bev-gt-heatmap.png" 1788445369.30783 41772 315f4a75e4eb992efe44416df9b418b6 ""
+  "figures/lidar-bev-pred.png" 1788445369.31822 263757 106900f73289f0c0a04905f38c505e41 ""
+  "figures/raw-smca-gauss.png" 1788445369.32772 796592 faf90c2114daf95d54464630119eb161 ""
+  "figures/smca-attn-top20.png" 1788445369.3138 947897 53c0599ed5e64c457845bf5030252eb4 ""
+  "main.aux" 1788450465.20572 20260 30362a744267b21e18faa31ddef21b93 "pdflatex"
+  "main.bbl" 1788450463.55147 11783 8e2cdc28e096eeea19276944de82fa2c "bibtex main"
+  "main.out" 1788450465.20741 7252 5e16bb0deb43357b4b8a13b7af53a2f4 "pdflatex"
+  "main.tex" 1788450462.29456 72569 fc7facf1a3fd87f8e6d63c051a7b2162 ""
+  "main.toc" 1788450465.20766 5470 9b7800bc7c57f492cb2d3abe87fa7149 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
   "main.out"
   "main.pdf"
+  "main.toc"
   (rewritten before read)

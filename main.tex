@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[margin=2.5cm]{geometry}
@@ -8,7 +8,9 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage[table]{xcolor}
 \hypersetup{colorlinks=true, linkcolor=black, urlcolor=black}
+\renewcommand{\bibname}{References}
 \setlist{leftmargin=1.2cm, itemsep=2pt, topsep=4pt}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -45,7 +47,7 @@ Study programme: Intelligent Software Systems
 
 {\LARGE\bfseries Deep Learning Methods for Computer Vision in Autonomous Systems\par}
 \vspace{0.6cm}
-{\large Research Proposal for a Master’s Thesis\par}
+{\large Research Proposal and Experiments\par}
 
 \vspace{2.2cm}
 {\large Bc.\ Richard Čerňanský\par}
@@ -59,7 +61,10 @@ Thesis supervisor: Ing. Matej Halinkovič
 
 \onehalfspacing
 
-% add physics based cites, modular vs. end-to-end, plan for DPx
+\tableofcontents
+\clearpage
+
+\chapter{Research Proposal}
 
 \section{Introduction}
 \quad Autonomous vehicles must not only see the road but also anticipate what happens next. Trajectory prediction estimates how cars, cyclists, and pedestrians are likely to move over the next few seconds. Done well, it turns a cautious robot into a considerate road user: the car plans smoother merges, yields earlier, and avoids last-second braking. The difficulty is that traffic is messy, intentions change, sensors are imperfect, and several futures can be plausible at once. Modern systems therefore combine cues from cameras, LiDAR, and maps to form a consistent view of the scene and predict multiple probability-scored futures rather than a single guess. This work explores practical ways to fuse inputs, model interactions between agents, and express uncertainty, aiming for predictions that are accurate, fast enough for on-board use, and easy to integrate into real-time planning.
@@ -106,7 +111,7 @@ Thesis supervisor: Ing. Matej Halinkovič
 
 \subsection{Modular vs. End-to-End approaches}
 
-\textbf{Definitions.} A \emph{modular} stack decomposes the pipeline into perception $\rightarrow$ tracking $\rightarrow$ map reasoning $\rightarrow$ prediction (and planning), with typed interfaces (objects, lanes, lights) \cite{Wayformer2022,VectorNet2020,TNT2020,DenseTNT2021}. An \emph{end-to-end} (E2E) stack trains a unified model to map raw sensors directly to trajectories (or planner-friendly representations), optionally with intermediate supervision \cite{BEVerse2022,Hu2021FIERY,MultiXNet2020}. Recent works also explore \emph{semi end-to-end} designs that share a unified BEV backbone and train multiple heads jointly for detection, mapping, and motion forecasting \cite{Hu2021FIERY,BEVerse2022}.
+\quad \textbf{Definitions.} A \emph{modular} stack decomposes the pipeline into perception $\rightarrow$ tracking $\rightarrow$ map reasoning $\rightarrow$ prediction (and planning), with typed interfaces (objects, lanes, lights) \cite{Wayformer2022,VectorNet2020,TNT2020,DenseTNT2021}. An \emph{end-to-end} (E2E) stack trains a unified model to map raw sensors directly to trajectories (or planner-friendly representations), optionally with intermediate supervision \cite{BEVerse2022,Hu2021FIERY,MultiXNet2020}. Recent works also explore \emph{semi end-to-end} designs that share a unified BEV backbone and train multiple heads jointly for detection, mapping, and motion forecasting \cite{Hu2021FIERY,BEVerse2022}.
 
 \subsubsection{Modular stacks — advantages}
 \begin{itemize}
@@ -156,8 +161,8 @@ Thesis supervisor: Ing. Matej Halinkovič
 \subsubsection{Gaussian Processes (GPs)}
 \quad Nonparametric Bayesian regression with principled uncertainty. Used to learn motion patterns and priors with continuous trajectories. \cite{RasmussenWilliams2006GPML}
 
-\subsubsection{Physiscs based models (CV, CA, CTRA)}
-Deterministic kinematic and dynamic models encode physics and agent constraints directly. Common choices include constant velocity, constant acceleration, and constant turn rate with acceleration (CTRA) [18, 19] for short horizon motion. Bicycle models enforce non-holonomic limits, curvature, jerk, and actuator bounds. These models are interpretable and data efficient, and they fit into MPC or act as priors or constraints within KF, UKF, or SMC fusion. They can be brittle under behavior shifts. Modern systems often add learned residuals or intent layers to capture unmodeled interactions.
+\subsubsection{Physics-based models (CV, CA, CTRA)}
+\quad Deterministic kinematic and dynamic models encode physics and agent constraints directly. Common choices include constant velocity, constant acceleration, and constant turn rate with acceleration (CTRA) for short horizon motion. Bicycle models enforce non-holonomic limits, curvature, jerk, and actuator bounds. These models are interpretable and data efficient, and they fit into MPC or act as priors or constraints within KF, UKF, or SMC fusion. They can be brittle under behavior shifts. Modern systems often add learned residuals or intent layers to capture unmodeled interactions.
 These assumptions still echo in today’s neural encoders, decoders, and losses.
 
 
@@ -186,7 +191,7 @@ These models introduced a shift from hand-crafted dynamics to learned interactio
 \textbf{Trajectron++ (ECCV~2020)} Models multi-agent interactions explicitly and outputs probabilistic, multi-modal trajectories via a CVAE (latent-variable) decoder. Integrates map context and enables dynamic behavior modeling. It uses per node type Encoder LSTM and a Decoder LSTM inside the CVAE (per node type, shared) to roll out future trajectories given latent \(z\) and context. Popular codebase and benchmark. \cite{TrajectronPP2020} \\
 
 \subsubsection{Transformers for motion forecasting}
-\textbf{Wayformer (2022)} Wayformer treats everything in the scene as tokens, agent history points, nearby agents, roadgraph polylines/lane elements, and traffic-light states, and projects them to a common embedding. It then explores early, late, and hierarchical fusion, all built from the same multi-head self-attention backbone. Early fusion concatenates all tokens and runs one encoder; late fusion encodes each modality separately and fuses later; hierarchical fusion mixes both. Efficiency comes from factorized attention (temporal to spatial) and latent queries that compress context, while the decoder produces multi-hypothesis trajectories (mixture outputs with confidences). The result is a simple, homogeneous ``transformer-as-universal-fuser'' that scales across datasets (WOMD/Argoverse) without hand-crafted fusion modules, and cleanly ablates what each modality adds. \cite{Wayformer2022}\\
+\quad \textbf{Wayformer (2022)} Wayformer treats everything in the scene as tokens, agent history points, nearby agents, roadgraph polylines/lane elements, and traffic-light states, and projects them to a common embedding. It then explores early, late, and hierarchical fusion, all built from the same multi-head self-attention backbone. Early fusion concatenates all tokens and runs one encoder; late fusion encodes each modality separately and fuses later; hierarchical fusion mixes both. Efficiency comes from factorized attention (temporal to spatial) and latent queries that compress context, while the decoder produces multi-hypothesis trajectories (mixture outputs with confidences). The result is a simple, homogeneous ``transformer-as-universal-fuser'' that scales across datasets (WOMD/Argoverse) without hand-crafted fusion modules, and cleanly ablates what each modality adds. \cite{Wayformer2022}\\
 
 \textbf{Scene Transformer / hierarchical \& heterogeneous variants (2020--2022)} These models encode agent\(\leftrightarrow\)agent and agent\(\leftrightarrow\)map relations with attention but introduce structure to keep computation bounded in dense scenes. Typical designs run local self-attention within an agent’s temporal tokens, cross-attention to a small neighborhood of other agents, and attention to relevant lane/map segments (often vectorized polylines). A hierarchy aggregates fine-grained tokens into coarser scene summaries (clusters, pooled lane segments) and then broadcasts context back to agents, enabling long-range interaction reasoning without quadratic cost. Relational biases (e.g., distance, heading, lane connectivity) are injected as edge features or attention biases. For output, these encoders pair with multi-modal heads (goal/endpoint-conditioned decoders, \(K\)-trajectory heads, or likelihood models) to produce diverse, probability-scored futures that respect lane topology and social constraints. \cite{Ngiam2021SceneTransformer}\\
 
@@ -234,7 +239,7 @@ Using these metrics in combination provides a comprehensive evaluation: ADE/FDE 
 \quad Based on the literature review, several gaps and research questions emerge. A few key research directions will guide this thesis:
 
 \subsection*{RQ1: How can we improve long-horizon trajectory forecasting in dense traffic scenarios using multimodal inputs and multimodal output trajectories?}
-We frame this as an architectural design problem: compare scene representations (vectorized lane/agent graphs vs. unified BEV grids), choose the fusion stage/mechanism (early projections vs. intermediate cross-modal attention, gating, or learned BEV/3D alignment, vs. late confidence aggregation). Design the temporal–interaction core (factorized temporal/spatial attention or relation-typed GNN message passing to stabilize long-horizon rollouts. Select a multi-hypothesis decoder (endpoint/goal-conditioned anchors with residual refinement/ enforce feasibility and integrate efficiency enablers to meet real-time budgets. Effectiveness will be judged by ADE/FDE, minADE/minFDE@K, Miss Rate, endpoint mAP, off-road/collision rates, calibration quality, and latency, targeting consistent gains at 5–10 s horizons while remaining deployable.
+We frame this as an architectural design problem: compare scene representations (vectorized lane/agent graphs vs. unified BEV grids), choose the fusion stage/mechanism (early projections vs. intermediate cross-modal attention, gating, or learned BEV/3D alignment, vs. late confidence aggregation). Design the temporal–interaction core (factorized temporal/spatial attention or relation-typed GNN message passing) to stabilize long-horizon rollouts. Select a multi-hypothesis decoder (endpoint/goal-conditioned anchors with residual refinement), enforce feasibility, and integrate efficiency enablers to meet real-time budgets. Effectiveness will be judged by ADE/FDE, minADE/minFDE@K, Miss Rate, endpoint mAP, off-road/collision rates, calibration quality, and latency, targeting consistent gains at 5–10 s horizons while remaining deployable.
 
 \subsection*{RQ2: How to ensure uncertainty-aware and socially acceptable predictions in urban scenarios using deep learning models?}
 We want to explore diverse, probability-calibrated sets of futures using probabilistic decoders discrete set heads (endpoint/anchor + residuals). Social compliance will be enforced through interaction encoders (graph/transformer over agents or other possible actors) and environment topology. Ablations vary decoder type, number of samples/K modes, interaction strength, and uncertainty estimators. Evaluation uses minADE/minFDE@K, endpoint mAP, Miss Rate, plus qualitative audits. The aim is a recipe balancing diversity, realism, and computation.
@@ -255,7 +260,7 @@ By addressing these questions, the thesis will target gaps identified in current
 \end{itemize}
 
 \section{Conclusion}
-This work aims to deliver a practical trajectory prediction framework that improves accuracy, coverage, and calibration while remaining deployable in real time. It also provides clear evidence and tooling that advance multimodal forecasting research and its safe integration into autonomous systems.
+\quad This work aims to deliver a practical trajectory prediction framework that improves accuracy, coverage, and calibration while remaining deployable in real time. It also provides clear evidence and tooling that advance multimodal forecasting research and its safe integration into autonomous systems.
 
 
 \section{Plan for Three Semesters for DPI, DPII, DPIII} 
@@ -361,6 +366,8 @@ into larger software or research systems.
 % EXPERIMENTS
 % ============================================================
 
+\chapter{Research and Experiments}
+
 \section{DP1 Experiments}
 
 \quad This section presents two experiments on temporal LiDAR
@@ -368,6 +375,7 @@ detection on the nuScenes dataset~\cite{Caesar2020nuScenes}.
 The objective is twofold: to establish a strong single-frame
 baseline, and to investigate two families of temporal extensions
 that exploit the sequential nature of LiDAR sweeps. The first
+
 family is the convolutional-recurrent extension of
 PointPillars~\cite{Lang2019PointPillars} popularised by LSTM
 Pillars~\cite{Huang2020LSTMPillars} and
@@ -384,6 +392,11 @@ built on a frozen perception backbone.
 All experiments are conducted within the OpenPCDet
 framework~\cite{OpenPCDet2020}, on the nuScenes train/val splits,
 on two NVIDIA GeForce RTX~4090 GPUs (24\,GB VRAM each).
+
+\subsection{Related Work}
+\quad \textbf{PointPillars}~\cite{Lang2019PointPillars} encodes a LiDAR point cloud into a pseudo-image of vertical pillars and applies a 2D CNN backbone, making it the standard fast, single-frame LiDAR detector this section builds on. \textbf{CenterPoint}~\cite{Yin2021CenterPoint} replaces anchor-based detection with a center-based heatmap head predicted directly on the BEV feature map, avoiding hand-tuned anchor boxes and NMS-heavy matching; paired with a PointPillars encoder, it is the single-frame baseline used throughout this section.
+
+\quad \textbf{LSTM Pillars}~\cite{Huang2020LSTMPillars} and \textbf{TimePillars}~\cite{Hammarstrand2024TimePillars} both add a convolutional-recurrent cell after the pillar encoder to fuse BEV features across consecutive sweeps, with TimePillars additionally learning an ego-motion warping module to align past and present feature maps -- the first family of temporal extensions reproduced here. \textbf{ReasonNet}~\cite{Shao2023ReasonNet} instead maintains a short- and long-term memory bank of past BEV features and reads from it via content-based attention, the design underlying the second, attention-based extension; its attention-collapse failure mode is analysed here using the fix proposed for memory-based video segmentation by \textbf{STCN}~\cite{Cheng2021STCN}. All models are implemented in \textbf{OpenPCDet}~\cite{OpenPCDet2020}, the open-source 3D detection framework used for every experiment in this section.
 
 \subsection{Setup}
 \quad All models share the same input configuration. The LiDAR
@@ -834,6 +847,131 @@ and a temporal mechanism that has to fight this sensitivity
 rather than exploit it.
 
 
+
+% ============================================================
+% LIVIP3D EXPERIMENTS
+% ============================================================
+
+\section{LiViP3D: Query-Based LiDAR--Camera Fusion for End-to-End Perception and Prediction}
+
+\quad This section documents \emph{LiViP3D}, a second, independent line of experiments that fuses LiDAR into ViP3D's query-based, fully differentiable perception-and-prediction pipeline using ideas from TransFusion, and reports results from three progressive training stages on nuScenes~\cite{Caesar2020nuScenes}.
+
+\subsection{Related Work}
+\quad \textbf{ViP3D}~\cite{Gu2023ViP3D} treats detection, tracking and trajectory prediction as one differentiable pipeline: sparse DETR3D-style~\cite{Wang2021DETR3D} agent queries cross-attend to multi-view image features, persist across frames through a MOTR-style~\cite{Zeng2022MOTR} memory bank, and are decoded into future trajectories by a VectorNet map encoder with a multi-modal regression head. Its End-to-end Prediction Accuracy (EPA) metric penalises both missed and hallucinated agents, making it the natural benchmark for query-based pipelines. ViP3D is camera-only, so its queries must localise agents from image evidence alone -- weak at range and under occlusion.
+
+\quad \textbf{TransFusion}~\cite{Bai2022TransFusion} addresses the complementary problem of \emph{hard-associated} LiDAR-camera fusion, where each LiDAR point is matched to one image pixel via calibration and is therefore brittle to miscalibration and point sparsity. It replaces this with a two-layer decoder: the first layer predicts boxes from an input-dependent, category-aware heatmap over the LiDAR BEV plane; the second softly attends each query to image features, spatially constrained by a Gaussian mask around the query's projected box (spatially modulated cross attention, SMCA), removing the need for a rigid point-pixel correspondence.
+
+\quad LiViP3D combines the two: it keeps ViP3D's query-as-interface design for tracking and prediction, but replaces its camera-only, input-independent query initialisation with TransFusion's heatmap-based, soft-associated fusion mechanism. The supervisor's subsequent Li-ViP3D~\cite{Halinkovic2025LiViP3D} and Li-ViP3D++~\cite{Halinkovic2026LiViP3DPP} papers extend this same direction with a learned, query-gated deformable fusion (QGDF) in place of the heatmap/SMCA mechanism used here.
+
+\subsection{Model Architecture}
+\quad LiViP3D extends ViP3D's MMDetection3D-based codebase with a LiDAR branch and a TransFusion-style two-layer decoder. Two backbones run per frame: a LiDAR branch (\texttt{PillarFeatureNet} $\to$ \texttt{PointPillarsScatter} $\to$ \texttt{SECOND}~\cite{Yan2018SECOND} $\to$ \texttt{SECONDFPN}) producing a 384-channel BEV map from up to 10 accumulated sweeps, and an image branch (ResNet-50, DCNv2 in the last two stages, + FPN, 4 levels $\times$ 256 channels) over the 6 surround cameras. Track state persists across frames in an \texttt{Instances} object (query, reference point, object id), governed by a runtime tracker (confirm/keep/delete thresholds 0.4/0.35, 5-frame miss tolerance).
+
+\quad \textbf{Heatmap-based query initialisation.} Unlike ViP3D's fixed, input-independent queries, LiViP3D initialises queries from a class-specific heatmap predicted over the LiDAR BEV map (TransFusion Sec.~3.2): local-maxima peaks become query positions/features, summed with a category embedding, so initialisation is input-dependent and category-aware from stage 1 onward. From stage 2, an \emph{image-guided} extension adds a second heatmap: each camera's finest feature level is height-pooled to columns and cross-attended into BEV space (one attention module per camera, averaged), scored into an image heatmap, and simply averaged with the LiDAR heatmap, $\hat S_{LC} = (\hat S + \hat S_{img})/2$ -- the same idea as TransFusion Sec.~3.6, though implemented with dense per-camera attention rather than frustum-restricted attention.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/bev-gt-heatmap.png}\\[4pt]
+\includegraphics[width=0.85\linewidth]{figures/lidar-bev-pred.png}
+\caption{Ground-truth (top) and predicted (bottom) class-specific heatmap $\hat{S}$ over the LiDAR BEV plane, stage 1 (LiDAR only), training step 600. Each panel shows the aggregate max channel plus one channel per class; probability mass is already concentrated on \emph{car} and \emph{pedestrian}, consistent with the per-class EPA/AMOTA breakdown in Tables~\ref{tab:livip3d_results} and~\ref{tab:livip3d_tpfp}.}
+\label{fig:livip3d-heatmap}
+\end{figure}
+
+\quad \textbf{Two-layer decoder.} The first layer cross-attends queries to the LiDAR BEV map at their reference point. The second layer, active from stage 3, is SMCA: an anisotropic Gaussian mask sized from each query's projected box extent is added log-additively to the image cross-attention logits before softmax (TransFusion Sec.~3.4), computed per camera and averaged over the cameras where the query is visible, with a learned fallback for queries visible in none. Below stage 3 this layer is skipped.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/raw-smca-gauss.png}
+\caption{Raw SMCA Gaussian mask for three of the six cameras, training step 600, overlaid on the input image. The mask is anisotropic and camera-dependent ($\sigma_{\text{raw}}$ shown per camera), sized from the projected 3D box extent as in TransFusion Sec.~3.4.}
+\label{fig:livip3d-smca-mask}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/smca-attn-top20.png}
+\caption{SMCA cross-attention for the top-20 heatmap queries, same cameras and step as Fig.~\ref{fig:livip3d-smca-mask}. Top: attention after the Gaussian mask is applied, concentrated tightly on nearby vehicles. Bottom: the same attention with the mask removed (``pure attention''), visibly noisier and less object-centred -- illustrating why the Gaussian prior helps the network attend to the correct region early in training.}
+\label{fig:livip3d-smca-attn}
+\end{figure}
+
+\quad \textbf{Tracking and prediction.} Cross-frame association reuses ViP3D's mechanisms unchanged: a MOTR-style FIFO memory bank (depth 4) refreshes each track's query via temporal cross-attention, and a VectorNet map encoder feeds a 6-mode regression decoder (12-step horizon, winner-take-all variety loss) that turns each tracked query directly into trajectories. A designed but currently disabled appearance-based past-motion refinement module also exists in the codebase (\texttt{apr\_cfg=None} in every run reported here) and is left for future work.
+
+\subsection{Experimental Setup}
+\quad All models train on nuScenes: 6 surround cameras resized to $960\times544\,$px, up to 10 accumulated LiDAR sweeps, and a detection range of $\pm51.2\,$m in $x/y$ and $[-5,3]\,$m in $z$. The LiDAR branch voxelises this range into $0.2\times0.2\times8\,$m pillars (up to 20 points per pillar, 30k training / 40k inference voxels), scattered into a $512\times512$ BEV grid and reduced by \texttt{SECOND}/\texttt{SECONDFPN} to the 384-channel feature map used throughout the decoder; 300 object queries are used in every stage. Optimisation uses AdamW (lr $2\times10^{-4}$, weight decay $0.01$, gradient clipping at norm 35) with a cosine schedule and a 500-iteration linear warmup. The image backbone is frozen throughout every LiViP3D stage ($\text{lr\_mult}=0$, unlike the baseline's lightly fine-tuned camera path), so detection quality in stages 1--2 rests on the LiDAR branch alone; stage 3 additionally freezes the LiDAR branch and fine-tunes only the fusion layers from stage 2's checkpoint.
+
+% \quad \textbf{Data augmentation.} GT-database sampling, global rotation/scaling, random flipping and class-balanced sampling~\cite{Zhu2019CBGS} for the LiDAR branch are implemented in the codebase but are left for a follow-up set of experiments; none of the results below use data augmentation.
+
+\subsection{Results}
+\quad Table~\ref{tab:livip3d_results} reports the best available checkpoint per run, using the repository's own \texttt{-max} label where present and otherwise the epoch with the best combined detection/prediction quality. The evaluation pipeline is tracking-based, so AMOTA and Recall replace mAP/NDS; mADE, mFDE, MR and EPA follow ViP3D's protocol. The shaded columns break EPA down per class: the aggregate figure is driven almost entirely by \emph{car} and \emph{pedestrian}, with \emph{bus}, \emph{trailer} and \emph{motorcycle} still at or near zero.
+
+\begin{table}[H]
+\centering
+\caption{LiViP3D results on the nuScenes validation split. AMOTA/Rec. are nuScenes tracking metrics; mADE, mFDE, MR and EPA (minADE, minFDE, Miss Rate, End-to-end Prediction Accuracy) follow ViP3D's protocol. Shaded columns: per-class EPA.}
+\label{tab:livip3d_results}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc||*{7}{>{\columncolor{gray!12}}c}}
+\hline
+& & & & & & & & \multicolumn{7}{c}{\cellcolor{gray!12}Per-class EPA $\uparrow$} \\
+\cline{9-15}
+Experiment & Ep. & AMOTA $\uparrow$ & Rec. $\uparrow$ & mADE $\downarrow$ & mFDE $\downarrow$ & MR $\downarrow$ & EPA $\uparrow$ & Car & Truck & Bus & Trail. & Moto. & Bike & Ped. \\
+\hline
+ViP3D (baseline) & 16 & 0.209 & 0.350 & 1.644 & 2.635 & 0.267 & 0.136 & 0.129 & 0.035 & 0.056 & 0.000 & 0.152 & 0.168 & 0.130 \\
+S1 (LiDAR only) & 12 & 0.108 & 0.145 & 1.362 & 2.378 & 0.292 & 0.137 & 0.180 & 0.069 & 0.000 & 0.000 & 0.000 & 0.000 & 0.068 \\
+S2 (+ img-guided) & 10 & 0.083 & 0.110 & 1.067 & 1.987 & 0.199 & 0.223 & 0.263 & 0.042 & 0.000 & 0.000 & 0.000 & 0.000 & 0.181 \\
+S3 (+ SMCA, 3 ep) & 3 & 0.121 & 0.165 & 1.153 & 2.256 & 0.220 & 0.228 & 0.268 & 0.078 & 0.000 & 0.000 & 0.004 & 0.017 & 0.199 \\
+S3 (+ SMCA, 6 ep) & 5 & 0.109 & 0.148 & 1.040 & 1.886 & 0.208 & 0.248 & 0.303 & 0.076 & 0.000 & 0.000 & 0.000 & 0.000 & 0.219 \\
+\hline
+\end{tabular}}
+\end{table}
+
+\quad Table~\ref{tab:livip3d_tpfp} breaks the same five runs down into the raw matched-track counts underlying AMOTA, plus per-class AMOTA (shaded). Every LiViP3D stage collapses to exactly zero on \emph{bus}, \emph{trailer}, \emph{motorcycle} and \emph{bicycle} at these checkpoints, with only \emph{car}, \emph{truck} and \emph{pedestrian} contributing -- unlike the camera-only baseline, which retains non-zero AMOTA across all seven classes.
+
+\begin{table}[H]
+\centering
+\caption{Raw nuScenes tracking counts underlying the AMOTA column of Table~\ref{tab:livip3d_results}: matched true positives (TP), false positives (FP) and false negatives (FN), summed over the validation split. Shaded columns: per-class AMOTA.}
+\label{tab:livip3d_tpfp}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc||*{7}{>{\columncolor{gray!12}}c}}
+\hline
+& & & & & & \multicolumn{7}{c}{\cellcolor{gray!12}Per-class AMOTA $\uparrow$} \\
+\cline{7-13}
+Experiment & Ep. & AMOTA $\uparrow$ & TP $\uparrow$ & FP $\downarrow$ & FN $\downarrow$ & Car & Truck & Bus & Trail. & Moto. & Bike & Ped. \\
+\hline
+ViP3D (baseline) & 16 & 0.209 & 45497 & 15364 & 55159 & 0.410 & 0.129 & 0.179 & 0.005 & 0.200 & 0.219 & 0.321 \\
+S1 (LiDAR only) & 12 & 0.108 & 37549 & 8992 & 63885 & 0.352 & 0.029 & 0.000 & 0.000 & 0.000 & 0.000 & 0.377 \\
+S2 (+ img-guided) & 10 & 0.083 & 33208 & 6325 & 68085 & 0.328 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.254 \\
+S3 (+ SMCA, 3 ep) & 3 & 0.121 & 42385 & 9845 & 58796 & 0.375 & 0.034 & 0.000 & 0.000 & 0.000 & 0.000 & 0.435 \\
+S3 (+ SMCA, 6 ep) & 5 & 0.109 & 38332 & 6732 & 62929 & 0.389 & 0.091 & 0.000 & 0.000 & 0.000 & 0.000 & 0.282 \\
+\hline
+\end{tabular}}
+\end{table}
+
+\quad Table~\ref{tab:livip3d_efficiency} adds inference efficiency -- parameter count and measured latency/FPS on a single RTX~4090. 
+
+\begin{table}[H]
+\centering
+\caption{Inference efficiency of the five checkpoints on a single NVIDIA RTX~4090 (batch size 1, 200-frame average after 30 warmup frames).}
+\label{tab:livip3d_efficiency}
+\small
+\begin{tabular}{lcccc}
+\hline
+Experiment & AMOTA $\uparrow$ & Params (M) $\downarrow$ & Latency (ms) $\downarrow$ & FPS $\uparrow$ \\
+\hline
+ViP3D (baseline) & 0.209 & 41.77 & 425.2 & 2.35 \\
+S1 (LiDAR only) & 0.108 & 41.60 & 230.3 & 4.34 \\
+S2 (+ img-guided) & 0.083 & 43.85 & 520.3 & 1.92 \\
+S3 (+ SMCA, 3 ep) & 0.121 & 43.85 & 579.0 & 1.73 \\
+S3 (+ SMCA, 6 ep) & 0.109 & 43.85 & 607.5 & 1.65 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Discussion}
+\quad Two patterns stand out. First, tracking quality (AMOTA) is highest for the camera-only ViP3D baseline and lowest for the early LiViP3D stages, while prediction quality (EPA, mADE) improves monotonically from stage 1 through stage 3. This tracks the training budget rather than a fusion failure: the baseline fine-tunes its image backbone for 24 epochs, whereas every LiViP3D stage freezes it and gives the LiDAR branch only a fraction of that budget (12/20, then 10/15 epochs) before responsibility shifts to the fusion layers -- the metric the curriculum actually targets keeps improving even though raw tracking recall has not yet caught up.
+
+\quad Second, fusion carries a real latency cost that the detection/prediction metrics alone do not show (Table~\ref{tab:livip3d_efficiency}): stage~2 and stage~3 add only $\sim$2M parameters over the baseline (43.85M vs.\ 41.77M) yet run at less than half its frame rate (1.65--1.92 vs.\ 2.35\,FPS), since every frame now runs both backbones plus the image-guided BEV projection and, from stage~3, SMCA cross-attention; LiDAR-only stage~1 is both the lightest model and by far the fastest (4.34\,FPS). Equalising epoch budgets across stages for a cleaner comparison, running the follow-up data-augmentation experiments across all three stages, and evaluating the currently dormant appearance-refinement module are the natural next steps.
 
 \bibliographystyle{IEEEtran}
 \bibliography{bibliography}

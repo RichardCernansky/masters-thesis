@@ -140,4 +140,25 @@ T.~Yin, X.~Zhou, and P.~Kr{\"a}henb{\"u}hl, ``Center-based {3D} object detection
 \bibitem{Cheng2021STCN}
 H.~K. Cheng, Y.-W. Tai, and C.-K. Tang, ``Rethinking space-time networks with improved memory coverage for efficient video object segmentation,'' in \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2021.
 
+\bibitem{Gu2023ViP3D}
+J.~Gu, C.~Hu, T.~Zhang, X.~Chen, Y.~Wang, Y.~Wang, and H.~Zhao, ``Vi{P}3{D}: End-to-end visual trajectory prediction via {3D} agent queries,'' in \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2023.
+
+\bibitem{Wang2021DETR3D}
+Y.~Wang, V.~C. Guizilini, T.~Zhang, Y.~Wang, H.~Zhao, and J.~Solomon, ``{DETR3D}: {3D} object detection from multi-view images via {3D}-to-{2D} queries,'' in \emph{5th Annual Conference on Robot Learning (CoRL)}, 2021.
+
+\bibitem{Zeng2022MOTR}
+F.~Zeng, B.~Dong, Y.~Zhang, T.~Wang, X.~Zhang, and Y.~Wei, ``{MOTR}: End-to-end multiple-object tracking with transformer,'' in \emph{European Conference on Computer Vision (ECCV)}, 2022.
+
+\bibitem{Bai2022TransFusion}
+X.~Bai, Z.~Hu, X.~Zhu, Q.~Huang, Y.~Chen, H.~Fu, and C.-L. Tai, ``Trans{F}usion: Robust {LiDAR}-camera fusion for {3D} object detection with transformers,'' in \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, 2022.
+
+\bibitem{Halinkovic2025LiViP3D}
+M.~Halinkovic, A.~Vinel, and W.~Benesova, ``Li-vi{P}3{D}: Enhancing end-to-end perception and prediction with camera-{LiDAR} fusion,'' in \emph{2025 IEEE International Automated Vehicle Validation Conference (IAVVC)}, 2025, pp. 1--6.
+
+\bibitem{Halinkovic2026LiViP3DPP}
+M.~Halinkovic, N.~Masarykova, A.~Vinel, and M.~Galinski, ``Li-vi{P}3{D}++: Query-gated deformable camera--{LiDAR} fusion for end-to-end perception and trajectory prediction,'' 2026.
+
+\bibitem{Yan2018SECOND}
+Y.~Yan, Y.~Mao, and B.~Li, ``{SECOND}: Sparsely embedded convolutional detection,'' \emph{Sensors}, vol.~18, no.~10, p. 3337, 2018.
+
 \end{thebibliography}
