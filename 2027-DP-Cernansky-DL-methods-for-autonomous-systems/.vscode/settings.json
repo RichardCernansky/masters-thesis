@@ -1,0 +1,14 @@
+{
+  // Write all LaTeX build output (PDF, .aux, .synctex.gz, ...) into build/
+  // instead of next to main.tex. LaTeX Workshop passes this to latexmk as
+  // -outdir, and its viewer/SyncTeX read from here too.
+  "latex-workshop.latex.outDir": "%DIR%/build",
+
+  // Inverse search (PDF -> source): double-click any typeset text in the PDF tab.
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+
+  // The build rewrites main.pdf 5 times over ~5s (pdflatex x3 + bibtex). Wait
+  // for it to settle, then reload the viewer ONCE -- two overlapping reloads
+  // make the viewer snapshot a mid-load position and restore you to page 1.
+  "latex-workshop.latex.watch.pdf.delay": 5000
+}

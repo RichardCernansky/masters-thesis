@@ -1,0 +1,51 @@
+\chapter{Introduction}
+\label{chapter:intro}
+
+\pagenumbering{arabic}
+
+In recent years, deep learning and computer vision methods have made significant advancements in the analysis 
+of dynamic scenes and their applications in autonomous systems. The development of fields such as autonomous 
+vehicles and robotics depends on solving tasks like object detection, object tracking, segmentation, and 
+trajectory prediction. Specifically, \ac{avs} revolutionize transportantion by saving drivers' time, improving safety and
+possibly mitigating congestion on the roads. Current autonomous driving systems consist of multiple sequential tasks such as perception,
+tracking, prediction, planning and control \cite{chen2024end}. Perception task is responsible for detecting and understanding
+the objects within the environment including their categorization, location and size estimation. The tracking objective
+uses the detections from perception to find the relationships between objects across the frames in scene. The prediction 
+modules then process this tracking information in order to forecast future positions. The predicted positions enter the
+planning stage that generates the most feasible and optimal path in terms of safety, energy consuption and following traffic rules.
+Last but not least, controlling task then prepares actuator commands which execute the planned motion.
+
+\section{Motivation}
+Real traffic is highly dynamic and unpredictable: other drivers may behave erratically, and sensors provide 
+noisy or incomplete data. Diverse maneuvers, complex interactions, and inherent errors in sensory information 
+make prediction challenging, yet solving these challenges is essential for having trustworthy \ac{avs}. 
+In addition, autonomous systems operate under strict constraints on latency and reliability \cite{huang2022survey}. 
+Predictions must be computed in real time on embedded hardware and remain accurate over long horizons to be useful 
+for driving in real-life scenarios. Industry recognizes the need for fast execution, uncertainty handling, and generalization 
+in prediction models to ensure robust operation in varied conditions \cite{Ettinger2021WOMD,Wayformer2022,ISO21448}. 
+Reliable trajectory prediction is therefore critical for safe autonomous driving and motivates intensive 
+research into methods that can forecast the multi-agent future with practical efficiency. For these reasons, this 
+thesis focuses on trajectory prediction, exploring how current state-of-the-art models could be modified or extended
+to achieve better accuracy and efficiency.
+
+\section{Problem Formulation}
+trajectory prediction task definition, mathematically
+
+\subsection{Data Fusion}
+Combine cameras, LiDAR or radar, and HD maps into one scene view. Compare early, BEV or attention-based intermediate fusion, and late fusion. Prevent overload or overspecialization through learned alignment and robust training \cite{madjid2025survey}.
+
+\subsection{Dynamic Environments}
+Traffic is nonstationary and many futures are plausible. Aleatoric uncertainty means the same history can lead to different outcomes. Predict a calibrated set of socially compliant trajectories so planning can weigh alternatives in real time \cite{madjid2025survey}.
+
+\subsection{Interaction Modeling}
+Agent motions are coupled and constrained by lanes and rules. Use structured representations such as graphs and attention to capture agent to agent and agent to map relations. Poor interaction modeling leads to infeasible predictions \cite{huang2022survey}.
+
+\subsection{Real-World Constraints}
+The system must run within an onboard real-time loop and scale to dense traffic. Try to balance model capacity with memory and compute efficiency to stay deployable, not only accurate \cite{Wayformer2022,huang2022survey}. \\
+
+
+
+\section{Thesis Outline}
+
+
+

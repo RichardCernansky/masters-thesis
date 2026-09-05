@@ -1,0 +1,303 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{chen2024end}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=685d97480ebafb5a158e7c3dfdcb69a8}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Li},
+           giveni={L\bibinitperiod}}}%
+        {{hash=1365ce25b8ac995a0c285194d92c759a}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Penghao},
+           giveni={P\bibinitperiod}}}%
+        {{hash=0eb2820c6b33f966f303232853429317}{%
+           family={Chitta},
+           familyi={C\bibinitperiod},
+           given={Kashyap},
+           giveni={K\bibinitperiod}}}%
+        {{hash=d2efe528ca9624a5dfb3a479703e1406}{%
+           family={Jaeger},
+           familyi={J\bibinitperiod},
+           given={Bernhard},
+           giveni={B\bibinitperiod}}}%
+        {{hash=06133052ac3c14a188601b82783cd4f7}{%
+           family={Geiger},
+           familyi={G\bibinitperiod},
+           given={Andreas},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5012ff87ce2ac6ff494ff1b58dad6975}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Hongyang},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{d0145314fb6db74c3c705bc6b2c8f435}
+      \strng{fullhash}{c494a9836d47f2182695e86e40ec8154}
+      \strng{fullhashraw}{c494a9836d47f2182695e86e40ec8154}
+      \strng{bibnamehash}{d0145314fb6db74c3c705bc6b2c8f435}
+      \strng{authorbibnamehash}{d0145314fb6db74c3c705bc6b2c8f435}
+      \strng{authornamehash}{d0145314fb6db74c3c705bc6b2c8f435}
+      \strng{authorfullhash}{c494a9836d47f2182695e86e40ec8154}
+      \strng{authorfullhashraw}{c494a9836d47f2182695e86e40ec8154}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Pattern Analysis and Machine Intelligence}
+      \field{number}{12}
+      \field{title}{End-to-end autonomous driving: Challenges and frontiers}
+      \field{volume}{46}
+      \field{year}{2024}
+      \field{pages}{10164\bibrangedash 10183}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1109/TPAMI.2024.3435937
+      \endverb
+    \endentry
+    \entry{huang2022survey}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=a42ce45266054232ca4b59868f583b04}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Yanjun},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=b9c3f44accd939e500c81a233ad0c7bf}{%
+           family={Du},
+           familyi={D\bibinitperiod},
+           given={Jiatong},
+           giveni={J\bibinitperiod}}}%
+        {{hash=33d629a4bbb6c6df0c77a7fbe308bfe6}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Ziru},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=ed2eeea77e196e6f0a2f6d4924064b14}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Zewei},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=3a1f1a0016bb4e33e52e9bd0f48cfd33}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Lin},
+           giveni={L\bibinitperiod}}}%
+        {{hash=b2dcceb92d2313a3f299f0bec1d21c7c}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Hong},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{b907cd2e1b3cd5df72f9d8aae51954d8}
+      \strng{fullhash}{213ad252a8d07da824a23faed6c50e90}
+      \strng{fullhashraw}{213ad252a8d07da824a23faed6c50e90}
+      \strng{bibnamehash}{b907cd2e1b3cd5df72f9d8aae51954d8}
+      \strng{authorbibnamehash}{b907cd2e1b3cd5df72f9d8aae51954d8}
+      \strng{authornamehash}{b907cd2e1b3cd5df72f9d8aae51954d8}
+      \strng{authorfullhash}{213ad252a8d07da824a23faed6c50e90}
+      \strng{authorfullhashraw}{213ad252a8d07da824a23faed6c50e90}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Intelligent Vehicles}
+      \field{number}{3}
+      \field{title}{A Survey on Trajectory-Prediction Methods for Autonomous Driving}
+      \field{volume}{7}
+      \field{year}{2022}
+      \field{pages}{652\bibrangedash 674}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1109/TIV.2022.3167103
+      \endverb
+    \endentry
+    \entry{Ettinger2021WOMD}{inproceedings}{}{}
+      \name{author}{5}{}{%
+        {{hash=fb49a26b4e90cfcad2b8f4f5d780fce3}{%
+           family={Ettinger},
+           familyi={E\bibinitperiod},
+           given={Scott},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1d82595653b02fb1808eb7de1fa7f197}{%
+           family={Cheng},
+           familyi={C\bibinitperiod},
+           given={Shuyang},
+           giveni={S\bibinitperiod}}}%
+        {{hash=02029075832b008f276249c84be0a0e2}{%
+           family={Caine},
+           familyi={C\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=7437556e576c6f4e2ade58a9aa980ec5}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Chen},
+           giveni={C\bibinitperiod}}}%
+        {{hash=38026ba4ee6b102b47bf3ffb41325c8f}{%
+           family={al.},
+           familyi={a\bibinitperiod},
+           prefix={et},
+           prefixi={e\bibinitperiod}}}%
+      }
+      \strng{namehash}{239a3efeb6ef0c098bb3faaa7214ab99}
+      \strng{fullhash}{ceb167ba65b5668f325b34e9a169cb91}
+      \strng{fullhashraw}{ceb167ba65b5668f325b34e9a169cb91}
+      \strng{bibnamehash}{239a3efeb6ef0c098bb3faaa7214ab99}
+      \strng{authorbibnamehash}{239a3efeb6ef0c098bb3faaa7214ab99}
+      \strng{authornamehash}{239a3efeb6ef0c098bb3faaa7214ab99}
+      \strng{authorfullhash}{ceb167ba65b5668f325b34e9a169cb91}
+      \strng{authorfullhashraw}{ceb167ba65b5668f325b34e9a169cb91}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Conference on Robot Learning (CoRL)}
+      \field{title}{The {Waymo} Open Motion Dataset: A Large-Scale Benchmark for Motion Forecasting}
+      \field{year}{2021}
+    \endentry
+    \entry{Wayformer2022}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=07f622b3093d8952963fed1d753e77db}{%
+           family={Nay},
+           familyi={N\bibinitperiod}}}%
+        {{hash=38026ba4ee6b102b47bf3ffb41325c8f}{%
+           family={al.},
+           familyi={a\bibinitperiod},
+           prefix={et},
+           prefixi={e\bibinitperiod}}}%
+      }
+      \strng{namehash}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \strng{fullhash}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \strng{fullhashraw}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \strng{bibnamehash}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \strng{authorbibnamehash}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \strng{authornamehash}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \strng{authorfullhash}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \strng{authorfullhashraw}{fc82b4ec60624ba1f5cb09589d66dec7}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2207.05844}
+      \field{title}{Wayformer: Motion Forecasting via Simple and Efficient Attention Networks}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2207.05844
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2207.05844
+      \endverb
+    \endentry
+    \entry{ISO21448}{standard}{}{}
+      \list{organization}{1}{%
+        {International Organization for Standardization}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{number}{ISO 21448:2022}
+      \field{title}{Road vehicles — Safety of the intended functionality (SOTIF)}
+      \field{year}{2022}
+    \endentry
+    \entry{madjid2025survey}{article}{}{}
+      \name{author}{10}{}{%
+        {{hash=681bcaacae61a8e03ff024dd3280596c}{%
+           family={Madjid},
+           familyi={M\bibinitperiod},
+           given={Nadya\bibnamedelima Abdel},
+           giveni={N\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=5bd560452c893f42950e684683e5a112}{%
+           family={Ahmad},
+           familyi={A\bibinitperiod},
+           given={Abdulrahman},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ee1658c2a4aef9eef67dfc2facaef937}{%
+           family={Mebrahtu},
+           familyi={M\bibinitperiod},
+           given={Murad},
+           giveni={M\bibinitperiod}}}%
+        {{hash=fb71ca68f25acd603e4d559fafb3c1ee}{%
+           family={Babaa},
+           familyi={B\bibinitperiod},
+           given={Yousef},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=c4f0f6bc3ffa8d646fb911492e3d9cdd}{%
+           family={Nasser},
+           familyi={N\bibinitperiod},
+           given={Abdelmoamen},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1d7faeef466fd38ad4156168d4bd2cf0}{%
+           family={Malik},
+           familyi={M\bibinitperiod},
+           given={Sumbal},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8292ab4fe2959a6205ed2d9f2cf2777d}{%
+           family={Hassan},
+           familyi={H\bibinitperiod},
+           given={Bilal},
+           giveni={B\bibinitperiod}}}%
+        {{hash=deae07f06a62cdcc9f774869f8f0ac0c}{%
+           family={Werghi},
+           familyi={W\bibinitperiod},
+           given={Naoufel},
+           giveni={N\bibinitperiod}}}%
+        {{hash=2043b69c7dd389d1347d8b7be6ad5665}{%
+           family={Dias},
+           familyi={D\bibinitperiod},
+           given={Jorge},
+           giveni={J\bibinitperiod}}}%
+        {{hash=16247fa6677d64d314c53e50cb9e8fa6}{%
+           family={Khonji},
+           familyi={K\bibinitperiod},
+           given={Majid},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b4ad5afa5ac652ed76d54daf76251384}
+      \strng{fullhash}{b77373611c300990d86da93e825df9ac}
+      \strng{fullhashraw}{b77373611c300990d86da93e825df9ac}
+      \strng{bibnamehash}{b4ad5afa5ac652ed76d54daf76251384}
+      \strng{authorbibnamehash}{b4ad5afa5ac652ed76d54daf76251384}
+      \strng{authornamehash}{b4ad5afa5ac652ed76d54daf76251384}
+      \strng{authorfullhash}{b77373611c300990d86da93e825df9ac}
+      \strng{authorfullhashraw}{b77373611c300990d86da93e825df9ac}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2503.03262}
+      \field{title}{Trajectory Prediction for Autonomous Driving: Progress, Limitations, and Future Directions}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2503.03262
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2503.03262
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
