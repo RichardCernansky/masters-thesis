@@ -297,6 +297,52 @@
       \verb https://arxiv.org/abs/2503.03262
       \endverb
     \endentry
+    \entry{hu2025survey}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=7150f56689dcf5a744083321653c466d}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Yi},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=306cf86d2ff78ab3091218c81e03279e}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Liang},
+           giveni={L\bibinitperiod}}}%
+        {{hash=2423971dd328f080746e46e417050b89}{%
+           family={Kong},
+           familyi={K\bibinitperiod},
+           given={Qilong},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=acf1f8ac8a2dae7837b6c8130b5fe71b}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Bin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{ce8557f91047939247179f5381d9c0f4}
+      \strng{fullhash}{7139dc8b56bdac2490131dcf04d77fee}
+      \strng{fullhashraw}{7139dc8b56bdac2490131dcf04d77fee}
+      \strng{bibnamehash}{ce8557f91047939247179f5381d9c0f4}
+      \strng{authorbibnamehash}{ce8557f91047939247179f5381d9c0f4}
+      \strng{authornamehash}{ce8557f91047939247179f5381d9c0f4}
+      \strng{authorfullhash}{7139dc8b56bdac2490131dcf04d77fee}
+      \strng{authorfullhashraw}{7139dc8b56bdac2490131dcf04d77fee}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Machine Intelligence Research}
+      \field{number}{6}
+      \field{title}{A Survey on End-to-End Perception and Prediction for Autonomous Driving}
+      \field{volume}{22}
+      \field{year}{2025}
+      \field{pages}{999\bibrangedash 1030}
+      \range{pages}{32}
+      \verb{doi}
+      \verb 10.1007/s11633-025-1558-0
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

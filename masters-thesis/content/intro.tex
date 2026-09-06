@@ -30,20 +30,76 @@ to achieve better accuracy and efficiency.
 
 
 \section{Problem Formulation}
-trajectory prediction task definition, mathematically
+Trajectory prediction is the task of forecasting the future motion of the traffic participants that surround
+the ego vehicle. Its input is not a trajectory in the purely geometric sense, but rather the past states of
+these participants as they are captured in the environmental information collected by sensors,
+such as camera images, LiDAR point clouds, radar returns or HD maps providing lane geometry and traffic-rule
+priors. However, in this thesis only camera and LiDAR is employed. A model that relies on a single source 
+is unimodal, whereas a model that exploits several of them at
+once is considered multi-modal. In the latter case the measurements are heterogeneous in dimensionality,
+sampling rate and coordinate frame, so the features extracted from the individual sources have to be fused
+into a unified representation of the scene before any forecasting takes place \cite{madjid2025survey}. The
+output is the forecasted trajectory, that is, a sequence of future states of the observed agents over a fixed
+prediction horizon.
+
+Formally, trajectory prediction can be stated as the problem of constructing a mapping $\Phi$ from the
+observed evidence $\mathcal{I}$ about the scene to the future states $\mathcal{O}$ of the traffic
+participants, from the current time up to a prediction horizon $T$ \cite{hu2025survey}:
+\begin{equation}
+    \begin{aligned}
+        \Phi &: \mathcal{I} \rightarrow \mathcal{O}, \\
+        \mathcal{O} &= \left\{ S^{0}, S^{1}, \dots, S^{T} \right\},
+    \end{aligned}
+    \label{eq:traj-pred}
+\end{equation}
+where $S^{0}$ is the current state and $S^{1}$ to $S^{T}$ are the states at the individual future time
+steps, each of them collecting the states of all $N$ observed participants. Depending on the available
+modalities and on the downstream task, a single state can take different forms, for example
+\begin{equation}
+    S^{t} = \left\{ x^{t}, y^{t} \right\} \quad \text{or} \quad
+    S^{t} = \left\{ x^{t}, y^{t}, l^{t}, w^{t}, \theta^{t} \right\},
+    \label{eq:state}
+\end{equation}
+where $x^{t}$ and $y^{t}$ are the coordinates of the centre point of the object, $l^{t}$ and $w^{t}$ its
+length and width, and $\theta^{t}$ its orientation \cite{hu2025survey}. In trajectory prediction the state is
+usually reduced to the planar position, so that $\mathcal{O}$ corresponds to the set of forecasted
+trajectories of the participants in the scene. Since the future of a traffic scene is inherently uncertain,
+the mapping in \eqref{eq:traj-pred} is in practice often extended to output several plausible trajectories
+together with their confidences, allowing the planning stage to reason over the alternatives instead of
+committing to a single hypothesis \cite{huang2022survey}. The following subsections summarise the main
+challenges that this formulation raises.
 
 \subsection{Data Fusion}
-Combine cameras, LiDAR or radar, and HD maps into one scene view. Compare early, BEV or attention-based intermediate fusion, and late fusion. Prevent overload or overspecialization through learned alignment and robust training \cite{madjid2025survey}.
+The information describing the scene comes from sources that are complementary but incompatible. Cameras
+provide dense semantic detail without depth and degrade at night, in glare or in poor lighting
+conditions, LiDAR provides accurate geometry but suffers in rain etc.
+These sources can be combined at the level of raw measurements (early), of learned features (intermediate) or of the individual predictions (late).
+Since every added modality costs latency and introduces noise the network is prone to overloading with parameters or can overspecialize 
+on the most informative source and lose accuracy once the weather or illumination degrades it \cite{madjid2025survey}.
 
 \subsection{Dynamic Environments}
-Traffic is nonstationary and many futures are plausible. Aleatoric uncertainty means the same history can lead to different outcomes. Predict a calibrated set of socially compliant trajectories so planning can weigh alternatives in real time \cite{madjid2025survey}.
+Traffic is nonstationary, as density, weather, illumination and road layout change, so that the conditions
+met during deployment need not resemble those seen during development. The future is moreover not unique,
+since the same observed history is usually compatible with several maneuvers, and this aleatoric uncertainty
+originated in the erratic decisions of other drivers does not diminish with additional
+data. Therefore the task requires a set of socially compliant
+trajectories produced in time for the planning stage \cite{madjid2025survey}.
 
 \subsection{Interaction Modeling}
-Agent motions are coupled and constrained by lanes and rules. Use structured representations such as graphs and attention to capture agent to agent and agent to map relations. Poor interaction modeling leads to infeasible predictions \cite{huang2022survey}.
+The motions of traffic participants are not independent and traffic signals constrain all of them, so that the joint
+future does not split into separate per-agent distributions. Capturing the agent to agent and the agent
+to map relations requires representations able to operate on a variable and unordered number of entities,
+which is why structured formulations such as graphs and attention mechanisms prevail. Where these relations
+are modelled poorly, forecasts that appear plausible for each agent in isolation become inconsistent at the
+level of the scene comprising of multiple entities \cite{huang2022survey}.
 
 \subsection{Real-World Constraints}
-The system must run within an onboard real-time loop and scale to dense traffic. Try to balance model capacity with memory and compute efficiency to stay deployable, not only accurate \cite{Wayformer2022,huang2022survey}. \\
-
+Prediction is one stage of a control loop closing at a fixed rate, which leaves it a budget of tens of
+milliseconds on embedded hardware limited in memory and power. Its cost grows with the number of
+participants and becomes quadratic once their interactions are modelled, so the least favourable case is
+dense traffic, precisely where prediction matters most. Model capacity therefore has to be weighed against
+computational efficiency, as accuracy alone does not make a model deployable
+\cite{Wayformer2022,huang2022survey}.
 
 
 \section{Thesis Outline}
