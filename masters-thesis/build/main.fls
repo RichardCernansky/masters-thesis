@@ -1,8 +1,8 @@
-PWD /Users/richard/Desktop/YYYY-DP-Priezvisko-Title
+PWD /Users/richard/Desktop/DP/documentation/masters-thesis
 INPUT /usr/local/texlive/2026/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/richard/Desktop/YYYY-DP-Priezvisko-Title/main.tex
+INPUT /Users/richard/Desktop/DP/documentation/masters-thesis/main.tex
 OUTPUT build/main.log
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/book.cls
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/book.cls
