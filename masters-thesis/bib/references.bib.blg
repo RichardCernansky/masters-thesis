@@ -1,0 +1,19 @@
+[0] Config.pm:328> INFO - This is Biber 2.21 running in TOOL mode
+[0] Config.pm:331> INFO - Logfile is 'bib/references.bib.blg'
+[41] biber-darwin:342> INFO - === Thu Sep 10, 2026, 20:13:24
+[57] Biber.pm:4674> INFO - Looking for bibtex file 'bib/references.bib'
+[58] bibtex.pm:1713> INFO - LaTeX decoding ...
+[67] bibtex.pm:1519> INFO - Found BibTeX data source 'bib/references.bib'
+[167] Biber.pm:1709> INFO - Datamodel validation starting
+[168] Biber.pm:1759> INFO - Datamodel validation complete
+[173] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[173] UCollate.pm:68> INFO - Overriding locale 'en_US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[173] Biber.pm:4307> INFO - Sorting list 'tool/global//global/global/global' of type 'entry' with template 'tool' and locale 'en_US'
+[173] Biber.pm:4313> INFO - No sort tailoring available for locale 'en_US'
+[179] bibtex.pm:440> INFO - Writing 'bib/references_bibertool.bib' with encoding 'UTF-8'
+[180] bibtex.pm:481> INFO - Output to bib/references_bibertool.bib
+[180] Biber.pm:132> WARN - Datamodel: article entry 'chen2024end' (bib/references.bib): Invalid field 'publisher' for entrytype 'article'
+[180] Biber.pm:132> WARN - Datamodel: standard entry 'ISO21448' (bib/references.bib): Invalid field 'number' for entrytype 'standard'
+[180] Biber.pm:132> WARN - Datamodel: standard entry 'ISO21448' (bib/references.bib): Invalid field 'organization' for entrytype 'standard'
+[180] Biber.pm:132> WARN - Datamodel: standard entry 'ISO21448' (bib/references.bib): Invalid field 'title' for entrytype 'standard'
+[180] Biber.pm:134> INFO - WARNINGS: 4

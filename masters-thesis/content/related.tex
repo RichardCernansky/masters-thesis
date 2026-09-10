@@ -1,15 +1,121 @@
-\chapter{Overview of Trajectory Prediction Methods}
+% \chapter{Overview of Trajectory Prediction Methods and State-of-the-art}
+\chapter{Trajectory Prediction: Background and State of the Art}
 \label{chapter:sota}
 
-concrete header for the given thesis's theme
+concrete header for the given thesis's theme!
 
-\section{Background}
-\label{sec:sota-background}
+% Don't write too long about well-known facts in books and text-books.
 
-Don't write too long about well-known facts in books and text-books.
+\section{Taxonomy of Trajectory Prediction Methods}
+\label{sec:sota-taxonomy}
+
+In the literature, there are numerous different prediction methods, and several criteria enable their
+systematic classification, such as the modality and the representation of the input, the form of the
+produced output, or the paradigm by which prediction is integrated with perception. Here the modeling
+methods are classified according to the categorization presented in \cite{madjid2025survey}.
+
+\subsection{Physics-Based Methods}
+\label{subsec:sota-physics}
+
+These rely on kinematic or dynamic models of motion, using physical equations to extrapolate
+future positions and not accouting for uncertainty. Examples include constant-velocity, constant-acceleration models 
+(Single-Trajectory simulation) \cite{Lin2000VehicleDynamics} \cite{Miller2002Collision}. 
+Kalman filters address the unceratinty limitation of the previous models by modeling the vehicle's state as
+a Gaussian disstribution. It predicts trajectories as a two step process of filtering (denoising current
+state from noisy measurements) and forecasting \cite{Kalman1960}. Monte Carlo methods, in particular
+particle filtering, drop the linearity and Gaussianity assumptions of the Kalman filter by approximating
+the state distribution with a set of weighted samples propagated through the motion model, which permits
+arbitrarily shaped and multimodal distributions at the cost of a higher computational load
+\cite{Gordon1993Bootstrap}. Physics-based approaches are simple and fast,
+but they struggle with complex maneuvers or sudden behavior changes since they lack contextual
+understanding. Some variants combine multiple motion models to handle different maneuvers
+(Multiple-Model methods) \cite{Li2005MultipleModel}.
+
+\subsection{Learning-based methods}
+\label{subsec:sota-learning}
+
+Unlike physics-based, learning-based methods learn the motion dynamic from data.
+Here, we consider three groups of approaches. 
+
+\subsubsection{Classical Machine Learning Methods}
+\label{subsec:sota-classical-ml}
+These methods learn motion patterns from data using statistical models, but without deep
+neural networks. Common approaches include \acp{hmm} \cite{Deo2018Maneuver}, \acp{gp} based prediction
+models \cite{Wang2008GPDM}, \acp{dbn} \cite{Li2020Pedestrian},
+and \acp{gmm} \cite{Wiest2012GMM}. They can capture
+uncertainty to a degree (e.g., an \ac{hmm} can model discrete maneuver states, \acp{gp}
+provide a distribution over trajectories) and were popular before deep learning. However, their
+capacity to model very complex, high-dimensional scenarios is limited compared to modern
+deep nets.
+
+\subsubsection{Reinforcement Learning Methods}
+\label{subsec:sota-rl}
+
+\Ac{rl} methods treat prediction as a sequential decision problem. Here, an agent learns a
+policy (via reward feedback) to mimic human driving behavior, effectively planning likely
+trajectories. Since the reward that drives human driving is not known, \ac{irl}
+recovers it from expert demonstrations and uses it to regularise the predictor \cite{Choi2020IRL}, while
+\ac{il} skips the reward altogether and extracts the policy directly from the observed
+trajectories \cite{Qi2020Imitative}. \Ac{rl}-based predictors can naturally handle multi-agent interactions by
+modeling how agents might react to each other, and can ensure physically feasible outputs through learned
+policy constraints. However, \ac{rl} methods can be data-hungry, harder to train and stabilize, and
+historically have been more common in planning than in pure trajectory forecasting. They are
+an active research area for capturing game-theoretic interactions and long-horizon planning in
+prediction.
+
+\subsubsection{Deep Learning Methods}
+\label{subsec:sota-dl}
 
 
-\section{Related Work (to your work)}
+\section{Prediction Paradigms}
+\label{sec:sota-paradigms}
+
+
+\subsection{Modular (Detect-Track-Predict)}
+\label{subsec:sota-modular}
+
+
+\subsection{End-to-End (Joint Learning)}
+\label{subsec:sota-e2e}
+
+
+% \section{Scene Representation and Sensor Fusion}
+% \label{sec:sota-fusion}
+
+
+\section{Datasets}
+\label{sec:sota-datasets}
+
+\quad Research in trajectory prediction has been accelerated by large-scale autonomous driving datasets that provide rich multimodal sensor data and trajectory annotations. Some prominent datasets include:
+
+\begin{itemize}
+    \item \textbf{KITTI (2012):} Early \ac{av} benchmark with stereo, \ac{lidar}, and \ac{gps}/\ac{imu}, great for detection, tracking, and \ac{slam}. It is small (~150 scenes) and supports only short-horizon forecasting, so it’s limited for learning social behavior. \cite{Geiger2012KITTI}
+    \item \textbf{nuScenes (2020):} Large multimodal suite (6 cameras, 5 radars, 1 \ac{lidar}, $360^\circ$) with 1{,}000 twenty-second scenes, 3D boxes, and \acp{hdmap}. It added a prediction challenge ($\approx 6$ s horizon) and is ideal for multi-sensor fusion and map-aware forecasting. \cite{Caesar2020nuScenes}
+    \item \textbf{Argoverse (2019):} Includes a Motion Forecasting set with 324k five-second scenarios and rich HD lane graphs (Miami/Pittsburgh). It popularized map-based prediction and uses \acs{ade}/\acs{fde} and \acs{mr}; Argoverse 2 expands coverage. \cite{Chang2019Argoverse}
+    \item \textbf{Waymo Open Motion (2021):} Very large-scale forecasting dataset (>100k twenty-second scenarios at 10 Hz) with \acp{hdmap} and many interactive scenes. It introduced \acs{map} and \acs{mr} for multi-modal sets and is a key benchmark for vectorized/transformer models. \cite{Ettinger2021WOMD}
+    \item \textbf{Lyft Level 5:} Large urban dataset with synchronized \ac{lidar}/cameras and \acp{hdmap}, similar in format to nuScenes. Widely used for 3D detection/tracking and baseline motion forecasting with map context. \cite{Kesten2019Lyft}
+    \item \textbf{ApolloScape:} Chinese urban driving data covering detection, segmentation, tracking, and mapping. Useful for perception and localization; less standardized for forecasting than nuScenes/Argoverse. \cite{Huang2018ApolloScape}
+    \end{itemize}
+
+\section{Evaluation Metrics}
+\label{sec:sota-metrics}
+
+Across these benchmarks, common metrics to evaluate trajectory prediction include \cite{madjid2025survey,Ettinger2021WOMD}:
+
+\begin{itemize}
+    \item \textbf{\acf{ade}:} the average Euclidean distance between the predicted trajectory and the ground-truth trajectory over all time steps. It measures overall prediction accuracy.
+    \item \textbf{\acf{fde}:} the Euclidean distance between the predicted final position (at the prediction horizon, e.g., \(3\,\mathrm{s}\) or \(6\,\mathrm{s}\)) and the true final position. This emphasizes endpoint accuracy (did the model correctly predict where the agent ends up?).
+    \item \textbf{min\acs{ade} and min\acs{fde} (multi-modal prediction):} for models that output \(K\) possible futures per agent, these take the error of the closest prediction to ground truth (assume the model’s best hypothesis). min\acs{ade}/\acs{fde} reflect the best-case performance of a probabilistic predictor.
+    \item \textbf{\acf{mr}:} usually defined as the fraction of cases where none of the \(K\) predicted trajectories is within a certain distance (e.g., \(2\,\mathrm{m}\)) of the ground truth at the final time. A lower miss rate means the model almost always has at least one prediction near the true outcome, which is important for safety.
+    \item \textbf{\Acf{map}:} introduced in Waymo’s benchmark, \ac{map} treats trajectory prediction as a detection problem in trajectory space. It evaluates the precision–recall curve of the model’s predicted set of trajectories against ground truth, taking into account both spatial tolerance and assigned confidence scores. It effectively rewards methods that produce a set of diverse predictions that cover the ground truth while avoiding too many implausible guesses.
+    \item \textbf{Other metrics:} \acf{nll} for probabilistic methods (measuring the quality of the predicted probability distribution), and occasionally collision rate or overlap metrics to ensure predicted trajectories are physically feasible (not crashing into others or violating road constraints).
+\end{itemize}
+
+Using these metrics in combination provides a comprehensive evaluation: \ac{ade}/\ac{fde} for accuracy, min\ac{ade}/min\ac{fde} and \ac{mr} for multimodal coverage, and \ac{map} for overall usefulness of the prediction set. The literature often reports all of them to compare methods. For instance, a method might achieve lower \ac{ade} than another (better average accuracy), but if its miss rate is high it means it sometimes totally misses possible outcomes, a trade-off the proposal’s approach must consider.
+
+
+% related work to this thesis
+\section{Related Work}
 \label{sec:sota-related}
 
 This part is important in determining the objectives of the Thesis as we will state in Section~\ref{sec:sota-summary} and in Chapter~\ref{chapter:objectives-and-methodology}.

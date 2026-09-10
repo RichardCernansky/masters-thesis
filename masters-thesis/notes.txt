@@ -1,0 +1,4 @@
+TO-DOs
+spytat sa na ako koresponduje nazov DP s konkretnym zameranim
+add figure in intro - stages of autonomous driving systems
+taxonomy diagram
