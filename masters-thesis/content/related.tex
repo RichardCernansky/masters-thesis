@@ -35,7 +35,7 @@ understanding. Some variants combine multiple motion models to handle different 
 \label{subsec:sota-learning}
 
 Unlike physics-based, learning-based methods learn the motion dynamic from data.
-Here, we consider three groups of approaches. 
+Here, three groups of approaches are mentioned. 
 
 \subsubsection{Classical Machine Learning Methods}
 \label{subsec:sota-classical-ml}
@@ -65,7 +65,51 @@ prediction.
 
 \subsubsection{Deep Learning Methods}
 \label{subsec:sota-dl}
+Various Deep Learning methods perform successfully in learning motion dynamics and now dominate trajectory
+prediction. Their strengths and limitations differ mainly according to their architectural design
+\cite{madjid2025survey}.
 
+
+\textbf{Recurrent Neural Networks}
+
+\Acp{rnn} and \ac{lstm} capture temporal history via hidden states updated across timesteps. They are able
+to effectively capture temporal patterns for trajectory prediction task. Historically, single recurrent
+models were used to map past trajectories to future paths \cite{Hoy2018Pedestrian}, however recent works
+facilitate groups or stacks of multiple models \cite{Xin2018DualLSTM} or employ them for one of the subtasks
+like detection \cite{Shao2023ReasonNet}. They converge reliably and can be trained autoregressively, in the
+same mode in which they are later run at inference, but they lack spatial reasoning and struggle with
+long-range temporal dependencies \cite{Liu2021DLSurvey}.
+
+\textbf{Convolutional Neural Networks}
+
+Models built on \acp{cnn} are mostly responsible for feature extraction such as capturing objects' positions
+and environmental context \cite{CoverNet2020}. \Acp{tcn} are able to model temporal dependencies through the
+causal convolution layers that preserve the temporal order \cite{Nikhil2019CNN}. They extract spatial
+features from image-like inputs such as \ac{bev} or rasterised maps efficiently and permit fast inference, 
+although the fixed grid on which they operate represents the individual agents only implicitly and is more
+expensive than a vectorised encoding of the same scene \cite{Liu2021DLSurvey}.
+
+\textbf{Graph Neural Networks}
+
+\Acp{gnn} represent the scene as a graph whose nodes are the agents and map elements
+and whose edges encode the relations between them, which makes them a natural fit for
+modelling spatial and temporal interactions \cite{Wang2021GraphTCN}. They excel in dense interaction
+scenarios by modelling agent-to-agent relations explicitly, but they add unnecessary complexity in sparse
+environments such as highway driving, and their dynamic-graph variants rely on consistent object identities
+and therefore inherit the errors of the tracker \cite{madjid2025survey}.
+
+\textbf{Transformers}
+
+Transformers replace recurrence with self-attention, which relates every agent and every map element to
+all the others in a single step and thus captures long-range dependencies without having to propagate
+information through a hidden state \cite{Liu2021mmTransformer}. Since attending over all agents, time steps
+and map elements at once is expensive, practical models factorise the attention along these axes and decode
+the future with a set of learned queries that produce several trajectories in parallel
+\cite{Wayformer2022}. Their capacity for long-term dependencies makes them particularly promising for
+long-horizon prediction, but they are highly sensitive to training stability
+and demand extensive tuning and warm-up \cite{madjid2025survey}.
+Transformer systems pair a strong scene encoder with multi-modal decoders and explicit
+interaction and map context \cite{Liu2021mmTransformer,Ngiam2021SceneTransformer}.
 
 \section{Prediction Paradigms}
 \label{sec:sota-paradigms}
@@ -100,7 +144,7 @@ prediction.
 \section{Evaluation Metrics}
 \label{sec:sota-metrics}
 
-Across these benchmarks, common metrics to evaluate trajectory prediction include \cite{madjid2025survey,Ettinger2021WOMD}:
+Across these benchmarks, common metrics to evaluate trajectory prediction \cite{madjid2025survey,Ettinger2021WOMD} include:
 
 \begin{itemize}
     \item \textbf{\acf{ade}:} the average Euclidean distance between the predicted trajectory and the ground-truth trajectory over all time steps. It measures overall prediction accuracy.

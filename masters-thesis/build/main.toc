@@ -14,33 +14,33 @@
 \contentsline {subsection}{\numberline {2.1.2}Learning-based methods}{6}{subsection.2.1.2}%
 \contentsline {subsubsection}{\numberline {2.1.2.1}Classical Machine Learning Methods}{6}{subsubsection.2.1.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.2.2}Reinforcement Learning Methods}{6}{subsubsection.2.1.2.2}%
-\contentsline {subsubsection}{\numberline {2.1.2.3}Deep Learning Methods}{7}{subsubsection.2.1.2.3}%
-\contentsline {section}{\numberline {2.2}Prediction Paradigms}{7}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Modular (Detect-Track-Predict)}{7}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}End-to-End (Joint Learning)}{7}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Datasets}{7}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Evaluation Metrics}{7}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Related Work}{8}{section.2.5}%
+\contentsline {subsubsection}{\numberline {2.1.2.3}Deep Learning Methods}{6}{subsubsection.2.1.2.3}%
+\contentsline {section}{\numberline {2.2}Prediction Paradigms}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Modular (Detect-Track-Predict)}{8}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}End-to-End (Joint Learning)}{8}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Datasets}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Evaluation Metrics}{8}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Related Work}{9}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Summary and Starting Points}{9}{section.2.6}%
-\contentsline {chapter}{\numberline {3}Objectives and Methodology}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Objectives}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Methodology}{11}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Design / Methods Description}{13}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Implementation}{15}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Experiments and Evaluation}{17}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Setup}{17}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Case Study - Experiment 01}{18}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Case Study - Experiment 02}{18}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Case Study - Experiment 03}{18}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Summary}{18}{section.6.5}%
-\contentsline {chapter}{\numberline {7}Conclusion}{19}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Summary}{19}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Future Work}{19}{section.7.2}%
-\contentsline {chapter}{Resumé}{19}{section.7.2}%
-\contentsline {chapter}{List of Abbreviations}{21}{table.7.1}%
-\contentsline {chapter}{List of Figures}{23}{chapter*.6}%
-\contentsline {chapter}{List of Tables}{25}{chapter*.7}%
-\contentsline {chapter}{References}{29}{chapter*.9}%
+\contentsline {chapter}{\numberline {3}Objectives and Methodology}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Objectives}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Methodology}{13}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Design / Methods Description}{15}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Implementation}{17}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Experiments and Evaluation}{19}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Setup}{19}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Case Study - Experiment 01}{20}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Case Study - Experiment 02}{20}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Case Study - Experiment 03}{20}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Summary}{20}{section.6.5}%
+\contentsline {chapter}{\numberline {7}Conclusion}{21}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Summary}{21}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Future Work}{21}{section.7.2}%
+\contentsline {chapter}{Resumé}{21}{section.7.2}%
+\contentsline {chapter}{List of Abbreviations}{23}{table.7.1}%
+\contentsline {chapter}{List of Figures}{26}{chapter*.6}%
+\contentsline {chapter}{List of Tables}{27}{chapter*.7}%
+\contentsline {chapter}{References}{31}{chapter*.9}%
 \contentsline {chapter}{\numberline {A}Description of Digital Submission }{B-1}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Technical Documentation}{B-3}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Installation Manual}{B-3}{section.B.1}%
