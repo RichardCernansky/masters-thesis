@@ -3,4 +3,4 @@ spytat sa na ako koresponduje nazov DP s konkretnym zameranim
 reasont net do finalneho odovzdania?
 add figure in intro - stages of autonomous driving systems
 taxonomy diagram
-finalize metrics
+finalize metrics, update with equations

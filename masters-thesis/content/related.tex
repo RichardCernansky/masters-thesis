@@ -34,7 +34,7 @@ understanding. Some variants combine multiple motion models to handle different 
 \subsection{Learning-based methods}
 \label{subsec:sota-learning}
 
-Unlike physics-based, learning-based methods learn the motion dynamic from data.
+Unlike physics-based, learning-based methods learn the motion dynamics from data.
 Here, three groups of approaches are mentioned. 
 
 \subsubsection{Classical Machine Learning Methods}
@@ -66,8 +66,8 @@ prediction.
 \subsubsection{Deep Learning Methods}
 \label{subsec:sota-dl}
 Various Deep Learning methods perform successfully in learning motion dynamics and now dominate trajectory
-prediction. Their strengths and limitations differ mainly according to their architectural design
-\cite{madjid2025survey}.
+prediction. Their strengths and limitations differ mainly according to their architectural design.
+
 
 
 \textbf{Recurrent Neural Networks}
@@ -113,14 +113,31 @@ interaction and map context \cite{Liu2021mmTransformer,Ngiam2021SceneTransformer
 
 \section{Prediction Paradigms}
 \label{sec:sota-paradigms}
+In this section, the prediction paradigms are discussed. The prediction paradigm is an important characteristic of a model, as it determines how the
+driving stack is decomposed into modules, what is optimised during training, and what
+information is passed from perception to prediction. The advantages and the limitations of a given model
+largely follow from this choice.
 
 
 \subsection{Modular (Detect-Track-Predict)}
 \label{subsec:sota-modular}
+This approach has been of the most common so far implemented in the literature. The paradigm consists 
+of sequential steps of detection, tracking and prediction, which were independently under an extensive research. First, the sensor data is captured and
+detector localizes the objects present in the scene, usually as a set of bounding boxes with the
+corresponding class labels. The tracking module then associates these detections across consecutive frames,
+opening a tracklet for every newly observed object and preserving its identity as the scene evolves.
+Finally, the prediction module consumes the active tracklets and forecasts the future positions of the corresponding agents \cite{madjid2025survey}.
+Even though this sequential decomposition is intuitive and each module can be developed and debugged
+separately, the stages are optimised in isolation which causes errors to propagate 
+across modules and results in suboptimal performance due to the lack of end-to-end optimization \cite{hu2025survey}.
 
+TODO: add some examples of models
 
-\subsection{End-to-End (Joint Learning)}
+\subsection{Joint Learning (End-to-End Perception \& Prediction)}
 \label{subsec:sota-e2e}
+Joint learning methods treat detection and motion forecasting as a single optimization problem instead of two independent stages.
+These unified optimization goals help to mitigate the error accumulation in the intermediate steps.  
+
 
 
 % \section{Scene Representation and Sensor Fusion}
@@ -148,7 +165,7 @@ Across these benchmarks, common metrics to evaluate trajectory prediction \cite{
 
 \begin{itemize}
     \item \textbf{\acf{ade}:} the average Euclidean distance between the predicted trajectory and the ground-truth trajectory over all time steps. It measures overall prediction accuracy.
-    \item \textbf{\acf{fde}:} the Euclidean distance between the predicted final position (at the prediction horizon, e.g., \(3\,\mathrm{s}\) or \(6\,\mathrm{s}\)) and the true final position. This emphasizes endpoint accuracy (did the model correctly predict where the agent ends up?).
+    \item \textbf{\acf{fde}:} the Euclidean distance between the predicted final position (at the prediction horizon, e.g., \(3\,\mathrm{s}\) or \(6\,\mathrm{s}\)) and the true final position. This emphasizes endpoint accuracy.
     \item \textbf{min\acs{ade} and min\acs{fde} (multi-modal prediction):} for models that output \(K\) possible futures per agent, these take the error of the closest prediction to ground truth (assume the model’s best hypothesis). min\acs{ade}/\acs{fde} reflect the best-case performance of a probabilistic predictor.
     \item \textbf{\acf{mr}:} usually defined as the fraction of cases where none of the \(K\) predicted trajectories is within a certain distance (e.g., \(2\,\mathrm{m}\)) of the ground truth at the final time. A lower miss rate means the model almost always has at least one prediction near the true outcome, which is important for safety.
     \item \textbf{\Acf{map}:} introduced in Waymo’s benchmark, \ac{map} treats trajectory prediction as a detection problem in trajectory space. It evaluates the precision–recall curve of the model’s predicted set of trajectories against ground truth, taking into account both spatial tolerance and assigned confidence scores. It effectively rewards methods that produce a set of diverse predictions that cover the ground truth while avoiding too many implausible guesses.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  12 SEP 2026 11:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  13 SEP 2026 11:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1169,30 +1169,31 @@ Loading module `upgrade' ...
 \c@g@acro@gnn@int=\count498
 \c@g@acro@dtp@int=\count499
 \c@g@acro@pnp@int=\count500
-\c@g@acro@ade@int=\count501
-\c@g@acro@fde@int=\count502
-\c@g@acro@mr@int=\count503
-\c@g@acro@map@int=\count504
-\c@g@acro@nll@int=\count505
+\c@g@acro@e2e@int=\count501
+\c@g@acro@ade@int=\count502
+\c@g@acro@fde@int=\count503
+\c@g@acro@mr@int=\count504
+\c@g@acro@map@int=\count505
+\c@g@acro@nll@int=\count506
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
 \@float@every@algorithm=\toks43
-\c@algorithm=\count506
+\c@algorithm=\count507
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
  (/usr/local/texlive/2026/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count507
-\c@ALG@rem=\count508
-\c@ALG@nested=\count509
+\c@ALG@line=\count508
+\c@ALG@rem=\count509
+\c@ALG@nested=\count510
 \ALG@tlm=\skip101
 \ALG@thistlm=\skip102
-\c@ALG@Lnr=\count510
-\c@ALG@blocknr=\count511
-\c@ALG@storecount=\count512
-\c@ALG@tmpcounter=\count513
+\c@ALG@Lnr=\count511
+\c@ALG@blocknr=\count512
+\c@ALG@storecount=\count513
+\c@ALG@tmpcounter=\count514
 \ALG@tmplength=\skip103
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
@@ -1208,17 +1209,17 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen266
 \cmidrulekern=\dimen267
 \defaultaddspace=\dimen268
-\@cmidla=\count514
-\@cmidlb=\count515
+\@cmidla=\count515
+\@cmidlb=\count516
 \@aboverulesep=\dimen269
 \@belowrulesep=\dimen270
-\@thisruleclass=\count516
-\@lastruleclass=\count517
+\@thisruleclass=\count517
+\@lastruleclass=\count518
 \@thisrulewidth=\dimen271
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip104
-\multirow@cntb=\count518
+\multirow@cntb=\count519
 \multirow@dima=\skip105
 \bigstrutjot=\dimen272
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/todonotes/todonotes.sty
@@ -1254,14 +1255,14 @@ Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@yd=\dimen284
 \w@pgf@writea=\write4
 \r@pgf@reada=\read5
-\c@pgf@counta=\count519
-\c@pgf@countb=\count520
-\c@pgf@countc=\count521
-\c@pgf@countd=\count522
+\c@pgf@counta=\count520
+\c@pgf@countb=\count521
+\c@pgf@countc=\count522
+\c@pgf@countd=\count523
 \t@pgf@toka=\toks48
 \t@pgf@tokb=\toks49
 \t@pgf@tokc=\toks50
-\pgf@sys@id@count=\count523
+\pgf@sys@id@count=\count524
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
 )
@@ -1272,21 +1273,21 @@ File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
 File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
 ))) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfsyssoftpath@smallbuffer@items=\count524
-\pgfsyssoftpath@bigbuffer@items=\count525
+\pgfsyssoftpath@smallbuffer@items=\count525
+\pgfsyssoftpath@bigbuffer@items=\count526
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen285
-\pgfmath@count=\count526
+\pgfmath@count=\count527
 \pgfmath@box=\box71
 \pgfmath@toks=\toks51
 \pgfmath@stack@operand=\toks52
 \pgfmath@stack@operation=\toks53
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count527
+\c@pgfmathroundto@lastzeros=\count528
 )) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@picminx=\dimen286
@@ -1316,7 +1317,7 @@ File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfpic=\box72
 \pgf@hbox=\box73
 \pgf@layerbox@main=\box74
-\pgf@picture@serial@count=\count528
+\pgf@picture@serial@count=\count529
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgflinewidth=\dimen304
@@ -1337,8 +1338,8 @@ File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@max=\dimen309
-\pgf@sys@shading@range@num=\count529
-\pgf@shadingcount=\count530
+\pgf@sys@shading@range@num=\count530
+\pgf@shadingcount=\count531
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
@@ -1373,7 +1374,7 @@ Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
 Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count531
+\pgf@plot@mark@count=\count532
 \pgfplotmarksize=\dimen314
 )
 \tikz@lastx=\dimen315
@@ -1388,23 +1389,23 @@ File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \tikz@figbox@bg=\box78
 \tikz@tempbox=\box79
 \tikz@tempbox@bg=\box80
-\tikztreelevel=\count532
-\tikznumberofchildren=\count533
-\tikznumberofcurrentchild=\count534
-\tikz@fig@count=\count535
+\tikztreelevel=\count533
+\tikznumberofchildren=\count534
+\tikznumberofcurrentchild=\count535
+\tikz@fig@count=\count536
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count536
-\pgfmatrixcurrentcolumn=\count537
-\pgf@matrix@numberofcolumns=\count538
+\pgfmatrixcurrentrow=\count537
+\pgfmatrixcurrentcolumn=\count538
+\pgf@matrix@numberofcolumns=\count539
 )
-\tikz@expandcount=\count539
+\tikz@expandcount=\count540
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ))) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )
-\c@@todonotes@numberoftodonotes=\count540
+\c@@todonotes@numberoftodonotes=\count541
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/pmboxdraw/pmboxdraw.sty
 Package: pmboxdraw 2019/12/05 v1.4 Poor man's box drawing characters (HO)
 Now handling font encoding pmboxdraw ...
@@ -1562,14 +1563,14 @@ Package: sverb 1996/05/08 1.3 Verbatim typesetting
 \svtab=\dimen329
 \listingindent=\dimen330
 \sv@writefile=\write5
-\sv@nestcount=\count541
+\sv@nestcount=\count542
 )
 
 Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (biblatex)                Loading 'csquotes' recommended.
 
-\@quotelevel=\count542
-\@quotereset=\count543
+\@quotelevel=\count543
+\@quotereset=\count544
 LaTeX Font Info:    Font shape `T1/zpltlf/m/n' will be
 (Font)              scaled to size 10.95pt on input line 19.
 (build/main.aux (build/preamble/title.aux) (build/preamble/annotation.aux) (build/preamble/acknowledgements.aux) (build/appendices/digital_medium.aux) (build/appendices/plan.aux))
@@ -1652,16 +1653,16 @@ LaTeX Font Info:    ... okay on input line 19.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count544
+\scratchcounter=\count545
 \scratchdimen=\dimen331
 \scratchbox=\box81
-\nofMPsegments=\count545
-\nofMParguments=\count546
+\nofMPsegments=\count546
+\nofMParguments=\count547
 \everyMPshowfont=\toks58
-\MPscratchCnt=\count547
+\MPscratchCnt=\count548
 \MPscratchDim=\dimen332
-\MPnumerator=\count548
-\makeMPintoPDFobject=\count549
+\MPnumerator=\count549
+\makeMPintoPDFobject=\count550
 \everyMPtoPDFconversion=\toks59
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1684,8 +1685,8 @@ Package biblatex Info: ... file 'main.bbl' found.
  (build/main.bbl)
 Package biblatex Info: Reference section=0 on input line 19.
 Package biblatex Info: Reference segment=0 on input line 19.
-\c@mv@tabular=\count550
-\c@mv@boldtabular=\count551
+\c@mv@tabular=\count551
+\c@mv@boldtabular=\count552
 LaTeX Info: Command `\dddot' is already robust on input line 19.
 LaTeX Info: Command `\ddddot' is already robust on input line 19.
 Package hyperref Info: Link coloring OFF on input line 19.
@@ -1923,12 +1924,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [7]
-LaTeX Font Info:    Trying to load font information for TS1+zpltlf on input line 136.
+LaTeX Font Info:    Trying to load font information for TS1+zpltlf on input line 153.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/newpx/ts1zpltlf.fd
 File: ts1zpltlf.fd 2021/11/24 v1.0 fd file for TS1/zpltlf
 )
 LaTeX Font Info:    Font shape `TS1/zpltlf/m/n' will be
-(Font)              scaled to size 10.95pt on input line 136.
+(Font)              scaled to size 10.95pt on input line 153.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1985,7 +1986,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 Chapter 4.
-<assets/images/Dynabook.png, id=488, 327.2225pt x 260.975pt>
+<assets/images/Dynabook.png, id=489, 327.2225pt x 260.975pt>
 File: assets/images/Dynabook.png Graphic file (type png)
 <use assets/images/Dynabook.png>
 Package pdftex.def Info: assets/images/Dynabook.png  used on input line 28.
@@ -2162,7 +2163,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
  (./appendices/digital_medium.tex
 Appendix A.
-<appendices/zip-file-structure.png, id=613, 893.3375pt x 903.375pt>
+<appendices/zip-file-structure.png, id=614, 893.3375pt x 903.375pt>
 File: appendices/zip-file-structure.png Graphic file (type png)
 <use appendices/zip-file-structure.png>
 Package pdftex.def Info: appendices/zip-file-structure.png  used on input line 36.
@@ -2219,24 +2220,24 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2020/03/25>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6E90E609D0248CE24061AE87FE8CB829;8004.
+(rerunfilecheck)             Checksum: 9B4DD632B5B58FB643816493798D7995;8136.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43387 strings out of 467525
- 895263 string characters out of 5418983
- 1716852 words of memory out of 5000000
- 71412 multiletter control sequences out of 15000+600000
- 700698 words of font info for 136 fonts, out of 8000000 for 9000
+ 43478 strings out of 467525
+ 898842 string characters out of 5418983
+ 1718155 words of memory out of 5000000
+ 71503 multiletter control sequences out of 15000+600000
+ 700999 words of font info for 137 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,11n,111p,1252b,2356s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxmiaX.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxsys.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplb.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplr.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplri.pfb>
-Output written on build/main.pdf (53 pages, 334236 bytes).
+Output written on build/main.pdf (53 pages, 336343 bytes).
 PDF statistics:
- 738 PDF objects out of 1000 (max. 8388607)
- 651 compressed objects within 7 object streams
+ 739 PDF objects out of 1000 (max. 8388607)
+ 652 compressed objects within 7 object streams
  158 named destinations out of 1000 (max. 500000)
  423 words of extra memory for PDF output out of 10000 (max. 10000000)
 
