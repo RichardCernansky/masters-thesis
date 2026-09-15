@@ -1,6 +1,19 @@
 TO-DOs
 spytat sa na ako koresponduje nazov DP s konkretnym zameranim
 reasont net do finalneho odovzdania?
+
+SENSITIVITA
+priradit kazdej classe max queries?
+upravit ratios
+sample_groups=dict(
+        car=2,
+        truck=3,
+        bus=4,
+        trailer=6, -> 3
+        motorcycle=6, -> 3
+        bicycle=6, -> 3
+        pedestrian=2 ),
+
 add figure in intro - stages of autonomous driving systems
 taxonomy diagram
 finalize metrics, update with equations

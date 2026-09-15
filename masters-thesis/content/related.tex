@@ -136,8 +136,17 @@ TODO: add some examples of models
 \subsection{Joint Learning (End-to-End Perception \& Prediction)}
 \label{subsec:sota-e2e}
 Joint learning methods treat detection and motion forecasting as a single optimization problem instead of two independent stages.
-These unified optimization goals help to mitigate the error accumulation in the intermediate steps.  
-
+These unified optimization goals help to mitigate the error accumulation in the intermediate steps.
+Such models are trained with a compound loss over both tasks. They differ in how tightly the stages are coupled,
+ranging from a shared \ac{lidar} backbone co-optimized through
+a combined loss \cite{Luo2018FaF}, through \ac{bev} features reused by both tasks \cite{Hu2021FIERY}, to full
+gradient flow from the prediction loss back through the detector \cite{Liang2020PnPNet}. Query-based models
+take this integration further by representing every agent as a learnable query that is iteratively refined
+while attending to scene and map features, so that detection, tracking and forecasting are resolved together
+\cite{Gu2023ViP3D,Casas2024DeTra}.
+The price of this coupling is that task boundaries blur, which makes poor performance hard to attribute to a
+specific component, and the iterative refinement of queries adds computational overhead that complicates
+real-time deployment in dense scenes \cite{madjid2025survey}.
 
 
 % \section{Scene Representation and Sensor Fusion}

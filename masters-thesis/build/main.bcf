@@ -2415,14 +2415,20 @@
     <bcf:citekey order="36" intorder="2">Ngiam2021SceneTransformer</bcf:citekey>
     <bcf:citekey order="37" intorder="1">madjid2025survey</bcf:citekey>
     <bcf:citekey order="38" intorder="1">hu2025survey</bcf:citekey>
-    <bcf:citekey order="39" intorder="1">Geiger2012KITTI</bcf:citekey>
-    <bcf:citekey order="40" intorder="1">Caesar2020nuScenes</bcf:citekey>
-    <bcf:citekey order="41" intorder="1">Chang2019Argoverse</bcf:citekey>
-    <bcf:citekey order="42" intorder="1">Ettinger2021WOMD</bcf:citekey>
-    <bcf:citekey order="43" intorder="1">Kesten2019Lyft</bcf:citekey>
-    <bcf:citekey order="44" intorder="1">Huang2018ApolloScape</bcf:citekey>
-    <bcf:citekey order="45" intorder="1">madjid2025survey</bcf:citekey>
-    <bcf:citekey order="45" intorder="2">Ettinger2021WOMD</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">Luo2018FaF</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">Hu2021FIERY</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">Liang2020PnPNet</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">Gu2023ViP3D</bcf:citekey>
+    <bcf:citekey order="42" intorder="2">Casas2024DeTra</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">madjid2025survey</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">Geiger2012KITTI</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">Chang2019Argoverse</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">Ettinger2021WOMD</bcf:citekey>
+    <bcf:citekey order="48" intorder="1">Kesten2019Lyft</bcf:citekey>
+    <bcf:citekey order="49" intorder="1">Huang2018ApolloScape</bcf:citekey>
+    <bcf:citekey order="50" intorder="1">madjid2025survey</bcf:citekey>
+    <bcf:citekey order="50" intorder="2">Ettinger2021WOMD</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
