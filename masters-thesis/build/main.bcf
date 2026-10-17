@@ -2422,13 +2422,19 @@
     <bcf:citekey order="42" intorder="2">Casas2024DeTra</bcf:citekey>
     <bcf:citekey order="43" intorder="1">madjid2025survey</bcf:citekey>
     <bcf:citekey order="44" intorder="1">Geiger2012KITTI</bcf:citekey>
-    <bcf:citekey order="45" intorder="1">Caesar2020nuScenes</bcf:citekey>
-    <bcf:citekey order="46" intorder="1">Chang2019Argoverse</bcf:citekey>
-    <bcf:citekey order="47" intorder="1">Ettinger2021WOMD</bcf:citekey>
-    <bcf:citekey order="48" intorder="1">Kesten2019Lyft</bcf:citekey>
-    <bcf:citekey order="49" intorder="1">Huang2018ApolloScape</bcf:citekey>
-    <bcf:citekey order="50" intorder="1">madjid2025survey</bcf:citekey>
-    <bcf:citekey order="50" intorder="2">Ettinger2021WOMD</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">Huang2018ApolloScape</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">Kesten2019Lyft</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="48" intorder="1">Wilson2021Argoverse2</bcf:citekey>
+    <bcf:citekey order="49" intorder="1">Chang2019Argoverse</bcf:citekey>
+    <bcf:citekey order="50" intorder="1">Ettinger2021WOMD</bcf:citekey>
+    <bcf:citekey order="51" intorder="1">Chen2024WOMDLiDAR</bcf:citekey>
+    <bcf:citekey order="52" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="53" intorder="1">Valverde2025Detection</bcf:citekey>
+    <bcf:citekey order="54" intorder="1">Valverde2025Detection</bcf:citekey>
+    <bcf:citekey order="55" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="56" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="57" intorder="1">Gu2023ViP3D</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

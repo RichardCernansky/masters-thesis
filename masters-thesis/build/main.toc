@@ -2,7 +2,7 @@
 \babel@toc {english}{}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Problem Formulation}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.2}Problem Formulation for Trajectory Prediction}{2}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Data Fusion}{3}{subsection.1.2.1}%
 \contentsline {subsection}{\numberline {1.2.2}Dynamic Environments}{3}{subsection.1.2.2}%
 \contentsline {subsection}{\numberline {1.2.3}Interaction Modeling}{3}{subsection.1.2.3}%
@@ -19,28 +19,36 @@
 \contentsline {subsection}{\numberline {2.2.1}Modular (Detect-Track-Predict)}{8}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Joint Learning (End-to-End Perception \& Prediction)}{8}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}Datasets}{9}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Evaluation Metrics}{9}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Related Work}{10}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Summary and Starting Points}{10}{section.2.6}%
-\contentsline {chapter}{\numberline {3}Objectives and Methodology}{13}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Objectives}{13}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Methodology}{13}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Design / Methods Description}{15}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Implementation}{17}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Experiments and Evaluation}{19}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Setup}{19}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Case Study - Experiment 01}{20}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Case Study - Experiment 02}{20}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Case Study - Experiment 03}{20}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Summary}{20}{section.6.5}%
-\contentsline {chapter}{\numberline {7}Conclusion}{21}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Summary}{21}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Future Work}{21}{section.7.2}%
-\contentsline {chapter}{Resumé}{21}{section.7.2}%
-\contentsline {chapter}{List of Abbreviations}{23}{table.7.1}%
-\contentsline {chapter}{List of Figures}{26}{chapter*.6}%
-\contentsline {chapter}{List of Tables}{27}{chapter*.7}%
-\contentsline {chapter}{References}{31}{chapter*.9}%
+\contentsline {section}{\numberline {2.4}Evaluation Metrics}{10}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Detection Metrics}{10}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Tracking Metrics}{11}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Trajectory Prediction Metrics}{13}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {3}Related Work}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Query-Based Detection and Tracking}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}LiDAR Backbones and Heatmap Query Initialisation}{17}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Attention-Based Camera-LiDAR Fusion}{17}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Trajectory Decoding from Agent Features}{17}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Positioning of This Work}{17}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Summary and Starting Points}{17}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Objectives and Methodology}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Objectives}{19}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Methodology}{19}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Design / Methods Description}{21}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Implementation}{23}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{25}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Setup}{25}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{26}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{26}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{26}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Summary}{26}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusion}{27}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Summary}{27}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Future Work}{27}{section.8.2}%
+\contentsline {chapter}{Resumé}{27}{section.8.2}%
+\contentsline {chapter}{List of Abbreviations}{29}{table.8.1}%
+\contentsline {chapter}{List of Figures}{32}{chapter*.6}%
+\contentsline {chapter}{List of Tables}{33}{chapter*.7}%
+\contentsline {chapter}{References}{37}{chapter*.9}%
 \contentsline {chapter}{\numberline {A}Description of Digital Submission }{B-1}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Technical Documentation}{B-3}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Installation Manual}{B-3}{section.B.1}%

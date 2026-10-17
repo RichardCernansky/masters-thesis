@@ -1,7 +1,9 @@
+make sure to use pretrained pillars backbone
 TO-DOs
+nsp neodpisuju
 spytat sa na ako koresponduje nazov DP s konkretnym zameranim
 reasont net do finalneho odovzdania?
-
+transcript of records
 SENSITIVITA
 priradit kazdej classe max queries?
 upravit ratios
@@ -13,6 +15,9 @@ sample_groups=dict(
         motorcycle=6, -> 3
         bicycle=6, -> 3
         pedestrian=2 ),
+
+augmnetovat aj images aj ked Transfusion neaugmentuje po Stage 1?
+
 
 add figure in intro - stages of autonomous driving systems
 taxonomy diagram

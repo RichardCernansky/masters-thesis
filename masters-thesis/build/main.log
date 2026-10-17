@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  15 SEP 2026 10:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  17 OCT 2026 18:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1175,25 +1175,35 @@ Loading module `upgrade' ...
 \c@g@acro@mr@int=\count504
 \c@g@acro@map@int=\count505
 \c@g@acro@nll@int=\count506
+\c@g@acro@ap@int=\count507
+\c@g@acro@nds@int=\count508
+\c@g@acro@epa@int=\count509
+\c@g@acro@iou@int=\count510
+\c@g@acro@mota@int=\count511
+\c@g@acro@motp@int=\count512
+\c@g@acro@amota@int=\count513
+\c@g@acro@amotp@int=\count514
+\c@g@acro@ids@int=\count515
+\c@g@acro@gt@int=\count516
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
 \@float@every@algorithm=\toks43
-\c@algorithm=\count507
+\c@algorithm=\count517
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
  (/usr/local/texlive/2026/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count508
-\c@ALG@rem=\count509
-\c@ALG@nested=\count510
+\c@ALG@line=\count518
+\c@ALG@rem=\count519
+\c@ALG@nested=\count520
 \ALG@tlm=\skip101
 \ALG@thistlm=\skip102
-\c@ALG@Lnr=\count511
-\c@ALG@blocknr=\count512
-\c@ALG@storecount=\count513
-\c@ALG@tmpcounter=\count514
+\c@ALG@Lnr=\count521
+\c@ALG@blocknr=\count522
+\c@ALG@storecount=\count523
+\c@ALG@tmpcounter=\count524
 \ALG@tmplength=\skip103
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
@@ -1209,17 +1219,17 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen266
 \cmidrulekern=\dimen267
 \defaultaddspace=\dimen268
-\@cmidla=\count515
-\@cmidlb=\count516
+\@cmidla=\count525
+\@cmidlb=\count526
 \@aboverulesep=\dimen269
 \@belowrulesep=\dimen270
-\@thisruleclass=\count517
-\@lastruleclass=\count518
+\@thisruleclass=\count527
+\@lastruleclass=\count528
 \@thisrulewidth=\dimen271
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@colwidth=\skip104
-\multirow@cntb=\count519
+\multirow@cntb=\count529
 \multirow@dima=\skip105
 \bigstrutjot=\dimen272
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/todonotes/todonotes.sty
@@ -1255,14 +1265,14 @@ Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@yd=\dimen284
 \w@pgf@writea=\write4
 \r@pgf@reada=\read5
-\c@pgf@counta=\count520
-\c@pgf@countb=\count521
-\c@pgf@countc=\count522
-\c@pgf@countd=\count523
+\c@pgf@counta=\count530
+\c@pgf@countb=\count531
+\c@pgf@countc=\count532
+\c@pgf@countd=\count533
 \t@pgf@toka=\toks48
 \t@pgf@tokb=\toks49
 \t@pgf@tokc=\toks50
-\pgf@sys@id@count=\count524
+\pgf@sys@id@count=\count534
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
 )
@@ -1273,21 +1283,21 @@ File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
 File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
 ))) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfsyssoftpath@smallbuffer@items=\count525
-\pgfsyssoftpath@bigbuffer@items=\count526
+\pgfsyssoftpath@smallbuffer@items=\count535
+\pgfsyssoftpath@bigbuffer@items=\count536
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen285
-\pgfmath@count=\count527
+\pgfmath@count=\count537
 \pgfmath@box=\box71
 \pgfmath@toks=\toks51
 \pgfmath@stack@operand=\toks52
 \pgfmath@stack@operation=\toks53
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count528
+\c@pgfmathroundto@lastzeros=\count538
 )) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@picminx=\dimen286
@@ -1317,7 +1327,7 @@ File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfpic=\box72
 \pgf@hbox=\box73
 \pgf@layerbox@main=\box74
-\pgf@picture@serial@count=\count529
+\pgf@picture@serial@count=\count539
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgflinewidth=\dimen304
@@ -1338,8 +1348,8 @@ File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgf@max=\dimen309
-\pgf@sys@shading@range@num=\count530
-\pgf@shadingcount=\count531
+\pgf@sys@shading@range@num=\count540
+\pgf@shadingcount=\count541
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
@@ -1374,7 +1384,7 @@ Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
 Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count532
+\pgf@plot@mark@count=\count542
 \pgfplotmarksize=\dimen314
 )
 \tikz@lastx=\dimen315
@@ -1389,23 +1399,23 @@ File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \tikz@figbox@bg=\box78
 \tikz@tempbox=\box79
 \tikz@tempbox@bg=\box80
-\tikztreelevel=\count533
-\tikznumberofchildren=\count534
-\tikznumberofcurrentchild=\count535
-\tikz@fig@count=\count536
+\tikztreelevel=\count543
+\tikznumberofchildren=\count544
+\tikznumberofcurrentchild=\count545
+\tikz@fig@count=\count546
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count537
-\pgfmatrixcurrentcolumn=\count538
-\pgf@matrix@numberofcolumns=\count539
+\pgfmatrixcurrentrow=\count547
+\pgfmatrixcurrentcolumn=\count548
+\pgf@matrix@numberofcolumns=\count549
 )
-\tikz@expandcount=\count540
+\tikz@expandcount=\count550
  (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ))) (/usr/local/texlive/2026/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )
-\c@@todonotes@numberoftodonotes=\count541
+\c@@todonotes@numberoftodonotes=\count551
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/pmboxdraw/pmboxdraw.sty
 Package: pmboxdraw 2019/12/05 v1.4 Poor man's box drawing characters (HO)
 Now handling font encoding pmboxdraw ...
@@ -1563,14 +1573,14 @@ Package: sverb 1996/05/08 1.3 Verbatim typesetting
 \svtab=\dimen329
 \listingindent=\dimen330
 \sv@writefile=\write5
-\sv@nestcount=\count542
+\sv@nestcount=\count552
 )
 
 Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (biblatex)                Loading 'csquotes' recommended.
 
-\@quotelevel=\count543
-\@quotereset=\count544
+\@quotelevel=\count553
+\@quotereset=\count554
 LaTeX Font Info:    Font shape `T1/zpltlf/m/n' will be
 (Font)              scaled to size 10.95pt on input line 19.
 (build/main.aux (build/preamble/title.aux) (build/preamble/annotation.aux) (build/preamble/acknowledgements.aux) (build/appendices/digital_medium.aux) (build/appendices/plan.aux))
@@ -1653,16 +1663,16 @@ LaTeX Font Info:    ... okay on input line 19.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count545
+\scratchcounter=\count555
 \scratchdimen=\dimen331
 \scratchbox=\box81
-\nofMPsegments=\count546
-\nofMParguments=\count547
+\nofMPsegments=\count556
+\nofMParguments=\count557
 \everyMPshowfont=\toks58
-\MPscratchCnt=\count548
+\MPscratchCnt=\count558
 \MPscratchDim=\dimen332
-\MPnumerator=\count549
-\makeMPintoPDFobject=\count550
+\MPnumerator=\count559
+\makeMPintoPDFobject=\count560
 \everyMPtoPDFconversion=\toks59
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1685,8 +1695,8 @@ Package biblatex Info: ... file 'main.bbl' found.
  (build/main.bbl)
 Package biblatex Info: Reference section=0 on input line 19.
 Package biblatex Info: Reference segment=0 on input line 19.
-\c@mv@tabular=\count551
-\c@mv@boldtabular=\count552
+\c@mv@tabular=\count561
+\c@mv@boldtabular=\count562
 LaTeX Info: Command `\dddot' is already robust on input line 19.
 LaTeX Info: Command `\ddddot' is already robust on input line 19.
 Package hyperref Info: Link coloring OFF on input line 19.
@@ -1864,12 +1874,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [14]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[15]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[16
+
+]
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/zpltlf/b/n' will be
 (Font)              scaled to size 20.74pt on input line 1.
-[1
-
-]
+[1]
 LaTeX Font Info:    Font shape `T1/zpltlf/m/n' will be
 (Font)              scaled to size 8.0pt on input line 59.
 LaTeX Font Info:    Font shape `T1/zpltlf/m/n' will be
@@ -1895,7 +1921,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[3]) (./content/related.tex
+[3]) (./content/background.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1932,12 +1958,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [8]
-LaTeX Font Info:    Trying to load font information for TS1+zpltlf on input line 162.
+LaTeX Font Info:    Trying to load font information for TS1+zpltlf on input line 165.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/newpx/ts1zpltlf.fd
 File: ts1zpltlf.fd 2021/11/24 v1.0 fd file for TS1/zpltlf
 )
 LaTeX Font Info:    Font shape `TS1/zpltlf/m/n' will be
-(Font)              scaled to size 10.95pt on input line 162.
+(Font)              scaled to size 10.95pt on input line 165.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1947,6 +1973,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [9{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newpx/zpl_TOsF.enc}]
+LaTeX Font Info:    Font shape `T1/zpltlf/m/it' will be
+(Font)              scaled to size 10.95pt on input line 226.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1955,6 +1984,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [10]
+LaTeX Font Info:    Trying to load font information for U+zeuex on input line 261.
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/eulervm/uzeuex.fd
+File: uzeuex.fd 2005/01/11 v4.0 (WaS)
+)
+LaTeX Font Info:    Font shape `U/zeuex/m/n' will be
+(Font)              scaled to size 10.95pt on input line 261.
+LaTeX Font Info:    Font shape `U/zeuex/m/n' will be
+(Font)              scaled to size 8.0pt on input line 261.
+LaTeX Font Info:    Font shape `T1/zpltlf/m/n' will be
+(Font)              scaled to size 6.0pt on input line 261.
+LaTeX Font Info:    Font shape `U/zeuex/m/n' will be
+(Font)              scaled to size 6.0pt on input line 261.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1962,7 +2004,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[11]) (./content/objectives.tex
+[11]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1971,10 +2013,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [12]
-Chapter 3.
-) (./content/design.tex [13
-
-]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1982,16 +2020,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[14
+[13]) (./content/related-work.tex
 
-]
-Chapter 4.
-<assets/images/Dynabook.png, id=500, 327.2225pt x 260.975pt>
-File: assets/images/Dynabook.png Graphic file (type png)
-<use assets/images/Dynabook.png>
-Package pdftex.def Info: assets/images/Dynabook.png  used on input line 28.
-(pdftex.def)             Requested size: 142.26378pt x 113.45949pt.
-) (./content/implementation.tex [15 <./assets/images/Dynabook.png>]
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[14]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[15]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2002,8 +2047,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [16
 
 ]
-Chapter 5.
-) (./content/evaluation.tex [17]
+Chapter 3.
+[17]) (./content/objectives.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2011,21 +2056,60 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[18
+[18]
+Chapter 4.
+) (./content/design.tex [19
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[20
+
+]
+Chapter 5.
+<assets/images/Dynabook.png, id=614, 327.2225pt x 260.975pt>
+File: assets/images/Dynabook.png Graphic file (type png)
+<use assets/images/Dynabook.png>
+Package pdftex.def Info: assets/images/Dynabook.png  used on input line 29.
+(pdftex.def)             Requested size: 142.26378pt x 113.45949pt.
+) (./content/implementation.tex [21 <./assets/images/Dynabook.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[22
 
 ]
 Chapter 6.
+) (./content/evaluation.tex [23]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[24
+
+]
+Chapter 7.
 
 Overfull \hbox (39.09808pt too wide) in paragraph at lines 16--32
  [][] 
  []
 
-LaTeX Font Info:    Font shape `T1/zpltlf/m/it' will be
-(Font)              scaled to size 10.95pt on input line 47.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [19]
+ [25]
 Overfull \hbox (6.63474pt too wide) in paragraph at lines 53--54
 []\T1/zpltlf/m/it/10.95 Discussion \T1/zpltlf/m/n/10.95 about var-i-ous con-sid-er-a-tions based on the ex-per-i-ment re-sults (if needed). 
  []
@@ -2038,43 +2122,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20]
-Chapter 7.
-) (./content/resume.tex [21
-
-]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[22
-
-]) [23]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[24
-
-] [25]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[26] (build/main.lof)
-\tf@lof=\write8
-\openout8 = `main.lof'.
-
- [27
+[26]
+Chapter 8.
+) (./content/resume.tex [27
 
 ]
 
@@ -2085,6 +2135,40 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [28
+
+]) [29]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[30
+
+] [31]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[32] (build/main.lof)
+\tf@lof=\write8
+\openout8 = `main.lof'.
+
+ [33
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[34
 
 ] (build/main.lot)
 \tf@lot=\write9
@@ -2102,9 +2186,9 @@ Package biblatex Warning: Split bibliography detected.
 
 
 Package biblatex Warning: Option 'resetnumbers' requires 'defernumbers=true'.
-(biblatex)                Ignoring 'resetnumbers=true' on input line 78.
+(biblatex)                Ignoring 'resetnumbers=true' on input line 79.
 
-[29]
+[35]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2112,32 +2196,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[30
+[36
 
 ]
 LaTeX Font Info:    Font shape `T1/zpltlf/m/sc' will be
-(Font)              scaled to size 10.95pt on input line 78.
-LaTeX Font Info:    Trying to load font information for T1+npxtt on input line 78.
+(Font)              scaled to size 10.95pt on input line 79.
+LaTeX Font Info:    Trying to load font information for T1+npxtt on input line 79.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/newpx/t1npxtt.fd
 File: t1npxtt.fd 2000/12/14 v1.0
 )
 LaTeX Font Info:    Font shape `T1/npxtt/m/n' will be
-(Font)              scaled to size 10.95pt on input line 78.
+(Font)              scaled to size 10.95pt on input line 79.
 
-Overfull \hbox (1.73738pt too wide) in paragraph at lines 81--81
+Overfull \hbox (1.73738pt too wide) in paragraph at lines 82--82
 \T1/zpltlf/m/it/10.95 IEEE Trans-ac-tions on Pat-tern Anal-y-sis and Ma-chine In-tel-li-gence \T1/zpltlf/m/n/10.95 46.12 (2024), pp. 10164^^U
  []
 
 
 Package biblatex Warning: No driver for 'standard'.
-(biblatex)                Using fallback driver on input line 78.
+(biblatex)                Using fallback driver on input line 79.
 
 
-Overfull \hbox (10.17554pt too wide) in paragraph at lines 81--81
+Overfull \hbox (10.17554pt too wide) in paragraph at lines 82--82
 []\T1/zpltlf/m/n/10.95 Nadya Ab-del Mad-jid et al. ``Tra-jec-tory Pre-dic-tion for Au-tonomous Driv-ing: Progress,
  []
 
-[31{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-pc.enc}]
+[37{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-pc.enc}]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2145,8 +2229,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[32]
-Overfull \hbox (1.94229pt too wide) in paragraph at lines 81--81
+[38]
+Overfull \hbox (1.94229pt too wide) in paragraph at lines 82--82
 []\T1/zpltlf/m/n/10.95 Andreas Geiger, Philip Lenz, and Raquel Ur-ta-sun. ``Are We Ready for Au-tonomous
  []
 
@@ -2157,8 +2241,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[33]
-Package biblatex Info: Reference segment=0 on input line 83.
+[39]
+Package biblatex Info: Reference segment=0 on input line 84.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2167,12 +2251,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[34]
+[40]
 \openout2 = `appendices/digital_medium.aux'.
 
  (./appendices/digital_medium.tex
 Appendix A.
-<appendices/zip-file-structure.png, id=632, 893.3375pt x 903.375pt>
+<appendices/zip-file-structure.png, id=748, 893.3375pt x 903.375pt>
 File: appendices/zip-file-structure.png Graphic file (type png)
 <use appendices/zip-file-structure.png>
 Package pdftex.def Info: appendices/zip-file-structure.png  used on input line 36.
@@ -2222,31 +2306,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning (ext4): destination with the same identifier (name{page.B-2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.90 \include{appendices/plan}
+l.91 \include{appendices/plan}
                                [2] (build/main.aux (build/preamble/title.aux) (build/preamble/annotation.aux) (build/preamble/acknowledgements.aux) (build/appendices/digital_medium.aux) (build/appendices/plan.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2020/03/25>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9B4DD632B5B58FB643816493798D7995;8136.
+(rerunfilecheck)             Checksum: D264FCABB87F02563B29F28253EA3841;9998.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 43499 strings out of 467525
- 899660 string characters out of 5418983
- 1718492 words of memory out of 5000000
- 71518 multiletter control sequences out of 15000+600000
- 701000 words of font info for 137 fonts, out of 8000000 for 9000
+ 44567 strings out of 467525
+ 940162 string characters out of 5418983
+ 1734797 words of memory out of 5000000
+ 72528 multiletter control sequences out of 15000+600000
+ 709804 words of font info for 158 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 104i,11n,111p,1252b,2356s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxmiaX.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxsys.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplb.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplr.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplri.pfb>
-Output written on build/main.pdf (54 pages, 338721 bytes).
+ 104i,12n,111p,1252b,2333s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/NewPXMI_gnu.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/euex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxmiaX.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxsys.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/txsym.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplb.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplr.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplri.pfb>
+Output written on build/main.pdf (62 pages, 379030 bytes).
 PDF statistics:
- 758 PDF objects out of 1000 (max. 8388607)
- 670 compressed objects within 7 object streams
- 164 named destinations out of 1000 (max. 500000)
- 423 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 894 PDF objects out of 1000 (max. 8388607)
+ 791 compressed objects within 8 object streams
+ 208 named destinations out of 1000 (max. 500000)
+ 487 words of extra memory for PDF output out of 10000 (max. 10000000)
 

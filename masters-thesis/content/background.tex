@@ -1,0 +1,442 @@
+% \chapter{Overview of Trajectory Prediction Methods and State-of-the-art}
+\chapter{Trajectory Prediction: Background and State of the Art}
+\label{chapter:sota}
+
+TODO: concrete header for the given thesis's theme!
+
+% Don't write too long about well-known facts in books and text-books.
+
+\section{Taxonomy of Trajectory Prediction Methods}
+\label{sec:sota-taxonomy}
+
+In the literature, there are numerous different prediction methods, and several criteria enable their
+systematic classification, such as the modality and the representation of the input, the form of the
+produced output, or the paradigm by which prediction is integrated with perception. Here the modeling
+methods are classified according to the categorization presented in \cite{madjid2025survey}.
+
+\subsection{Physics-Based Methods}
+\label{subsec:sota-physics}
+
+These rely on kinematic or dynamic models of motion, using physical equations to extrapolate
+future positions and not accouting for uncertainty. Examples include constant-velocity, constant-acceleration models 
+(Single-Trajectory simulation) \cite{Lin2000VehicleDynamics} \cite{Miller2002Collision}. 
+Kalman filters address the unceratinty limitation of the previous models by modeling the vehicle's state as
+a Gaussian disstribution. It predicts trajectories as a two step process of filtering (denoising current
+state from noisy measurements) and forecasting \cite{Kalman1960}. Monte Carlo methods, in particular
+particle filtering, drop the linearity and Gaussianity assumptions of the Kalman filter by approximating
+the state distribution with a set of weighted samples propagated through the motion model, which permits
+arbitrarily shaped and multimodal distributions at the cost of a higher computational load
+\cite{Gordon1993Bootstrap}. Physics-based approaches are simple and fast,
+but they struggle with complex maneuvers or sudden behavior changes since they lack contextual
+understanding. Some variants combine multiple motion models to handle different maneuvers
+(Multiple-Model methods) \cite{Li2005MultipleModel}.
+
+\subsection{Learning-based methods}
+\label{subsec:sota-learning}
+
+Unlike physics-based, learning-based methods learn the motion dynamics from data.
+Here, three groups of approaches are mentioned. 
+
+\subsubsection{Classical Machine Learning Methods}
+\label{subsec:sota-classical-ml}
+These methods learn motion patterns from data using statistical models, but without deep
+neural networks. Common approaches include \acp{hmm} \cite{Deo2018Maneuver}, \acp{gp} based prediction
+models \cite{Wang2008GPDM}, \acp{dbn} \cite{Li2020Pedestrian},
+and \acp{gmm} \cite{Wiest2012GMM}. They can capture
+uncertainty to a degree (e.g., an \ac{hmm} can model discrete maneuver states, \acp{gp}
+provide a distribution over trajectories) and were popular before deep learning. However, their
+capacity to model very complex, high-dimensional scenarios is limited compared to modern
+deep nets.
+
+\subsubsection{Reinforcement Learning Methods}
+\label{subsec:sota-rl}
+
+\Ac{rl} methods treat prediction as a sequential decision problem. Here, an agent learns a
+policy (via reward feedback) to mimic human driving behavior, effectively planning likely
+trajectories. Since the reward that drives human driving is not known, \ac{irl}
+recovers it from expert demonstrations and uses it to regularise the predictor \cite{Choi2020IRL}, while
+\ac{il} skips the reward altogether and extracts the policy directly from the observed
+trajectories \cite{Qi2020Imitative}. \Ac{rl}-based predictors can naturally handle multi-agent interactions by
+modeling how agents might react to each other, and can ensure physically feasible outputs through learned
+policy constraints. However, \ac{rl} methods can be data-hungry, harder to train and stabilize, and
+historically have been more common in planning than in pure trajectory forecasting. They are
+an active research area for capturing game-theoretic interactions and long-horizon planning in
+prediction.
+
+\subsubsection{Deep Learning Methods}
+\label{subsec:sota-dl}
+Various Deep Learning methods perform successfully in learning motion dynamics and now dominate trajectory
+prediction. Their strengths and limitations differ mainly according to their architectural design.
+
+
+
+\textbf{Recurrent Neural Networks}
+
+\Acp{rnn} and \ac{lstm} capture temporal history via hidden states updated across timesteps. They are able
+to effectively capture temporal patterns for trajectory prediction task. Historically, single recurrent
+models were used to map past trajectories to future paths \cite{Hoy2018Pedestrian}, however recent works
+facilitate groups or stacks of multiple models \cite{Xin2018DualLSTM} or employ them for one of the subtasks
+like detection \cite{Shao2023ReasonNet}. They converge reliably and can be trained autoregressively, in the
+same mode in which they are later run at inference, but they lack spatial reasoning and struggle with
+long-range temporal dependencies \cite{Liu2021DLSurvey}.
+
+\textbf{Convolutional Neural Networks}
+
+Models built on \acp{cnn} are mostly responsible for feature extraction such as capturing objects' positions
+and environmental context \cite{CoverNet2020}. \Acp{tcn} are able to model temporal dependencies through the
+causal convolution layers that preserve the temporal order \cite{Nikhil2019CNN}. They extract spatial
+features from image-like inputs such as \ac{bev} or rasterised maps efficiently and permit fast inference, 
+although the fixed grid on which they operate represents the individual agents only implicitly and is more
+expensive than a vectorised encoding of the same scene \cite{Liu2021DLSurvey}.
+
+\textbf{Graph Neural Networks}
+
+\Acp{gnn} represent the scene as a graph whose nodes are the agents and map elements
+and whose edges encode the relations between them, which makes them a natural fit for
+modelling spatial and temporal interactions \cite{Wang2021GraphTCN}. They excel in dense interaction
+scenarios by modelling agent-to-agent relations explicitly, but they add unnecessary complexity in sparse
+environments such as highway driving, and their dynamic-graph variants rely on consistent object identities
+and therefore inherit the errors of the tracker \cite{madjid2025survey}.
+
+\textbf{Transformers}
+
+Transformers replace recurrence with self-attention, which relates every agent and every map element to
+all the others in a single step and thus captures long-range dependencies without having to propagate
+information through a hidden state \cite{Liu2021mmTransformer}. Since attending over all agents, time steps
+and map elements at once is expensive, practical models factorise the attention along these axes and decode
+the future with a set of learned queries that produce several trajectories in parallel
+\cite{Wayformer2022}. Their capacity for long-term dependencies makes them particularly promising for
+long-horizon prediction, but they are highly sensitive to training stability
+and demand extensive tuning and warm-up \cite{madjid2025survey}.
+Transformer systems pair a strong scene encoder with multi-modal decoders and explicit
+interaction and map context \cite{Liu2021mmTransformer,Ngiam2021SceneTransformer}.
+
+\section{Prediction Paradigms}
+\label{sec:sota-paradigms}
+In this section, the prediction paradigms are discussed. The prediction paradigm is an important characteristic of a model, as it determines how the
+driving stack is decomposed into modules, what is optimised during training, and what
+information is passed from perception to prediction. The advantages and the limitations of a given model
+largely follow from this choice.
+
+
+\subsection{Modular (Detect-Track-Predict)}
+\label{subsec:sota-modular}
+This approach has been of the most common so far implemented in the literature. The paradigm consists 
+of sequential steps of detection, tracking and prediction, which were independently under an extensive research. First, the sensor data is captured and
+detector localizes the objects present in the scene, usually as a set of bounding boxes with the
+corresponding class labels. The tracking module then associates these detections across consecutive frames,
+opening a tracklet for every newly observed object and preserving its identity as the scene evolves.
+Finally, the prediction module consumes the active tracklets and forecasts the future positions of the corresponding agents \cite{madjid2025survey}.
+Even though this sequential decomposition is intuitive and each module can be developed and debugged
+separately, the stages are optimised in isolation which causes errors to propagate 
+across modules and results in suboptimal performance due to the lack of end-to-end optimization \cite{hu2025survey}.
+
+TODO: add some examples of models
+
+\subsection{Joint Learning (End-to-End Perception \& Prediction)}
+\label{subsec:sota-e2e}
+Joint learning methods treat detection and motion forecasting as a single optimization problem instead of two independent stages.
+These unified optimization goals help to mitigate the error accumulation in the intermediate steps.
+Such models are trained with a compound loss over both tasks. They differ in how tightly the stages are coupled,
+ranging from a shared \ac{lidar} backbone co-optimized through
+a combined loss \cite{Luo2018FaF}, through \ac{bev} features reused by both tasks \cite{Hu2021FIERY}, to full
+gradient flow from the prediction loss back through the detector \cite{Liang2020PnPNet}. Query-based models
+take this integration further by representing every agent as a learnable query that is iteratively refined
+while attending to scene and map features, so that detection, tracking and forecasting are resolved together
+\cite{Gu2023ViP3D,Casas2024DeTra}.
+The price of this coupling is that task boundaries blur, which makes poor performance hard to attribute to a
+specific component, and the iterative refinement of queries adds computational overhead that complicates
+real-time deployment in dense scenes \cite{madjid2025survey}.
+
+TODO: add tree of the methods 
+% Maybe add if enough space
+% \section{Scene Representation and Sensor Fusion}
+% \label{sec:sota-fusion}
+
+
+\section{Datasets}
+\label{sec:sota-datasets}
+
+Research in trajectory prediction has been accelerated by large-scale autonomous driving datasets. They
+differ in the sensors they record, in the length and the annotation rate of their sequences, and in whether
+their annotations support perception, forecasting, or both.
+
+\begin{itemize}
+    \item \textbf{KITTI (2012)} \cite{Geiger2012KITTI}: the early \ac{av} benchmark with stereo cameras,
+    \ac{lidar} and \ac{gps}/\ac{imu}, widely used for detection, tracking and \ac{slam}. With roughly 150
+    short sequences it supports only short-horizon forecasting and contains little social interaction.
+    \item \textbf{ApolloScape (2018)} \cite{Huang2018ApolloScape}: Chinese urban driving data covering
+    detection, segmentation, tracking and mapping. It is useful for perception and localization, but it is
+    less standardized for forecasting than nuScenes or Argoverse.
+    \item \textbf{Lyft Level 5 (2019)} \cite{Kesten2019Lyft}: a large urban dataset with synchronized
+    \ac{lidar} and cameras and with \acp{hdmap}, similar in format to nuScenes and used mostly for 3D
+    detection and tracking.
+    \item \textbf{nuScenes (2020)} \cite{Caesar2020nuScenes}: 1{,}000 twenty-second scenes recorded with
+    6 cameras, 5 radars and one \ac{lidar} covering $360^\circ$, annotated at \(2\,\mathrm{Hz}\) with 3D
+    boxes, \acp{hdmap} and object identities that persist across frames. The official split is 700 training
+    and 150 validation scenes, and the prediction challenge adds future trajectories over a
+    \(6\,\mathrm{s}\) horizon on exactly these sequences.
+    \item \textbf{Argoverse 2 (2021)} \cite{Wilson2021Argoverse2}: the successor of the benchmark that
+    popularized map-based prediction and established \acs{ade}, \acs{fde} and \acs{mr} as the reported
+    metrics \cite{Chang2019Argoverse}. It is published as several distinct collections, among them a motion
+    forecasting set of 250k scenarios with per-scenario \acp{hdmap} and a separate sensor set of 1{,}000
+    annotated sequences with seven ring cameras, two stereo cameras and \ac{lidar}. The two collections
+    contain different recordings.
+    \item \textbf{Waymo Open Motion (2021)} \cite{Ettinger2021WOMD}: more than 100k twenty-second scenarios
+    sampled at \(10\,\mathrm{Hz}\), with \acp{hdmap} and a large share of interactive situations. It
+    introduced \acs{map} for multi-modal predictions. Later releases of the dataset extend these scenarios
+    with \ac{lidar} point clouds \cite{Chen2024WOMDLiDAR} and with camera information, but both cover only
+    the first second of each nine-second window, and the camera data is distributed as learned image tokens
+    rather than as raw images.
+\end{itemize}
+
+NuScenes is used for every experiment reported in this thesis. A jointly trained perception and prediction
+model needs synchronized raw \ac{lidar} and camera data, 3D boxes, object identities that persist across
+frames so that tracking can be supervised, and future trajectories, all annotated on the same sequences.
+Several of the datasets above hold these annotations apart. NuScenes defines an official prediction benchmark on exactly the
+sequences it annotates, and it is the dataset on which the end-to-end models discussed in
+Section~\ref{sec:sota-paradigms} report their results, which makes the numbers obtained here directly
+comparable with them.
+
+TODO: add table with datasets if training on multiple datasets, and also edit metrics if needed
+
+
+\section{Evaluation Metrics}
+\label{sec:sota-metrics}
+
+A jointly trained model has to be judged on every task it solves, so three families of metrics are
+reported. The detection metrics measure how well the objects present in the scene are identified, the
+tracking metrics measure how reliably their identities are maintained over time, and the trajectory
+prediction metrics measure how well their future motion is anticipated. All three families are built on a
+notion of a correct match between a prediction and a ground-truth annotation, but they establish that match
+in different ways.
+
+\subsection{Detection Metrics}
+\label{subsec:sota-metrics-det}
+
+The protocol used throughout this thesis is the one defined with nuScenes \cite{Caesar2020nuScenes} and 
+summarized in \cite{Valverde2025Detection}. A
+predicted box is matched to a ground-truth box of the same class when the distance between their centres on
+the ground plane is below a threshold \(d\), which replaces the intersection over union criterion common in
+image-based detection and avoids penalising small objects disproportionately. Matching is greedy over
+predictions sorted by decreasing confidence, and every ground-truth box can be matched at most once. The
+outcome of this assignment defines the counts:
+
+\begin{itemize}
+    \item a \emph{true positive} is a prediction matched to a ground-truth box within threshold \(d\),
+    \item a \emph{false positive} is a prediction that finds no such match, either because nothing is there
+    or because the object was already claimed by a higher scoring prediction,
+    \item a \emph{true negative} is a correctly reported negative, absence of any detection. 
+    \item a \emph{false negative} is a ground-truth box left without any matching prediction.
+\end{itemize}
+
+Based on these, the following performance metrics are defined:
+
+\begin{enumerate}
+    \item \textbf{Precision and recall} express how many of the predictions are correct and how many of the
+    annotated objects are found,
+    \begin{equation}
+        \mathrm{Precision} = \frac{TP}{TP + FP}, \qquad
+        \mathrm{Recall} = \frac{TP}{TP + FN}.
+        \label{eq:prec-rec}
+    \end{equation}
+    Sweeping the confidence score threshold traces a precision-recall curve \(p(r)\).
+
+    \item \textbf{\Acf{ap}} summarises that curve for a given class as the area under its interpolated
+    form, so that fluctuations of \(p(r)\) at individual operating points do not influence the result
+    \cite{Valverde2025Detection},
+    \begin{equation}
+        \mathrm{AP} = \int_{0}^{1} \max \big\{\, p(r) : r \ge r_{0} \,\big\} \, \mathrm{d}r_{0},
+        \label{eq:ap}
+    \end{equation}
+    where \(p(r)\) is the precision at recall \(r\). The nuScenes protocol evaluates this over the
+    operating points that remain once those with a recall or a precision below \(0.1\) have been discarded
+    as dominated by noise, and normalises the result to the unit interval \cite{Caesar2020nuScenes}.
+
+    \item \textbf{\Acf{map}} averages \acs{ap} over the set of classes \(\mathcal{C}\) and over a set of
+    matching thresholds \(\mathcal{T}\), so that a method is not rewarded for being accurate only at one
+    tolerance,
+    \begin{equation}
+        \mathrm{mAP} = \frac{1}{|\mathcal{C}|\,|\mathcal{T}|}
+        \sum_{c \in \mathcal{C}} \sum_{t \in \mathcal{T}} \mathrm{AP}_{c,t},
+        \qquad \mathcal{T} = \{0.5,\, 1,\, 2,\, 4\}\,\mathrm{m}.
+        \label{eq:map}
+    \end{equation}
+
+    \item \textbf{True positive error metrics} describe how good the matched boxes actually are, which
+    \acs{map} alone does not capture because a match within \(d\) counts fully regardless of its quality.
+    They are computed over the matches obtained at \(d = 2\,\mathrm{m}\) and averaged over classes. They
+    comprise the \textbf{translation error ATE} as the centre distance in metres, the \textbf{scale error ASE} as
+    \(1 - \mathrm{\acs{iou}}\) after aligning translation and orientation, the \textbf{orientation error AOE} as the
+    yaw difference in radians, the \textbf{velocity error AVE} in metres per second, and the \textbf{attribute error AAE} as
+    one minus the attribute classification accuracy.
+
+    \item \textbf{\Acf{nds}} combines the two into a single number, weighting the detection quality against
+    the five error terms,
+    \begin{equation}
+        \mathrm{NDS} = \frac{1}{10}\left[\, 5\,\mathrm{mAP} +
+        \sum_{\mathrm{mTP} \in \mathbb{TP}} \big(1 - \min(1,\, \mathrm{mTP})\big) \right],
+        \label{eq:nds}
+    \end{equation}
+    where \(\mathbb{TP}\) is the set of the five averaged error metrics. Each error is \textbf{clipped at one}, so an
+    arbitrarily bad error cannot drive the score below the contribution of \acs{map} alone.
+\end{enumerate}
+
+\subsection{Tracking Metrics}
+
+\label{subsec:sota-metrics-track}
+
+Tracking is as well evaluated with the protocol of the nuScenes tracking benchmark \cite{Caesar2020nuScenes}.
+Predictions are matched to ground-truth objects frame by frame with the same centre distance criterion as
+in detection, but the assignment now also has to be consistent in time, because a tracker is required to
+keep the same identity attached to the same object. The matching therefore proceeds in two stages: a
+pairing established in an earlier frame is carried forward whenever both partners are still present and
+within the allowed distance, and only the objects and tracks left over are assigned by Hungarian
+matching on the centre distance. What is understood as a \emph{true positive} therefore changes:
+
+\begin{itemize}
+    \item a \emph{true positive} is a ground-truth object matched within the allowed distance that
+    either carried no track before or is matched to the track it already carried,
+    \item a \emph{false positive} is a track that is matched to no ground-truth object, so the tracker is
+    following something that does not exist,
+    \item a \emph{false negative} is a ground-truth object that no track reached in this frame,
+    \item a \emph{true negative} is a correctly reported negative, absence of any detection. 
+    \item an \emph{\acf{ids}} is a ground-truth object matched to a track whose identity differs from the one it
+    carried before. A track that
+    is lost and later recovered under a new identity therefore produces an \acs{ids} even though every
+    individual box may be accurate.
+\end{itemize}
+
+It is also important to state that the lifetime of a trajectory is not simply the set of frames in which it was
+annotated. The benchmark first discards annotations that fall outside the
+per-class evaluation range or that contain no \acs{lidar} returns at all, and
+then linearly interpolates each trajectory across any remaining interior gap,
+so that a fully occluded object is restored. A trajectory's lifetime is therefore the uninterrupted span between
+its first and last surviving observation, and a tracker is expected to carry
+an identity through occlusions that the sensor itself did not observe. The tracking metrics are as follows:
+
+\begin{enumerate}
+    \item \textbf{\Acf{mota}} aggregates all the ways a tracker can fail into a single number, counting
+    every false positive, every missed object and every identity switch against the number of annotated
+    object instances \(GT\) summed over all frames,
+    \begin{equation}
+        \mathrm{MOTA} = 1 - \frac{FP + FN + \mathrm{IDS}}{GT}.
+        \label{eq:mota}
+    \end{equation}
+    The measure is not bounded from below, as a tracker that reports far more objects than exist can drive
+    it to an arbitrarily negative value.
+
+    \item \textbf{\Acf{motp}} describes how precisely the matched objects are localised, as the mean centre
+    distance \(d_i\) over the set of true positives,
+    \begin{equation}
+        \mathrm{MOTP} = \frac{1}{|TP|} \sum_{i \in TP} d_i .
+        \label{eq:motp}
+    \end{equation}
+
+    \item \textbf{\Acf{amota} and \acf{amotp}} remove the dependence on the confidence threshold in the same
+    way \acs{ap} does for detection. The tracking score is swept, and the two measures above are averaged
+    over a set \(\mathcal{R}\) of forty recall levels, from which those below \(0.1\) are discarded as
+    dominated by noise,
+    \begin{equation}
+        \mathrm{AMOTA} = \frac{1}{|\mathcal{R}|} \sum_{r \in \mathcal{R}} \mathrm{MOTAR}_r ,
+        \label{eq:amota}
+    \end{equation}
+    where \(\mathrm{MOTAR}_r\) is the value of \acs{mota} at recall \(r\), normalised so that it occupies
+    the unit interval at every recall level and is therefore comparable across them. \Acs{amota} is the
+    primary measure of the benchmark.
+
+    \item \textbf{Supporting counts} describe the failure modes that the aggregate scores hide. Unlike
+    \acs{mota}, whose unit is a single object instance in a single frame, these are evaluated along the
+    whole lifetime of one annotated object and each trajectory is counted once. 
+    A trajectory is reported as \textbf{mostly tracked (MT)} when it is followed for at least \(80\%\) of its
+    lifetime and as \textbf{mostly lost (ML)} when it is followed for at most \(20\%\). The remaining
+    trajectories are \textbf{partially tracked (PT)}, so that the three categories partition the annotated
+    trajectories,
+    \begin{equation}
+        N_{\mathrm{traj}} = \mathrm{MT} + \mathrm{PT} + \mathrm{ML},
+        \label{eq:traj-partition}
+    \end{equation}
+    where each count refers to whole trajectories and \(N_{\mathrm{traj}}\) are all annotated trajectories that survive the evaluation filters.
+
+     A \textbf{fragmentation} is counted 
+    whenever a correctly followed trajectory is interrupted and later resumed. The
+    \textbf{track initialisation duration} expresses how long it takes before an object is picked up for
+    the first time, and the \textbf{longest gap duration} how long it remains lost in the worst
+    interruption.
+\end{enumerate}
+
+These supporting counts matter for a model whose tracks are gated by a confidence threshold. A detector
+whose individual boxes are accurate but whose scores fluctuate around that threshold loses and reacquires
+its objects, which leaves \acs{ap} almost unaffected while raising the number of fragmentations and
+identity switches and therefore lowering \acs{amota}.
+
+
+\subsection{Trajectory Prediction Metrics}
+\label{subsec:sota-metrics-pred}
+The prediction metrics are computed over agents. An agent is characterised only by its position in the
+ground plane and its forecast trajectory. The predicted agents for a frame are assigned to the \ac{gt}
+agents of that frame by Hungarian matching on the centre distance, with the same allowed distance of
+\(2\,\mathrm{m}\) as in Section~\ref{subsec:sota-metrics-track}.
+The track identity is never taken into account, so the assignment is recomputed from scratch in
+every frame rather than carrying established pairings as in tracking. The confidence of a prediction is likewise not read, so the counts are
+evaluated at the single operating point at which the tracker emitted its tracks.
+
+A matched agent is additionally only useful if its forecast is close to what actually happened, which is
+what the following metrics quantify. For an agent with \(K\) predicted future trajectories
+\(\hat{y}^{(k)}\), a ground-truth future \(y\) and the set \(\mathcal{T}\) of future time steps with a valid
+annotation:
+
+\begin{enumerate}
+    \item \textbf{min\acs{ade}} is the average displacement of the best of the \(K\) modes over the whole
+    horizon, which rewards a model for containing one good hypothesis without punishing it for the
+    diversity of the others,
+    \begin{equation}
+        \mathrm{minADE}_K = \min_{k \in \{1,\dots,K\}}
+        \frac{1}{|\mathcal{T}|} \sum_{t \in \mathcal{T}}
+        \big\lVert \hat{y}^{(k)}_t - y_t \big\rVert_2 .
+        \label{eq:minade}
+    \end{equation}
+    A single annotated future step is sufficient for an agent to contribute, and the average is taken over
+    \(|\mathcal{T}|\) rather than over the full horizon, so agents that leave the scene early are scored on
+    a correspondingly shorter forecast.
+
+    \item \textbf{min\acs{fde}} evaluates only the endpoint of the horizon, where the uncertainty of the
+    forecast is largest,
+    \begin{equation}
+        \mathrm{minFDE}_K = \min_{k \in \{1,\dots,K\}}
+        \big\lVert \hat{y}^{(k)}_{T} - y_{T} \big\rVert_2 .
+        \label{eq:minfde}
+    \end{equation}
+    It is defined only for agents that are still annotated at the end of the horizon, that is
+    \(T \in \mathcal{T}\). An agent that disappears earlier is excluded entirely 
+
+    \item \textbf{\Acf{mr}} turns the endpoint error into a binary outcome and reports how often none of the
+    \(K\) modes lands near the true endpoint,
+    \begin{equation}
+        \mathrm{MR} = \frac{\big|\{\, i : \mathrm{minFDE}_K^{(i)} > \tau \,\}\big|}{N_{\mathrm{surv}}},
+        \qquad \tau = 2\,\mathrm{m},
+        \label{eq:mr}
+    \end{equation}
+    where the index \(i\) runs over the \(N_{\mathrm{surv}}\) matched agents that survive the whole horizon,
+    since the others have no min\acs{fde} to threshold.
+
+    \item \textbf{\Acf{epa}} \cite{Gu2023ViP3D} is the metric that judges the two tasks jointly. An agent
+    contributes to the numerator only if it was both matched and forecast accurately, and every false
+    positive is subtracted with a penalty \(\alpha\),
+    \begin{equation}
+        \mathrm{EPA} = \max\left(0,\,
+        \frac{N_{\mathrm{hit}} - \alpha\, N_{FP}}{N_{\mathrm{GT}}}\right),
+        \qquad \alpha = 0.5,
+        \label{eq:epa}
+    \end{equation}
+    where \(N_{\mathrm{hit}}\) counts the matched agents whose \(\mathrm{minFDE}_K\) does not exceed
+    \(\tau\), and \(N_{\mathrm{GT}}\) the annotated agents that survive the whole horizon. Unlike the three
+    metrics above, which are averaged over the agents that were found, \acs{epa} is normalised by the
+    annotated agents rather than the matched ones, so \emph{a model cannot improve it by detecting fewer objects
+    and forecasting only the easy ones}.
+\end{enumerate}
+
+The metrics are complementary and have to be read together. A model may reach a low min\acs{ade} while
+missing many agents entirely, because the error is averaged only over the matched ones, and \acs{mr}
+exposes the cases where no mode comes close at all. \Acs{epa} penalises both failure modes at once and is
+therefore used as the primary criterion in this work. 
