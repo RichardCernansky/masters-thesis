@@ -2446,6 +2446,24 @@
     <bcf:citekey order="64" intorder="1">Caesar2020nuScenes</bcf:citekey>
     <bcf:citekey order="65" intorder="1">Caesar2020nuScenes</bcf:citekey>
     <bcf:citekey order="66" intorder="1">Gu2023ViP3D</bcf:citekey>
+    <bcf:citekey order="67" intorder="1">Carion2020DETR</bcf:citekey>
+    <bcf:citekey order="68" intorder="1">Zhu2021DeformableDETR</bcf:citekey>
+    <bcf:citekey order="69" intorder="1">Zhu2021DeformableDETR</bcf:citekey>
+    <bcf:citekey order="70" intorder="1">Wang2021DETR3D</bcf:citekey>
+    <bcf:citekey order="71" intorder="1">Zeng2022MOTR</bcf:citekey>
+    <bcf:citekey order="72" intorder="1">Gu2023ViP3D</bcf:citekey>
+    <bcf:citekey order="73" intorder="1">Lang2019PointPillars</bcf:citekey>
+    <bcf:citekey order="74" intorder="1">Yan2018SECOND</bcf:citekey>
+    <bcf:citekey order="75" intorder="1">Yin2021CenterPoint</bcf:citekey>
+    <bcf:citekey order="76" intorder="1">Bai2022TransFusion</bcf:citekey>
+    <bcf:citekey order="77" intorder="1">Bai2022TransFusion</bcf:citekey>
+    <bcf:citekey order="78" intorder="1">Gao2021SMCA</bcf:citekey>
+    <bcf:citekey order="79" intorder="1">Philion2020LSS</bcf:citekey>
+    <bcf:citekey order="80" intorder="1">VectorNet2020</bcf:citekey>
+    <bcf:citekey order="81" intorder="1">Liang2020LaneGCN</bcf:citekey>
+    <bcf:citekey order="82" intorder="1">Gu2023ViP3D</bcf:citekey>
+    <bcf:citekey order="83" intorder="1">Halinkovic2025LiViP3D</bcf:citekey>
+    <bcf:citekey order="84" intorder="1">Halinkovic2026LiViP3DPP</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

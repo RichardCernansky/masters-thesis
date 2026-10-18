@@ -1,44 +1,136 @@
 \chapter{Related Work}
 \label{chapter:related}
 
-
 % The specific works this thesis builds on, ordered the way the architecture composes them.
 % Chapter~\ref{chapter:sota} surveys the field, this chapter covers only the components used here
 % and the systems this work is compared against.
+
+Chapter~\ref{chapter:sota} described the field as a whole. This chapter is narrower and covers only the
+works from which the model studied in this thesis is assembled. It begins with the query-based formulation
+that the model inherits, continues with the components introduced by the \ac{lidar} branch, and closes with
+the two works that preceded this thesis in taking ViP3D as the base model and extending it with the
+\ac{lidar} modality.
 
 
 \section{Query-Based Detection and Tracking}
 \label{sec:rw-queries}
 
-% DETR, Deformable DETR, DETR3D, MOTR, ending at ViP3D as the baseline
+% DETR -> Deformable DETR -> DETR3D -> MOTR, ending at ViP3D as the baseline this work extends
+The architecture studied here descends from a line of work that removed many hand-designed components
+like \ac{nms} procedure or anchor generation. DETR \cite{Carion2020DETR} formulates detection as the 
+direct prediction of a fixed-size set of object, in which a small number of learned queries attend to 
+the image features and a Hungarian matching assigns every query to at most one annotated object.  
+
+The slow convergence caused by every query attending to every pixel was addressed by Deformable DETR
+\cite{Zhu2021DeformableDETR}, which lets a query sample only a few learned offsets around a reference
+point and thereby reduces both the cost and the number of epochs required for training. The reference
+point of a query is obtained by a linear projection of the positional part of its embedding, followed by
+a sigmoid that maps it into normalised coordinates.
+In the same work the authors introduce a two-stage variant that initialises the reference points from the
+centres of the highest scoring region proposals generated on top of the encoder output, so that the decoder
+starts from positions determined by the input rather than by a learned constant, and this variant
+outperforms the single-stage one \cite{Zhu2021DeformableDETR}.
+DETR3D carried the formulation into three dimensions by placing the reference point of each query in 3D space and projecting
+it into thte available camera views, so that multi-view images are consumed without an intermediate dense
+depth estimate \cite{Wang2021DETR3D}
+
+The step from detection to tracking was taken by MOTR, which keeps a query alive across frames instead
+of detecting the same object independently in each one. The identity of an object is then carried by the
+query itself rather than recovered afterwards by an association heuristic \cite{Zeng2022MOTR}. How reliably
+that identity survives across frames is what the tracking metrics of
+Section~\ref{subsec:sota-metrics-track} measure. ViP3D
+combines the two ideas and extends them to forecasting. Agent queries are initialised in the DETR3D
+manner, propagated through time in the MOTR manner by a memory bank and a query interaction module,
+and read directly by the trajectory decoder. The result is a pipeline that is differentiable from the
+camera images to the predicted trajectories and that contains no thresholded intermediate representation
+\cite{Gu2023ViP3D}. ViP3D is the model this thesis builds upon.
+
 
 
 \section{LiDAR Backbones and Heatmap Query Initialisation}
 \label{sec:rw-lidar}
 
-% PointPillars, SECOND, CenterPoint, the first stage of TransFusion
+% PointPillars, SECOND, CenterPoint, and the first stage of TransFusion (heatmap -> queries)
+
+ViP3D perceives the scene through cameras alone, so its queries are initialised from a fixed learned
+embedding that is identical in every frame regardless of what the scene contains. Replacing that embedding
+requires a representation of the point cloud and a way of reading object hypotheses out of it.
+
+The representation follows the established encoders described in
+Section~\ref{subsec:sota-dl}. PointPillars groups the points into vertical columns and flattens them into a
+pseudo-image, which allows a conventional two-dimensional backbone to process the point cloud at a cost
+that does not depend on its density \cite{Lang2019PointPillars}, and SECOND forms the \ac{bev} feature map
+with sparse convolutions that skip the empty regions of the grid \cite{Yan2018SECOND}.
+
+The hypotheses come from CenterPoint, which abandons anchors and instead predicts a class-wise heatmap over
+the \ac{bev} grid, where every peak marks the centre of an object \cite{Yin2021CenterPoint}. TransFusion \cite{Bai2022TransFusion}
+turned this into the initialisation of a transformer decoder. \emph{The highest scoring heatmap peaks become
+object queries whose content is sampled from the \ac{bev} feature} at the peak and whose reference point is
+the metric position of that cell, so that the decoder begins from a hypothesis that depends on the input
+rather than from a constant embedding. \emph{This is the mechanism that replaces the
+learned query embedding of ViP3D in the present work.}
 
 
 \section{Attention-Based Camera-LiDAR Fusion}
 \label{sec:rw-fusion}
 
-% SMCA, the second stage of TransFusion, FUTR3D, LIFT
+% TransFusion second stage, SMCA, and Lift-Splat-Shoot as the opposite projection direction
+
+Once the queries originate in the point cloud, the camera has to be reintroduced, because \ac{lidar}
+provides geometry but carries no appearance. TransFusion performs this in a second decoder layer that
+cross-attends to the image features, and it trains that layer on top of a frozen \ac{lidar} model rather
+than jointly, which prevents the fusion from destabilising a branch that already works
+\cite{Bai2022TransFusion}. The attention in that layer is spatially modulated following SMCA, which
+multiplies the attention logits by a Gaussian centred on the projection of the reference point of the
+query, so that a query attends only where it can geometrically be and converges considerably faster than
+unconstrained cross-attention \cite{Gao2021SMCA}.
+
+A different route to the same combination lifts the camera features into the \ac{bev} plane before any
+fusion takes place, by predicting a depth distribution for every pixel and splatting the features onto the
+ground plane accordingly \cite{Philion2020LSS}. The two approaches differ in the direction of the
+projection. Lifting produces a dense camera \ac{bev} map that can simply be concatenated with the
+\ac{lidar} one, at the cost of depending on the quality of the predicted depth, whereas query projection
+keeps the sparse set of agents as the unit of computation and consults the images only at the places where
+the agents are believed to be.
 
 
 \section{Trajectory Decoding from Agent Features}
 \label{sec:rw-decoding}
 
-% VectorNet, LaneGCN
+% VectorNet, LaneGCN, and how ViP3D differs by decoding from query features
+
+The last stage turns the state of an agent into a set of possible futures. VectorNet replaced the
+rasterised scene encodings common at the time with a vectorised one, in which agent histories and map
+elements are represented as polylines and a hierarchical graph aggregates first within and then across them
+\cite{VectorNet2020}. LaneGCN refined the treatment of the map by building an explicit lane graph and
+exchanging information between the agents and the lanes in both directions \cite{Liang2020LaneGCN}. The
+decoder of ViP3D follows this line, with one substantial difference. It does not receive an observed
+trajectory assembled by a tracker, but the feature vector of the agent query itself, which still carries
+the visual evidence that a bounding box would have discarded \cite{Gu2023ViP3D}.
 
 
 \section{Positioning of This Work}
 \label{sec:rw-positioning}
 
-% Li-ViP3D++, ForeSight, MASAR, and the gap this thesis addresses
+% Li-ViP3D, Li-ViP3D++, and the gap this thesis addresses
+
+The idea of giving ViP3D a \ac{lidar} branch has been pursued before in the group in which this thesis was
+written. Li-ViP3D augments the camera-only pipeline with camera-\ac{lidar} fusion and reports improved
+end-to-end perception and prediction on nuScenes \cite{Halinkovic2025LiViP3D}. Li-ViP3D++ develops the
+fusion further by gating the contribution of the camera on the query and by sampling the image features
+deformably rather than densely \cite{Halinkovic2026LiViP3DPP}.
+
+% TODO: state explicitly what this thesis adds beyond the two works above, for example the
+% heatmap-based query initialisation, the two-stage schedule, the camera visibility handling for
+% reduced camera counts, and the study of the non-differentiable tracking interface.
+
+\todo{Formulate the delta of this thesis with respect to Li-ViP3D and Li-ViP3D++.}
 
 
 \section{Summary and Starting Points}
 \label{sec:summary}
+
+% Draws the gaps from both Chapter 2 and Chapter 3, then the starting points
 
 Summary of Chapters~\ref{chapter:sota} and~\ref{chapter:related} ... several paragraphs... 1/2 to 1 page
 

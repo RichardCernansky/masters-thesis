@@ -25,30 +25,30 @@
 \contentsline {subsection}{\numberline {2.4.3}Trajectory Prediction Metrics}{14}{subsection.2.4.3}%
 \contentsline {chapter}{\numberline {3}Related Work}{17}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Query-Based Detection and Tracking}{17}{section.3.1}%
-\contentsline {section}{\numberline {3.2}LiDAR Backbones and Heatmap Query Initialisation}{17}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Attention-Based Camera-LiDAR Fusion}{17}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Trajectory Decoding from Agent Features}{17}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Positioning of This Work}{17}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Summary and Starting Points}{17}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Objectives and Methodology}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Objectives}{19}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Methodology}{19}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Design / Methods Description}{21}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Implementation}{23}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{25}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Setup}{25}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{26}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{26}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{26}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Summary}{26}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusion}{27}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Summary}{27}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Future Work}{27}{section.8.2}%
-\contentsline {chapter}{Resumé}{27}{section.8.2}%
-\contentsline {chapter}{List of Abbreviations}{29}{table.8.1}%
-\contentsline {chapter}{List of Figures}{32}{chapter*.6}%
-\contentsline {chapter}{List of Tables}{33}{chapter*.7}%
-\contentsline {chapter}{References}{37}{chapter*.9}%
+\contentsline {section}{\numberline {3.2}LiDAR Backbones and Heatmap Query Initialisation}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Attention-Based Camera-LiDAR Fusion}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Trajectory Decoding from Agent Features}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Positioning of This Work}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Summary and Starting Points}{20}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Objectives and Methodology}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Objectives}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Methodology}{23}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Design / Methods Description}{25}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Implementation}{27}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{29}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Setup}{29}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{30}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{30}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{30}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Summary}{30}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusion}{31}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Summary}{31}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Future Work}{31}{section.8.2}%
+\contentsline {chapter}{Resumé}{31}{section.8.2}%
+\contentsline {chapter}{List of Abbreviations}{33}{table.8.1}%
+\contentsline {chapter}{List of Figures}{36}{chapter*.7}%
+\contentsline {chapter}{List of Tables}{37}{chapter*.8}%
+\contentsline {chapter}{References}{41}{chapter*.10}%
 \contentsline {chapter}{\numberline {A}Description of Digital Submission }{B-1}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Technical Documentation}{B-3}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Installation Manual}{B-3}{section.B.1}%
@@ -56,8 +56,8 @@
 \contentsline {section}{\numberline {B.3}Developer Manual}{B-3}{section.B.3}%
 \contentsline {chapter}{\numberline {C}Work Schedule}{B-1}{appendix.C}%
 \contentsline {section}{\numberline {C.1}Work Schedule for BP1/DP1}{B-1}{section.C.1}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.10}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.11}%
 \contentsline {section}{\numberline {C.2}Work Schedule for BP2/DP2}{B-2}{section.C.2}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.11}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.12}%
 \contentsline {section}{\numberline {C.3}Work Schedule for DP3}{B-2}{section.C.3}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.12}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.13}%
