@@ -18,18 +18,20 @@ methods are classified according to the categorization presented in \cite{madjid
 \label{subsec:sota-physics}
 
 These rely on kinematic or dynamic models of motion, using physical equations to extrapolate
-future positions and not accouting for uncertainty. Examples include constant-velocity, constant-acceleration models 
-(Single-Trajectory simulation) \cite{Lin2000VehicleDynamics} \cite{Miller2002Collision}. 
-Kalman filters address the unceratinty limitation of the previous models by modeling the vehicle's state as
-a Gaussian disstribution. It predicts trajectories as a two step process of filtering (denoising current
-state from noisy measurements) and forecasting \cite{Kalman1960}. Monte Carlo methods, in particular
-particle filtering, drop the linearity and Gaussianity assumptions of the Kalman filter by approximating
-the state distribution with a set of weighted samples propagated through the motion model, which permits
-arbitrarily shaped and multimodal distributions at the cost of a higher computational load
-\cite{Gordon1993Bootstrap}. Physics-based approaches are simple and fast,
+future positions and not accounting for uncertainty. They are the oldest family in the field, resting on
+estimators formulated between the 1960s and the 2000s. Examples include constant-velocity and
+constant-acceleration models (Single-Trajectory simulation), applied to vehicle path prediction and to
+collision warning in the early 2000s \cite{Lin2000VehicleDynamics,Miller2002Collision}.
+The Kalman filter, formulated in 1960 \cite{Kalman1960}, addresses the uncertainty limitation of the
+previous models by modeling the vehicle's state as a Gaussian distribution. It predicts trajectories as a
+two step process of filtering (denoising current state from noisy measurements) and forecasting. Monte Carlo
+methods, and in particular the particle filter introduced in 1993 \cite{Gordon1993Bootstrap}, drop the
+linearity and Gaussianity assumptions of the Kalman filter by approximating the state distribution with a
+set of weighted samples propagated through the motion model, which permits arbitrarily shaped and multimodal
+distributions at the cost of a higher computational load. Physics-based approaches are simple and fast,
 but they struggle with complex maneuvers or sudden behavior changes since they lack contextual
 understanding. Some variants combine multiple motion models to handle different maneuvers
-(Multiple-Model methods) \cite{Li2005MultipleModel}.
+(Multiple-Model methods), a family surveyed comprehensively in 2005 \cite{Li2005MultipleModel}.
 
 \subsection{Learning-based methods}
 \label{subsec:sota-learning}
@@ -40,11 +42,14 @@ Here, three groups of approaches are mentioned.
 \subsubsection{Classical Machine Learning Methods}
 \label{subsec:sota-classical-ml}
 These methods learn motion patterns from data using statistical models, but without deep
-neural networks. Common approaches include \acp{hmm} \cite{Deo2018Maneuver}, \acp{gp} based prediction
-models \cite{Wang2008GPDM}, \acp{dbn} \cite{Li2020Pedestrian},
-and \acp{gmm} \cite{Wiest2012GMM}. They can capture
+neural networks. They were the dominant data-driven approach before deep learning took over, and they
+continued to appear in hybrid form well after it. The earliest representatives used here are \acp{gp}
+applied to human motion in 2008 \cite{Wang2008GPDM} and \acp{gmm} used for probabilistic vehicle
+trajectory prediction in 2012 \cite{Wiest2012GMM}, followed by \acp{hmm} for maneuver classification in
+2018 \cite{Deo2018Maneuver} and by \acp{dbn} combined with sequence learning in 2020
+\cite{Li2020Pedestrian}. They can capture
 uncertainty to a degree (e.g., an \ac{hmm} can model discrete maneuver states, \acp{gp}
-provide a distribution over trajectories) and were popular before deep learning. However, their
+provide a distribution over trajectories). However, their
 capacity to model very complex, high-dimensional scenarios is limited compared to modern
 deep nets.
 
@@ -56,7 +61,8 @@ policy (via reward feedback) to mimic human driving behavior, effectively planni
 trajectories. Since the reward that drives human driving is not known, \ac{irl}
 recovers it from expert demonstrations and uses it to regularise the predictor \cite{Choi2020IRL}, while
 \ac{il} skips the reward altogether and extracts the policy directly from the observed
-trajectories \cite{Qi2020Imitative}. \Ac{rl}-based predictors can naturally handle multi-agent interactions by
+trajectories \cite{Qi2020Imitative}, both lines reaching trajectory prediction around 2020.
+\Ac{rl}-based predictors can naturally handle multi-agent interactions by
 modeling how agents might react to each other, and can ensure physically feasible outputs through learned
 policy constraints. However, \ac{rl} methods can be data-hungry, harder to train and stabilize, and
 historically have been more common in planning than in pure trajectory forecasting. They are
@@ -66,9 +72,10 @@ prediction.
 \subsubsection{Deep Learning Methods}
 \label{subsec:sota-dl}
 Various Deep Learning methods perform successfully in learning motion dynamics and now dominate trajectory
-prediction. Their strengths and limitations differ mainly according to their architectural design.
-
-
+prediction. The field moved through recurrent architectures around 2018, convolutional and graph-based
+ones between 2019 and 2021, and attention-based ones from 2021 onwards, each family addressing a
+limitation of the previous one. Their strengths and limitations differ mainly according to their
+architectural design.
 
 \textbf{Recurrent Neural Networks}
 
@@ -82,10 +89,22 @@ long-range temporal dependencies \cite{Liu2021DLSurvey}.
 
 \textbf{Convolutional Neural Networks}
 
-Models built on \acp{cnn} are mostly responsible for feature extraction such as capturing objects' positions
-and environmental context \cite{CoverNet2020}. \Acp{tcn} are able to model temporal dependencies through the
+\Acp{cnn} have already succeeded in many tasks, most notably in computer vision
+\cite{Krizhevsky2012AlexNet}. They suit trajectory prediction because trajectories possess a strong
+spatio-temporal continuity, and because they operate on any input that can be arranged as a grid, which
+makes them applicable to the camera, the \ac{lidar} and the \ac{hdmap} modalities alike. In every case they
+are responsible for feature extraction, capturing the positions of the objects and the environmental
+context around them. On camera images a convolutional backbone produces per-view features that are lifted
+into the \ac{bev} plane through a predicted depth distribution \cite{Philion2020LSS}. On \ac{lidar} point
+clouds the points are grouped into vertical pillars and flattened into a pseudo-image
+\cite{Lang2019PointPillars}, from which a sparse convolutional backbone forms the \ac{bev} feature map
+\cite{Yan2018SECOND}. \Acp{hdmap} are rasterised into additional channels of that same grid, so that lane
+geometry and traffic rules reach the network through the same convolutions as the sensor data
+\cite{CoverNet2020}.
+
+\Acp{tcn} are able to model temporal dependencies through the
 causal convolution layers that preserve the temporal order \cite{Nikhil2019CNN}. They extract spatial
-features from image-like inputs such as \ac{bev} or rasterised maps efficiently and permit fast inference, 
+features from image-like inputs such as \ac{bev} or rasterised maps efficiently and enable for fast inference, 
 although the fixed grid on which they operate represents the individual agents only implicitly and is more
 expensive than a vectorised encoding of the same scene \cite{Liu2021DLSurvey}.
 
@@ -124,19 +143,26 @@ largely follow from this choice.
 This approach has been of the most common so far implemented in the literature. The paradigm consists 
 of sequential steps of detection, tracking and prediction, which were independently under an extensive research. First, the sensor data is captured and
 detector localizes the objects present in the scene, usually as a set of bounding boxes with the
-corresponding class labels. The tracking module then associates these detections across consecutive frames,
-opening a tracklet for every newly observed object and preserving its identity as the scene evolves.
-Finally, the prediction module consumes the active tracklets and forecasts the future positions of the corresponding agents \cite{madjid2025survey}.
+corresponding class labels, either from \ac{lidar} point clouds \cite{Yin2021CenterPoint} or from camera
+images \cite{Wang2021DETR3D}. The tracking module then associates these detections across consecutive
+frames \cite{Kalman1960}, opening a tracklet for every newly observed object and preserving its identity as
+the scene evolves. Finally, the prediction module consumes the active tracklets and forecasts the future
+positions of the corresponding agents \cite{madjid2025survey}, commonly by encoding them together with the
+map in a vectorised form \cite{VectorNet2020,Liang2020LaneGCN}.
 Even though this sequential decomposition is intuitive and each module can be developed and debugged
 separately, the stages are optimised in isolation which causes errors to propagate 
 across modules and results in suboptimal performance due to the lack of end-to-end optimization \cite{hu2025survey}.
 
-TODO: add some examples of models
+TODO: add picture 
 
 \subsection{Joint Learning (End-to-End Perception \& Prediction)}
 \label{subsec:sota-e2e}
 Joint learning methods treat detection and motion forecasting as a single optimization problem instead of two independent stages.
 These unified optimization goals help to mitigate the error accumulation in the intermediate steps.
+Interest in the paradigm has grown steadily since the first such models appeared in 2018
+\cite{Luo2018FaF}, to the point that
+a recent survey dedicated to end-to-end perception and prediction already reviews more than a hundred works
+\cite{hu2025survey}.
 Such models are trained with a compound loss over both tasks. They differ in how tightly the stages are coupled,
 ranging from a shared \ac{lidar} backbone co-optimized through
 a combined loss \cite{Luo2018FaF}, through \ac{bev} features reused by both tasks \cite{Hu2021FIERY}, to full
@@ -147,6 +173,8 @@ while attending to scene and map features, so that detection, tracking and forec
 The price of this coupling is that task boundaries blur, which makes poor performance hard to attribute to a
 specific component, and the iterative refinement of queries adds computational overhead that complicates
 real-time deployment in dense scenes \cite{madjid2025survey}.
+
+TODO: add picture
 
 TODO: add tree of the methods 
 % Maybe add if enough space

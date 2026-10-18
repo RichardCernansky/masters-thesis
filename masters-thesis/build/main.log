@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  17 OCT 2026 18:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  18 OCT 2026 09:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1958,12 +1958,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [8]
-LaTeX Font Info:    Trying to load font information for TS1+zpltlf on input line 165.
+LaTeX Font Info:    Trying to load font information for TS1+zpltlf on input line 193.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/newpx/ts1zpltlf.fd
 File: ts1zpltlf.fd 2021/11/24 v1.0 fd file for TS1/zpltlf
 )
 LaTeX Font Info:    Font shape `TS1/zpltlf/m/n' will be
-(Font)              scaled to size 10.95pt on input line 165.
+(Font)              scaled to size 10.95pt on input line 193.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1973,9 +1973,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [9{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newpx/zpl_TOsF.enc}]
-LaTeX Font Info:    Font shape `T1/zpltlf/m/it' will be
-(Font)              scaled to size 10.95pt on input line 226.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1984,18 +1981,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [10]
-LaTeX Font Info:    Trying to load font information for U+zeuex on input line 261.
+LaTeX Font Info:    Font shape `T1/zpltlf/m/it' will be
+(Font)              scaled to size 10.95pt on input line 254.
+LaTeX Font Info:    Trying to load font information for U+zeuex on input line 289.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/eulervm/uzeuex.fd
 File: uzeuex.fd 2005/01/11 v4.0 (WaS)
 )
 LaTeX Font Info:    Font shape `U/zeuex/m/n' will be
-(Font)              scaled to size 10.95pt on input line 261.
+(Font)              scaled to size 10.95pt on input line 289.
 LaTeX Font Info:    Font shape `U/zeuex/m/n' will be
-(Font)              scaled to size 8.0pt on input line 261.
+(Font)              scaled to size 8.0pt on input line 289.
 LaTeX Font Info:    Font shape `T1/zpltlf/m/n' will be
-(Font)              scaled to size 6.0pt on input line 261.
+(Font)              scaled to size 6.0pt on input line 289.
 LaTeX Font Info:    Font shape `U/zeuex/m/n' will be
-(Font)              scaled to size 6.0pt on input line 261.
+(Font)              scaled to size 6.0pt on input line 289.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2013,6 +2012,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [12]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2020,7 +2022,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[13]) (./content/related-work.tex
+[13]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2028,7 +2030,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[14]
+[14]) (./content/related-work.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2072,7 +2074,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 Chapter 5.
-<assets/images/Dynabook.png, id=614, 327.2225pt x 260.975pt>
+<assets/images/Dynabook.png, id=633, 327.2225pt x 260.975pt>
 File: assets/images/Dynabook.png Graphic file (type png)
 <use assets/images/Dynabook.png>
 Package pdftex.def Info: assets/images/Dynabook.png  used on input line 29.
@@ -2230,6 +2232,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [38]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[39]
 Overfull \hbox (1.94229pt too wide) in paragraph at lines 82--82
 []\T1/zpltlf/m/n/10.95 Andreas Geiger, Philip Lenz, and Raquel Ur-ta-sun. ``Are We Ready for Au-tonomous
  []
@@ -2241,7 +2251,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[39]
+[40]
 Package biblatex Info: Reference segment=0 on input line 84.
 
 
@@ -2251,12 +2261,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[40]
+[41]
 \openout2 = `appendices/digital_medium.aux'.
 
  (./appendices/digital_medium.tex
 Appendix A.
-<appendices/zip-file-structure.png, id=748, 893.3375pt x 903.375pt>
+<appendices/zip-file-structure.png, id=774, 893.3375pt x 903.375pt>
 File: appendices/zip-file-structure.png Graphic file (type png)
 <use appendices/zip-file-structure.png>
 Package pdftex.def Info: appendices/zip-file-structure.png  used on input line 36.
@@ -2319,18 +2329,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 44567 strings out of 467525
- 940162 string characters out of 5418983
- 1734797 words of memory out of 5000000
- 72528 multiletter control sequences out of 15000+600000
- 709804 words of font info for 158 fonts, out of 8000000 for 9000
+ 44600 strings out of 467525
+ 941601 string characters out of 5418983
+ 1735449 words of memory out of 5000000
+ 72552 multiletter control sequences out of 15000+600000
+ 709805 words of font info for 158 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  104i,12n,111p,1252b,2333s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/NewPXMI_gnu.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/euex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/euler/eurm7.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxmiaX.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/pxsys.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newtx/txsym.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplb.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplr.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/newpx/zplri.pfb>
-Output written on build/main.pdf (62 pages, 379030 bytes).
+Output written on build/main.pdf (63 pages, 383735 bytes).
 PDF statistics:
- 894 PDF objects out of 1000 (max. 8388607)
- 791 compressed objects within 8 object streams
- 208 named destinations out of 1000 (max. 500000)
+ 925 PDF objects out of 1000 (max. 8388607)
+ 820 compressed objects within 9 object streams
+ 217 named destinations out of 1000 (max. 500000)
  487 words of extra memory for PDF output out of 10000 (max. 10000000)
 

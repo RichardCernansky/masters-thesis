@@ -14,15 +14,15 @@
 \contentsline {subsection}{\numberline {2.1.2}Learning-based methods}{6}{subsection.2.1.2}%
 \contentsline {subsubsection}{\numberline {2.1.2.1}Classical Machine Learning Methods}{6}{subsubsection.2.1.2.1}%
 \contentsline {subsubsection}{\numberline {2.1.2.2}Reinforcement Learning Methods}{6}{subsubsection.2.1.2.2}%
-\contentsline {subsubsection}{\numberline {2.1.2.3}Deep Learning Methods}{6}{subsubsection.2.1.2.3}%
+\contentsline {subsubsection}{\numberline {2.1.2.3}Deep Learning Methods}{7}{subsubsection.2.1.2.3}%
 \contentsline {section}{\numberline {2.2}Prediction Paradigms}{8}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Modular (Detect-Track-Predict)}{8}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Joint Learning (End-to-End Perception \& Prediction)}{8}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.2}Joint Learning (End-to-End Perception \& Prediction)}{9}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}Datasets}{9}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Evaluation Metrics}{10}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Detection Metrics}{10}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Tracking Metrics}{11}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Trajectory Prediction Metrics}{13}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.1}Detection Metrics}{11}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Tracking Metrics}{12}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Trajectory Prediction Metrics}{14}{subsection.2.4.3}%
 \contentsline {chapter}{\numberline {3}Related Work}{17}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Query-Based Detection and Tracking}{17}{section.3.1}%
 \contentsline {section}{\numberline {3.2}LiDAR Backbones and Heatmap Query Initialisation}{17}{section.3.2}%

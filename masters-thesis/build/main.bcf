@@ -2389,52 +2389,63 @@
     <bcf:citekey order="11" intorder="2">huang2022survey</bcf:citekey>
     <bcf:citekey order="12" intorder="1">madjid2025survey</bcf:citekey>
     <bcf:citekey order="13" intorder="1">Lin2000VehicleDynamics</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">Miller2002Collision</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">Kalman1960</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">Gordon1993Bootstrap</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">Li2005MultipleModel</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">Deo2018Maneuver</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">Wang2008GPDM</bcf:citekey>
+    <bcf:citekey order="13" intorder="2">Miller2002Collision</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">Kalman1960</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">Gordon1993Bootstrap</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">Li2005MultipleModel</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">Wang2008GPDM</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">Wiest2012GMM</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">Deo2018Maneuver</bcf:citekey>
     <bcf:citekey order="20" intorder="1">Li2020Pedestrian</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">Wiest2012GMM</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">Choi2020IRL</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">Qi2020Imitative</bcf:citekey>
-    <bcf:citekey order="24" intorder="1">Hoy2018Pedestrian</bcf:citekey>
-    <bcf:citekey order="25" intorder="1">Xin2018DualLSTM</bcf:citekey>
-    <bcf:citekey order="26" intorder="1">Shao2023ReasonNet</bcf:citekey>
-    <bcf:citekey order="27" intorder="1">Liu2021DLSurvey</bcf:citekey>
-    <bcf:citekey order="28" intorder="1">CoverNet2020</bcf:citekey>
-    <bcf:citekey order="29" intorder="1">Nikhil2019CNN</bcf:citekey>
-    <bcf:citekey order="30" intorder="1">Liu2021DLSurvey</bcf:citekey>
-    <bcf:citekey order="31" intorder="1">Wang2021GraphTCN</bcf:citekey>
-    <bcf:citekey order="32" intorder="1">madjid2025survey</bcf:citekey>
-    <bcf:citekey order="33" intorder="1">Liu2021mmTransformer</bcf:citekey>
-    <bcf:citekey order="34" intorder="1">Wayformer2022</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">Choi2020IRL</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">Qi2020Imitative</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">Hoy2018Pedestrian</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">Xin2018DualLSTM</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">Shao2023ReasonNet</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">Liu2021DLSurvey</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">Krizhevsky2012AlexNet</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">Philion2020LSS</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">Lang2019PointPillars</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">Yan2018SECOND</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">CoverNet2020</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">Nikhil2019CNN</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">Liu2021DLSurvey</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">Wang2021GraphTCN</bcf:citekey>
     <bcf:citekey order="35" intorder="1">madjid2025survey</bcf:citekey>
     <bcf:citekey order="36" intorder="1">Liu2021mmTransformer</bcf:citekey>
-    <bcf:citekey order="36" intorder="2">Ngiam2021SceneTransformer</bcf:citekey>
-    <bcf:citekey order="37" intorder="1">madjid2025survey</bcf:citekey>
-    <bcf:citekey order="38" intorder="1">hu2025survey</bcf:citekey>
-    <bcf:citekey order="39" intorder="1">Luo2018FaF</bcf:citekey>
-    <bcf:citekey order="40" intorder="1">Hu2021FIERY</bcf:citekey>
-    <bcf:citekey order="41" intorder="1">Liang2020PnPNet</bcf:citekey>
-    <bcf:citekey order="42" intorder="1">Gu2023ViP3D</bcf:citekey>
-    <bcf:citekey order="42" intorder="2">Casas2024DeTra</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">Wayformer2022</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">madjid2025survey</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">Liu2021mmTransformer</bcf:citekey>
+    <bcf:citekey order="39" intorder="2">Ngiam2021SceneTransformer</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">Yin2021CenterPoint</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">Wang2021DETR3D</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">Kalman1960</bcf:citekey>
     <bcf:citekey order="43" intorder="1">madjid2025survey</bcf:citekey>
-    <bcf:citekey order="44" intorder="1">Geiger2012KITTI</bcf:citekey>
-    <bcf:citekey order="45" intorder="1">Huang2018ApolloScape</bcf:citekey>
-    <bcf:citekey order="46" intorder="1">Kesten2019Lyft</bcf:citekey>
-    <bcf:citekey order="47" intorder="1">Caesar2020nuScenes</bcf:citekey>
-    <bcf:citekey order="48" intorder="1">Wilson2021Argoverse2</bcf:citekey>
-    <bcf:citekey order="49" intorder="1">Chang2019Argoverse</bcf:citekey>
-    <bcf:citekey order="50" intorder="1">Ettinger2021WOMD</bcf:citekey>
-    <bcf:citekey order="51" intorder="1">Chen2024WOMDLiDAR</bcf:citekey>
-    <bcf:citekey order="52" intorder="1">Caesar2020nuScenes</bcf:citekey>
-    <bcf:citekey order="53" intorder="1">Valverde2025Detection</bcf:citekey>
-    <bcf:citekey order="54" intorder="1">Valverde2025Detection</bcf:citekey>
-    <bcf:citekey order="55" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">VectorNet2020</bcf:citekey>
+    <bcf:citekey order="44" intorder="2">Liang2020LaneGCN</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">hu2025survey</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">Luo2018FaF</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">hu2025survey</bcf:citekey>
+    <bcf:citekey order="48" intorder="1">Luo2018FaF</bcf:citekey>
+    <bcf:citekey order="49" intorder="1">Hu2021FIERY</bcf:citekey>
+    <bcf:citekey order="50" intorder="1">Liang2020PnPNet</bcf:citekey>
+    <bcf:citekey order="51" intorder="1">Gu2023ViP3D</bcf:citekey>
+    <bcf:citekey order="51" intorder="2">Casas2024DeTra</bcf:citekey>
+    <bcf:citekey order="52" intorder="1">madjid2025survey</bcf:citekey>
+    <bcf:citekey order="53" intorder="1">Geiger2012KITTI</bcf:citekey>
+    <bcf:citekey order="54" intorder="1">Huang2018ApolloScape</bcf:citekey>
+    <bcf:citekey order="55" intorder="1">Kesten2019Lyft</bcf:citekey>
     <bcf:citekey order="56" intorder="1">Caesar2020nuScenes</bcf:citekey>
-    <bcf:citekey order="57" intorder="1">Gu2023ViP3D</bcf:citekey>
+    <bcf:citekey order="57" intorder="1">Wilson2021Argoverse2</bcf:citekey>
+    <bcf:citekey order="58" intorder="1">Chang2019Argoverse</bcf:citekey>
+    <bcf:citekey order="59" intorder="1">Ettinger2021WOMD</bcf:citekey>
+    <bcf:citekey order="60" intorder="1">Chen2024WOMDLiDAR</bcf:citekey>
+    <bcf:citekey order="61" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="62" intorder="1">Valverde2025Detection</bcf:citekey>
+    <bcf:citekey order="63" intorder="1">Valverde2025Detection</bcf:citekey>
+    <bcf:citekey order="64" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="65" intorder="1">Caesar2020nuScenes</bcf:citekey>
+    <bcf:citekey order="66" intorder="1">Gu2023ViP3D</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
