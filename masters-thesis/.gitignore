@@ -1,0 +1,6 @@
+# LaTeX build artefacts
+build/
+*.synctex.gz
+
+# macOS
+.DS_Store

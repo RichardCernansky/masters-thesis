@@ -1,3 +1,6 @@
+should I use emphasis?
+is it correct to state the deformable detr as predecessor of prior initialization
+
 make sure to use pretrained pillars backbone
 TO-DOs
 nsp neodpisuju

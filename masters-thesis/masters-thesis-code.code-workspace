@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../projects-repos/LiViP3D"
+		}
+	],
+	"settings": {
+		"latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+		"latex-workshop.latex.watch.pdf.delay": 5000
+	}
+}

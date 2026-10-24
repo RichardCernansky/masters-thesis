@@ -1,6 +1,17 @@
 \chapter{Objectives and Methodology}
 \label{chapter:objectives-and-methodology}
 
+The present work applies the same principle in the \ac{bev} plane. The proposal generator is a class-wise
+heatmap predicted from the \ac{lidar} feature map, and its highest scoring peaks supply both halves of a
+query, the reference point from the metric position of the peak and the content from the feature sampled at
+that cell together with an embedding of its class. Only the slots left free by the tracker are filled in
+this way, so that agents already being followed keep the queries they carry and the initialisation concerns
+newly appearing objects alone. The queries entering the decoder are therefore hypotheses about the scene
+currently observed rather than constants inherited from training, and the camera is reintroduced only
+afterwards, in a second decoder layer trained on top of the frozen \ac{lidar} model, which makes the fusion
+a refinement of those hypotheses rather than their source.
+
+
 \section{Objectives}
 \label{sec:objectives}
 
