@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1788450463.44809 "main.aux" "main.bbl" "main" 1788450465.52088 0
+["bibtex main"] 1788450463.44809 "main.aux" "main.bbl" "main" 1789063499.0027 0
   "./bibliography.bib" 1787684021.3836 15393 3907ff8753bd4e0d4b0bc13e31d32cf0 ""
   "/usr/local/texlive/2026/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1788450465.20572 20260 30362a744267b21e18faa31ddef21b93 "pdflatex"
+  "main.aux" 1789063498.68012 20260 30362a744267b21e18faa31ddef21b93 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1788450463.55421 "/Users/richard/Desktop/DP/documentation/main.tex" "main.pdf" "main" 1788450465.52107 0
-  "/Users/richard/Desktop/DP/documentation/main.tex" 1788450462.29456 72569 fc7facf1a3fd87f8e6d63c051a7b2162 ""
+["pdflatex"] 1789063496.90474 "/Users/richard/Desktop/DP/documentation/research-proposal/main.tex" "main.pdf" "main" 1789063499.00288 0
+  "/Users/richard/Desktop/DP/documentation/research-proposal/main.tex" 1788450462.29456 72569 fc7facf1a3fd87f8e6d63c051a7b2162 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc" 1698694482 2914 fdbc4a54b9bc76f4551b5303f2737d33 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc" 1422827479 2083 60e36f8eac802fcaf19eabe2633b406e ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc" 1529098226 3124 3813fd4c981d99822890a2861b0d274c ""
@@ -146,11 +146,11 @@
   "figures/lidar-bev-pred.png" 1788445369.31822 263757 106900f73289f0c0a04905f38c505e41 ""
   "figures/raw-smca-gauss.png" 1788445369.32772 796592 faf90c2114daf95d54464630119eb161 ""
   "figures/smca-attn-top20.png" 1788445369.3138 947897 53c0599ed5e64c457845bf5030252eb4 ""
-  "main.aux" 1788450465.20572 20260 30362a744267b21e18faa31ddef21b93 "pdflatex"
+  "main.aux" 1789063498.68012 20260 30362a744267b21e18faa31ddef21b93 "pdflatex"
   "main.bbl" 1788450463.55147 11783 8e2cdc28e096eeea19276944de82fa2c "bibtex main"
-  "main.out" 1788450465.20741 7252 5e16bb0deb43357b4b8a13b7af53a2f4 "pdflatex"
+  "main.out" 1789063498.68164 7252 5e16bb0deb43357b4b8a13b7af53a2f4 "pdflatex"
   "main.tex" 1788450462.29456 72569 fc7facf1a3fd87f8e6d63c051a7b2162 ""
-  "main.toc" 1788450465.20766 5470 9b7800bc7c57f492cb2d3abe87fa7149 "pdflatex"
+  "main.toc" 1789063498.68217 5470 9b7800bc7c57f492cb2d3abe87fa7149 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

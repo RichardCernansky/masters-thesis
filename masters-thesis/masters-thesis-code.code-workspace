@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "../../projects-repos/LiViP3D"
+		},
+		{
+			"path": "../presentation"
+		},
+		{
+			"path": "../research-proposal"
 		}
 	],
 	"settings": {
