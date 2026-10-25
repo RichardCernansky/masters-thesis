@@ -557,57 +557,6 @@
       \verb 2511.00088
       \endverb
     \endentry
-    \entry{Zeng2022MOTR}{inproceedings}{}{}
-      \name{author}{6}{}{%
-        {{hash=cf8347625ac023e9b6dce6a0e814d570}{%
-           family={Zeng},
-           familyi={Z\bibinitperiod},
-           given={Fangao},
-           giveni={F\bibinitperiod}}}%
-        {{hash=a76f5b3e40110ff20d825c7dab6f3102}{%
-           family={Dong},
-           familyi={D\bibinitperiod},
-           given={Bin},
-           giveni={B\bibinitperiod}}}%
-        {{hash=793f67f6f689055dfe8a478feb25c873}{%
-           family={Zhang},
-           familyi={Z\bibinitperiod},
-           given={Yuang},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=ca149023cf29f45bb98b90db48b4eb55}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={Tiancai},
-           giveni={T\bibinitperiod}}}%
-        {{hash=5e72bc22dbcf0984c6d113d280e36990}{%
-           family={Zhang},
-           familyi={Z\bibinitperiod},
-           given={Xiangyu},
-           giveni={X\bibinitperiod}}}%
-        {{hash=3a3772ff910cd5647014fa1f8c9fb007}{%
-           family={Wei},
-           familyi={W\bibinitperiod},
-           given={Yichen},
-           giveni={Y\bibinitperiod}}}%
-      }
-      \strng{namehash}{4ae1961643c21745d5fd5b775b371b2d}
-      \strng{fullhash}{17ce128338fbf996699d7f06ce5540f7}
-      \strng{fullhashraw}{17ce128338fbf996699d7f06ce5540f7}
-      \strng{bibnamehash}{4ae1961643c21745d5fd5b775b371b2d}
-      \strng{authorbibnamehash}{4ae1961643c21745d5fd5b775b371b2d}
-      \strng{authornamehash}{4ae1961643c21745d5fd5b775b371b2d}
-      \strng{authorfullhash}{17ce128338fbf996699d7f06ce5540f7}
-      \strng{authorfullhashraw}{17ce128338fbf996699d7f06ce5540f7}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{European Conference on Computer Vision (ECCV)}
-      \field{title}{{MOTR}: End-to-End Multiple-Object Tracking with Transformer}
-      \field{year}{2022}
-      \field{pages}{659\bibrangedash 675}
-      \range{pages}{17}
-    \endentry
   \enddatalist
 \endrefsection
 \endinput

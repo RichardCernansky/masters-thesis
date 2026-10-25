@@ -119,7 +119,6 @@
 \author[R. Cernansky]{Richard Cernansky}
 \institute{\small Faculty of Informatics and Information Technologies\\
 Slovak University of Technology in Bratislava\\[0.5em]
-\footnotesize Supervisor:  Matej Halinkovic, PhD.\\[0.5em]
 \footnotesize Interview, Mobile Perception Systems Lab, TU Eindhoven}
 \date{26 October 2026}
 
@@ -174,14 +173,14 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \textbf{Modular stacks} detect, then track, then predict\refcite{chen2024end,Liang2020PnPNet}.
   \begin{itemize}
     \item The interface between stages is just a list of boxes and identities
-    \item Whatever information not encoded in a box is discarded
+    \item Whatever information NOT encoded in a box is discarded
     \item \emph{Errors propagate forward} and cannot be corrected downstream
   \end{itemize}
 
 
   \vspace{0.4em}
   \textbf{End-to-end perception and prediction} removes that interface.  \\
-  \textbf{ViP3D}\refcite{Gu2023ViP3D} carries persistent \alert{agent queries} through time, and the trajectory
+  \textbf{ViP3D}\refcite{Gu2023ViP3D} carries persistent \alert{agent queries through time}, and the trajectory
   decoder reads the query features.
 
   \vspace{0.4em}
@@ -229,7 +228,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
       with no explicit position at all.
     \item \textbf{Deformable DETR}\refcite{Zhu2021DeformableDETR} makes the
       position explicit as a reference point, predicted from the query
-      embeddin - \textbf{input-independent}
+      embedding - \textbf{input-independent}
     \item Its \alert{two-stage variant} takes reference points from the centres
       of the top-scoring encoder proposals instead, and \alert{outperforms the
       single-stage one}.
@@ -237,8 +236,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \end{itemize}
 
   \vspace{0.4em}
-  \alert{Nobody has applied this to end-to-end perception and prediction},
-  where the query must also survive across frames.
+  \alert{Nobody has applied this to end-to-end perception and prediction.}
 \end{frame}
 
 \begin{frame}{So how is the query generated?}
@@ -256,7 +254,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
     \begin{itemize}
     \item Only the slots left free by the tracker are filled
     \item Agents already being followed keep the queries they carry (suppression) 
-    \item initialisation concerns \alert{newly appearing objects alone}.
+    \item initialisation concerns \alert{newly appearing objects }
     \end{itemize}
   \end{block}
 
@@ -265,13 +263,33 @@ Slovak University of Technology in Bratislava\\[0.5em]
   Local-max NMS is $3{\times}3$ and excludes pedestrian and bicycle classes
 \end{frame}
 
-% TODO: add classes, non-augmented 
+\begin{frame}{InitVip3D Architecture}
+  \vspace{-0.2em}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.62\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]%
+        {figures/initvip_architecture.png}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \footnotesize
+      Queries are \alert{born from the LiDAR BEV heatmap} 
+      \hyperlink{bev_hm_vis}{\beamergotobutton{see backup}}
+      
+
+      \vspace{0.7em}
+      Two decoder layers refine the points, deformable BEV attention and then
+      camera SMCA.
+    \end{column}
+  \end{columns}
+\end{frame}
+
 \begin{frame}{Methodology}
   \footnotesize
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.48\textwidth}
       \textbf{\color{tuered}Training}, two stages following the TransFusion
-      recipe\refcite{Bai2022TransFusion}
+      recipe\refcite{Bai2022TransFusion}, batch size 8 on 8x Nvidia H200
       \begin{itemize}\setlength{\itemsep}{1pt}
         \item Stage 1: LiDAR model alone, 20 epochs
         \item Stage 2: stage 1 frozen, camera layer on top, 6 epochs (so fusion cannot destabilise)
@@ -291,6 +309,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
       \textbf{\color{tuered}Metrics}
       \begin{itemize}\setlength{\itemsep}{1pt}
         \item EPA\refcite{Gu2023ViP3D} is the primary criterion
+          \hyperlink{epabackup}{\beamergotobutton{see backup}}
         \item minADE, minFDE, MR cover \alert{matched} agents only
         \item Detection and tracking metrics alongside
       \end{itemize}
@@ -308,49 +327,28 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \end{columns}
 \end{frame}
 
-\begin{frame}{InitVip3D Architecture}
-  \vspace{-0.2em}
-  \begin{columns}[c,onlytextwidth]
-    \begin{column}{0.62\textwidth}
-      \centering
-      \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]%
-        {figures/initvip_architecture.png}
-    \end{column}
-    \begin{column}{0.35\textwidth}
-      \footnotesize
-      Queries are \alert{born from the LiDAR BEV heatmap} rather than from a
-      learned embedding.
-
-      \vspace{0.7em}
-      Two decoder layers refine them, deformable BEV attention and then
-      camera SMCA.
-    \end{column}
-  \end{columns}
-\end{frame}
-
 
 \begin{frame}{Preliminary results}
   \footnotesize
-  % TODO: add the row for lidar only 5 sweeps once finishes training
   \vspace{0.3em}
   \begin{table}
     \centering
-    \caption{nuScenes validation, seven classes, 6\,s horizon, $K = 6$ modes.
+    \caption{nuScenes validation, seven classes, no augmentations, 6\,s horizon, $K = 6$ modes.
       The top block is published numbers, the lower two are my stage-1
-      LiDAR-only and stage-2 fusion runs, every one of mine at effective
+      LiDAR-only and stage-2 fusion runs, every one of at effective
       batch 8 under identical evaluation code.}
     \scriptsize
     \setlength{\tabcolsep}{2.5pt}
     \begin{tabular}{lccccccc}
       \toprule
-      Run & Queries & EPA \up & minADE \dn & minFDE \dn & MR \dn & Params (M) & Latency (ms) \dn \\
+      Run & Queries & EPA \up & minADE \dn & minFDE \dn & MR \dn & Params (M) & \textbf{Latency (ms)} \dn \\
       \midrule
       ViP3D \emph{as published}\refcite{Gu2023ViP3D} (baseline)     & 300 & 0.245 & 1.47  & 2.21  & 0.237 & 41.77 & 64.3 \\
       Li-ViP3D++ \emph{as published}\refcite{Halinkovic2026LiViP3DPP} & 300 & 0.505 & 1.11 & 1.80 & 0.209 & --- & 76.28 \\
       \midrule
-      \textbf{Stage 1, LiDAR only}             & 300 & \alert{\textbf{0.293}} & 0.956 & 1.776 & 0.183 & 40.80 & 90.0\\
       Stage 1, LiDAR only             & 100 & 0.256 & 1.022 & 1.937 & 0.239 & 40.80 & 81.1\\
       \textbf{Stage 1, LiDAR only, 5 sweeps} & 300 & \alert{0.263} & 1.001 & 1.947 & 0.204 & 40.80 & \alert{58.2} \\
+      \textbf{Stage 1, LiDAR only}             & 300 & \alert{\textbf{0.293}} & 0.956 & 1.776 & 0.183 & 40.80 & 90.0\\
       \midrule
       \textbf{Stage 2, $+$ SMCA camera} & 300 & \alert{\textbf{0.318}} & \alert{\textbf{0.882}} & \alert{\textbf{1.590}} & \textbf{0.176} & 41.66 & 130.3 \\
       \bottomrule
@@ -401,11 +399,11 @@ Slovak University of Technology in Bratislava\\[0.5em]
     Camera fusion brings +40.3ms latency for only +0.025 EPA
   \vspace{+0.4em}
 
-    \item \textbf{Reduction in number of queries $\to$ $-9$\,ms latency},
+    \item \textbf{Reduction to 100 queries $\to$ $-9$\,ms latency},
       but EPA drops 0.293 to 0.256 (savings cost)
   \vspace{+0.4em}
 
-    \item \textbf{Reduction in number of sweeps \alert{beats ViP3D in every metric}.}
+    \item \textbf{Reduction in number of sweeps \alert{still beats ViP3D in every metric}.}
   \vspace{+0.4em}
 
     \item \textbf{PointPillar LiDAR backbone is weak on detections.}
@@ -458,6 +456,10 @@ Slovak University of Technology in Bratislava\\[0.5em]
       \vspace{0.7em}
       The grey spans carry \alert{no supervision}.
 
+      \vspace{0.7em}
+      The action expert denoises acceleration - decodes a flow field, Euler-integrated into controls,
+      then unicycle-integrated into waypoints.
+      \hyperlink{actionexpert}{\beamergotobutton{see backup}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -522,8 +524,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
 
   \vspace{0.5em}
   \begin{block}{Note}
-    It is cheap, it needs no new annotation, and it resolves whether the
-    premise of the proposal holds.
+    It is cheap and needs no new annotation.
   \end{block}
 \end{frame}
 
@@ -551,7 +552,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   the control path at once.
 
   \vspace{0.3em}
-  \begin{block}{The detection loss becomes the auxiliary objective AR1 asks for}
+  \begin{block}{Auxiliary detection loss}
     Their future work\refcite{NVIDIA2025AlpamayoR1} suggests
     depth or scene-flow auxiliaries to improve the
     visual backbone. 
@@ -583,9 +584,9 @@ Slovak University of Technology in Bratislava\\[0.5em]
 
   \textbf{Grounding reward}
   \begin{itemize}
-    \item Parse trace for object references
+    \item Parse model generated trace for object references
     \item Compare against the query set, score the match
-    \item the RL stage gains a \alert{grounding reward} 
+    \item the RL stage gains a \alert{grounding reward}
   \end{itemize}
 
   \vspace{-0.5em}
@@ -594,9 +595,10 @@ Slovak University of Technology in Bratislava\\[0.5em]
     Trace: \emph{``yielding to the pedestrian on the right, lead vehicle
     stopped''}\\
     Referenced: \{pedestrian, vehicle\} \qquad
-    Query set: \{car, car, truck\}\\
+    Query set: \{car, truck\}\\
     Score: pedestrian unmatched, penalty applied.
   \end{exampleblock}
+
 \end{frame}
 
 \begin{frame}{Evaluation protocol and expected contributions}
@@ -642,14 +644,13 @@ Slovak University of Technology in Bratislava\\[0.5em]
       \textbf{\color{tuered}My thesis delivers}
       \begin{itemize}
         \footnotesize
-        \item A compact set of agent queries, tens rather than thousands
-        \item Grounded in sensor data by a detection loss
+        \item A set of agent queries grounded in sensor data by a detection loss
         \item Carrying persistent identity across frames through a memory bank
-        \item Initialised from the data rather 
+
       \end{itemize}
     \end{column}
     \begin{column}{0.47\textwidth}
-      \textbf{\color{tuered}The stay requires}
+      \textbf{\color{tuered}The research on stay requires}
       \begin{itemize}
         \footnotesize
         \item A span short enough to insert into a token sequence
@@ -662,24 +663,20 @@ Slovak University of Technology in Bratislava\\[0.5em]
 
   \vspace{0.5em}
   \begin{block}{In one sentence}
-    The thesis built the representation, which could be used to extend 
+    The thesis built the representation, which could be used to extend AR1 with the grounded, persistent object set its reasoning currently has to invent.
   \end{block}
 \end{frame}
 
-\begin{frame}{Scientific questions to be addressed during the stay}
+\begin{frame}{Summary: Scientific questions to be addressed during the stay}
   \begin{enumerate}
     \item How often does a released driving VLA refer to objects that are not
-      there, measured against human-written traces on the same clips?
+      there?
     \item Does conditioning the reasoning on an explicit, detection-supervised
-      object span reduce that rate, and can the span be shown to be used rather
-      than ignored?
+      object span reduce that rate, and can the span be shown to be used?
     \item Does propagating the queries across frames extend the benefit to
-      occlusion and reappearance, which causal locality and a per-frame
-      KV-cache cannot reach?
+      occlusion and reappearance?
     \item What does the span cost in tokens, parameters and latency, and is
-      that affordable on automotive-grade embedded hardware?
-    \item Can a rule-based grounding reward replace a judge model in the RL
-      stage?
+      that affordable on automotive embedded hardware?
   \end{enumerate}
 \end{frame}
 
@@ -687,18 +684,13 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \begin{itemize}
     \item The lab's long-term goal is spatio-temporal reasoning that lets a
       mobile platform anticipate future events, identified as a bottleneck in
-      crowded inner-city settings. \tueemph{H3 is a concrete instance of that
-      problem.}
+      crowded inner-city settings. 
+    \item group's current work on driving models spans \textbf{perception, simulation and embedded deployment} (prototype vehicle and digital twin)
+    \item this proposal sits in the perception and reasoning parts 
     \item The test vehicle carries a 360-degree camera setup with LiDAR and
-      radar, which enables the multimodal variant where LiDAR-derived queries
-      ground an otherwise camera-only backbone. \tueemph{My preliminary work is
-      LiDAR-based and transfers directly.}
-    \item Work in the lab on token-efficient vision transformers addresses
-      precisely the cost an added span incurs, which the Phase 2 token-budget
-      analysis measures.
-    \item Radar perception suggests extending the multimodal variant to the
-      conditions where a camera backbone is least reliable.
-    \item Closed-loop evaluation would run in the TU/e digital twin alongside
+      radar. My preliminary work is
+      LiDAR-based and transfers directly.
+    \item Closed-loop evaluation could run in the TU/e digital twin alongside
       the public AlpaSim scenario sets.
   \end{itemize}
 \end{frame}
@@ -719,9 +711,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
 \appendix
 % ============================================================================
 
-% TODO:add visulizations
-
-\begin{frame}{Backup: why EPA is the primary metric}
+\begin{frame}[label=epabackup]{Backup: why EPA is the primary metric}
   \vspace{-0.3em}
   EPA as defined by ViP3D\refcite{Gu2023ViP3D}:
   \[
@@ -759,7 +749,6 @@ Slovak University of Technology in Bratislava\\[0.5em]
         miss tolerance        & 5 frames \\
         heatmap NMS kernel    & $3{\times}3$ \\
         active-track suppression & $5{\times}5$ cells \\
-        queries $K$           & 300 \\
         \bottomrule
       \end{tabular}
     \end{column}
@@ -792,9 +781,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \normalsize
   Accuracy degrades close to monotonically with batch size even with the
   learning rate scaled, which is consistent with the usual small-batch-noise
-  argument. I report it as an observation rather than an explanation, because
-  the flat-minima claim is testable on the checkpoints I already have and I
-  have not tested it yet.
+  argument.
 \end{frame}
 
 \begin{frame}{Backup: configuration details}
@@ -837,22 +824,39 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \end{columns}
 \end{frame}
 
+
 \begin{frame}{Backup: questions for the lab}
   \begin{enumerate}
     \item Which AR1 checkpoints and which parts of the Alpamayo training stack
       are available inside the lab, and is AlpaSim usable for closed-loop
       evaluation in February?
-    \item Do the campus recordings carry 3D annotations, or would Phase 1 run
-      on the public clips and the campus data enter only in Phase 2 and 3?
-    \item What compute would a fine-tuning run have, and how is it scheduled?
-    \item Is the LiDAR and radar on the test vehicle time-synchronised and
-      calibrated against the 360-degree camera rig to the accuracy that
-      query-level projection needs?
-    \item Who else in the group works on the reasoning side, and would this sit
-      alongside an existing effort or beside it?
-    \item What is a realistic publication target for a four-month result in
-      your experience?
+    \item What compute resources are available? 
+    \item Would I work in a team on the Alpamayo?
+    \item Is publication realistic?
   \end{enumerate}
+\end{frame}
+
+\begin{frame}[label=bev_hm_vis]{Backup: LiDAR BEV heatmap and predictions}
+  \vspace{-0.2em}
+  \begin{center}
+    \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]%
+      {figures/lidar-bev-pred.png}
+  \end{center}
+  \vspace{-0.2em}
+  \footnotesize
+  Class-wise heatmap over the BEV grid, whose top-$K$ peaks become the agent
+  queries.
+\end{frame}
+
+\begin{frame}{Backup: SMCA camera attention}
+  \vspace{-0.2em}
+  \begin{center}
+    \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]%
+      {figures/smca-attn-top20.png}
+  \end{center}
+  \vspace{-0.2em}
+  \footnotesize
+  Attention of the top 20 queries in decoder layer 1. 
 \end{frame}
 
 % ----------------------------------------------------------------------------

@@ -1,6 +1,8 @@
 expert → field → Euler integration → controls → unicycle integration → waypoints.
 add clicking on this and epa
 add visualisations
+add grounding reward equation 
+check the repo on how possible the project is
 
 rm presentation/main\ \(*
 
