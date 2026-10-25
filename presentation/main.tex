@@ -150,7 +150,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
     \item \tueemph{Connection between the two} \hfill \textcolor{tuedark!70}{}
       \begin{itemize}
         \footnotesize
-        \item What the thesis delivers that the proposal needs
+        \item What the thesis delivers for the proposal 
         \item Scientific questions for the stay, fit with the lab
       \end{itemize}
   \end{enumerate}
@@ -170,7 +170,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
 % ============================================================================
 
 \begin{frame}{Trajectory prediction}
-  \textbf{Modular stacks} detect, then track, then predict\refcite{chen2024end,Liang2020PnPNet}.
+  Modular stacks \textbf{detect}, then \textbf{track}, then \textbf{predict} \refcite{chen2024end,Liang2020PnPNet}.
   \begin{itemize}
     \item The interface between stages is just a list of boxes and identities
     \item Whatever information NOT encoded in a box is discarded
@@ -188,7 +188,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
     \begin{itemize}
         \item learned embedding of fixed size
         \item identical in every frame, scene
-        \item reference points come from that embedding (so Query X starts in the
+        \item reference points come from that embedding (so Query X may start in the
           same place on an empty motorway and at a busy intersection)
     \end{itemize}
   \end{alertblock}
@@ -204,21 +204,20 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \vspace{0.4em}
   \textbf{3 research questions:}
   \begin{enumerate}
-    \item What does the query-based formulation achieve on the queries
-       \textbf{derived from LiDAR}?
+    \item What do the query-based representation \textbf{derived from LiDAR} achieve for the model?
     \item Once the queries already carry geometric evidence, what \textbf{does the
-      camera still contribute}, and to which metrics and classes?
-    \item A query that starts near its object \textbf{needs less layers to correct}. What does
-      that buy in decoder depth and in inference latency?
+      camera contribute}?
+    \item A query that starts near its object \textbf{needs less layers to correct}. How does it effect decoder depth and in inference latency?
   \end{enumerate}
 
 
   \vspace{0.4em}
 \end{frame}
 
+
 \begin{frame}{Query initialisation is interesting}
     \begin{block}{}
-    Input-dependent reference points are known to be better and to reduce the
+    Input-dependent reference points are \textbf{known to be better} and to reduce the
     decoder depth needed for convergence. \\
     \end{block}
   \textbf{Our reading of the detection literature:}
@@ -250,7 +249,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \end{itemize}
 
   \vspace{0.4em}
-  \begin{block}{What makes this work with tracking}
+  \begin{block}{What makes this work with tracking: }
     \begin{itemize}
     \item Only the slots left free by the tracker are filled
     \item Agents already being followed keep the queries they carry (suppression) 
@@ -275,11 +274,15 @@ Slovak University of Technology in Bratislava\\[0.5em]
       \footnotesize
       Queries are \alert{born from the LiDAR BEV heatmap} 
       \hyperlink{bev_hm_vis}{\beamergotobutton{see backup}}
-      
 
-      \vspace{0.7em}
+      \vspace{0.4em} 
       Two decoder layers refine the points, deformable BEV attention and then
-      camera SMCA.
+      camera SMCA. \\
+      \vspace{0.4em}
+      {\large{\textbf{Loss:}}} \\
+      \vspace{-0.8em} 
+      $$\mathcal{L} = \mathcal{L}_{\mathrm{hm}} + \underbrace{(\mathcal{L}_{\mathrm{cls}} + \mathcal{L}_{\mathrm{box}})}_{\mathrm{detection}} + \underbrace{(\mathcal{L}_{\mathrm{reg}} + \mathcal{L}_{\mathrm{prob}})}_{\mathrm{prediction}}$$
+
     \end{column}
   \end{columns}
 \end{frame}
@@ -289,18 +292,18 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.48\textwidth}
       \textbf{\color{tuered}Training}, two stages following the TransFusion
-      recipe\refcite{Bai2022TransFusion}, batch size 8 on 8x Nvidia H200
+      recipe\refcite{Bai2022TransFusion} \textbf{but use batch size 8 on 8x Nvidia H200}
       \begin{itemize}\setlength{\itemsep}{1pt}
-        \item Stage 1: LiDAR model alone, 20 epochs
-        \item Stage 2: stage 1 frozen, camera layer on top, 6 epochs (so fusion cannot destabilise)
+        \item \textbf{Stage 1: LiDAR model} alone, 20 epochs
+        \item \textbf{Stage 2}: stage 1 frozen, camera layer on top, 6 epochs (so fusion cannot destabilise)
         \item \alert{No data augmentation in any run} (future work)
       \end{itemize}
 
-      \vspace{0.4em}
+      \vspace{-0.1em}
       \textbf{\color{tuered}Data}, nuScenes\refcite{Caesar2020nuScenes}
       \begin{itemize}\setlength{\itemsep}{1pt}
         \item 700 training and 150 validation scenes, keyframes at 2\,Hz
-        \item Persistent instance identities, three-frame clips, 6\,s futures
+        \item Persistent instance identities, \textbf{3-frame clips}, \textbf{6\,s futures}
         \item Seven classes: car, truck, bus, trailer, motorcycle, bicycle,
           pedestrian
       \end{itemize}
@@ -308,18 +311,18 @@ Slovak University of Technology in Bratislava\\[0.5em]
     \begin{column}{0.48\textwidth}
       \textbf{\color{tuered}Metrics}
       \begin{itemize}\setlength{\itemsep}{1pt}
-        \item EPA\refcite{Gu2023ViP3D} is the primary criterion
+        \item \textbf{EPA}\refcite{Gu2023ViP3D} is the primary criterion
           \hyperlink{epabackup}{\beamergotobutton{see backup}}
         \item minADE, minFDE, MR cover \alert{matched} agents only
         \item Detection and tracking metrics alongside
       \end{itemize}
 
       \vspace{0.3em}
-      \textbf{\color{tuered}Protocol}
+      \textbf{\color{tuered}Evaluation Protocol}
       \begin{itemize}\setlength{\itemsep}{1pt}
         \item Identical code, thresholds, class set
         \item Best epoch by EPA
-        \item Latency: \alert{one fixed frame replayed}, 
+        \item \textbf{Latency}: \alert{one fixed frame replayed}, 
           over 200 timed iterations after warm-up, protocol the
           published rows use
       \end{itemize}
@@ -392,7 +395,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \begin{enumerate}
     \item \textbf{Agents of the most represented classes get most of the gradient.}
     Need for augmentation for less represented classes (future step).
-    \item \textbf{Query origin matters more than the fusion does.} 
+    \item \textbf{Query init. matters more than the fusion does.} 
   \vspace{+0.4em}
 
     \item \textbf{Camera fusion brings small benefit with increased latency.}
@@ -471,7 +474,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   requires that SUV to exist.
 
   \begin{itemize}
-    \item The image tokens the reasoning conditions on are shaped \textbf{only by the
+    \item Reasoning conditions on the image tokens that are shaped \textbf{only by the
       language-modelling objective.} 
     \item \textbf{Weak visual grounding} is listed among the limitations of supervised
       fine-tuning, and the \alert{mitigation is post-hoc}, a reasoning model grading
@@ -498,7 +501,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
 
   \vspace{0.4em}
   \begin{description}
-    \item[H1] \textbf{Grounding failure is measurable and non-negligible.}
+    \item[H1] \textbf{Grounding failure is measurable.}
       Traces from the released AR1 model refer to object categories absent from
       the scene at a rate significantly above that of the human-verified
     \item[H2] \textbf{An object-centric span reduces it.} Conditioning the
@@ -517,7 +520,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
 
   \vspace{0.4em}
   \begin{enumerate}
-    \item Parse each \textbf{model generated trace} for referenced categories and coarse positions.
+    \item Parse each \textbf{model generated trace} for referenced categories.
     \item Score a reference as \alert{unsupported} when no GT annotated object of that category exists in that region at that time.
     \item Apply the identical measurement to the \textbf{human-written traces}, compute the gaps between model and human traces
   \end{enumerate}
@@ -617,14 +620,13 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \vspace{0.3em}
   \textbf{Expected contributions.}
   \begin{enumerate}
-    \item The first quantitative characterisation of object-level hallucination
+    \item A \textbf{quantitative characterisation} of object-level hallucination
       in a released driving VLA, with a reusable protocol. This stands
       regardless of H2 and H3.
-    \item An architecture and training recipe for a sensor-grounded, temporally
+    \item An \textbf{architecture and training recipe} for a sensor-grounded, temporally
       propagated object span, with ablations
-    \item A characterisation of the token-budget against grounding trade-off
-    \item A workshop or conference submission, with code released against the
-      public checkpoints.
+    \item An investigation of the token $\leftrightarrow$ latency \textbf{budget trade-off}
+    \item A workshop or conference \textbf{paper}
   \end{enumerate}
   \vspace{-0.4em}
 \end{frame}
@@ -636,7 +638,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
 % ============================================================================
 
 \begin{frame}{How the stay builds on the thesis}
-  The thesis produces exactly the representation AR1 lacks.
+  The thesis produces a representation AR1 lacks.
 
   \vspace{0.4em}
   \begin{columns}[T,onlytextwidth]
@@ -653,7 +655,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
       \textbf{\color{tuered}The research on stay requires}
       \begin{itemize}
         \footnotesize
-        \item A span short enough to insert into a token sequence
+        \item A query span to insert into a token sequence
         \item A supervision signal that grounds it in the scene
         \item State that survives beyond the observation window
         \item Queries that reflect a particular scene
@@ -663,19 +665,19 @@ Slovak University of Technology in Bratislava\\[0.5em]
 
   \vspace{0.5em}
   \begin{block}{In one sentence}
-    The thesis built the representation, which could be used to extend AR1 with the grounded, persistent object set its reasoning currently has to invent.
+    The thesis built the representation, which could be used to extend AR1 with the grounded, persistent object set that its reasoning currently has to invent.
   \end{block}
 \end{frame}
 
 \begin{frame}{Summary: Scientific questions to be addressed during the stay}
   \begin{enumerate}
-    \item How often does a released driving VLA refer to objects that are not
-      there?
-    \item Does conditioning the reasoning on an explicit, detection-supervised
-      object span reduce that rate, and can the span be shown to be used?
-    \item Does propagating the queries across frames extend the benefit to
+    \item How often does a released driving VLA \textbf{refer to objects} that are \textbf{not
+      there}?
+    \item Does conditioning the reasoning on an explicit, \textbf{detection-supervised
+      object span} reduce the hallucinations, and can the span be shown to be used?
+    \item Does \textbf{propagating the queries across frames} extend the benefit to
       occlusion and reappearance?
-    \item What does the span cost in tokens, parameters and latency, and is
+    \item What does the \textbf{span cost in tokens}, parameters and latency, and is
       that affordable on automotive embedded hardware?
   \end{enumerate}
 \end{frame}
@@ -694,7 +696,6 @@ Slovak University of Technology in Bratislava\\[0.5em]
       the public AlpaSim scenario sets.
   \end{itemize}
 \end{frame}
-
 
 {
 \setbeamercolor{background canvas}{bg=tuered}
@@ -796,7 +797,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
           $512 \times 512$.
         \item SECOND with strides $[2,2]$, SECONDFPN to
           $384 \times 256 \times 256$, so $0.4$\,m per BEV cell.
-        \item 10 accumulated sweeps, 5 features per point.
+        \item 10/5 accumulated sweeps, 5 features per point.
       \end{itemize}
       \textbf{Heatmap head}
       \begin{itemize}
