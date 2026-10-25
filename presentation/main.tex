@@ -235,7 +235,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \end{itemize}
 
   \vspace{0.4em}
-  \alert{Nobody has applied this to end-to-end perception and prediction.}
+  \alert{Nobody has applied query initialisation to end-to-end perception and prediction.}
 \end{frame}
 
 \begin{frame}{So how is the query generated?}
@@ -281,7 +281,12 @@ Slovak University of Technology in Bratislava\\[0.5em]
       \vspace{0.4em}
       {\large{\textbf{Loss:}}} \\
       \vspace{-0.8em} 
-      $$\mathcal{L} = \mathcal{L}_{\mathrm{hm}} + \underbrace{(\mathcal{L}_{\mathrm{cls}} + \mathcal{L}_{\mathrm{box}})}_{\mathrm{detection}} + \underbrace{(\mathcal{L}_{\mathrm{reg}} + \mathcal{L}_{\mathrm{prob}})}_{\mathrm{prediction}}$$
+        $$\mathcal{L} = \mathcal{L}_{\mathrm{hm}} + \underbrace{(\mathcal{L}_{\mathrm{cls}} + \mathcal{L}_{\mathrm{box}})}_{\mathrm{detection}} + \underbrace{(\mathcal{L}_{\mathrm{reg}} + \mathcal{L}_{\mathrm{prob}})}_{\mathrm{prediction}}$$
+        \begin{itemize}
+        \item $\mathcal{L}_{\mathrm{det}}$ and $\mathcal{L}_{\mathrm{pred}}$ only for \alert{matched agents}
+        \item Trajectory prediction $\mathcal{L}_{\mathrm{pred\_regression}}$ is SmoothL1
+        \item $\mathcal{L}_{\mathrm{hm}}$ is focal loss
+        \end{itemize}
 
     \end{column}
   \end{columns}
@@ -438,8 +443,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \vspace{0.4em}
   \begin{alertblock}{Important structural observation}
   Trace is a functional intermediate representation between perception and planning.
-    \textbf{End-to-end driving removed the hard interface} between perception
-    and planning. AR1 restores an interface, but expresses it in natural
+    \textbf{AR1 restores the hard interface}, but expresses it in natural
     language.
   \end{alertblock}
 \end{frame}
@@ -447,22 +451,28 @@ Slovak University of Technology in Bratislava\\[0.5em]
 \begin{frame}{Alpamayo-R1 architecture}
   \vspace{-0.2em}
   \begin{columns}[c,onlytextwidth]
-    \begin{column}{0.62\textwidth}
+    \begin{column}{0.55\textwidth}
       \centering
       \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]%
         {figures/alpamayo-architecture.png}
     \end{column}
-    \begin{column}{0.35\textwidth}
-      \footnotesize
+    \begin{column}{0.43\textwidth}
+      \scriptsize
       One backbone pass emits the reasoning and the trajectory tokens.
 
-      \vspace{0.7em}
+      \vspace{0.5em}
       The grey spans carry \alert{no supervision}.
 
-      \vspace{0.7em}
+      \vspace{0.5em}
       The action expert denoises acceleration - decodes a flow field, Euler-integrated into controls,
       then unicycle-integrated into waypoints.
-      \hyperlink{actionexpert}{\beamergotobutton{see backup}}
+
+    \begin{enumerate}
+        \item \textbf{Action Modality Injection:} Cross-entropy loss for discrete trajectory tokens and conditional flow matching for the continuous action expert %[cite: 21, 22]
+        \item \textbf{Eliciting Reasoning:} Supervised Fine-Tuning (SFT) utilizing Cross-entropy loss on the structured Chain of Causation (CoC) dataset %[cite: 22, 23]
+        \item \textbf{RL-based Post-Training:} Group Relative Policy Optimization (GRPO) using verifiable rewards for reasoning quality, action consistency, and safety %[cite: 24]
+    \end{enumerate}
+
     \end{column}
   \end{columns}
 \end{frame}
@@ -522,8 +532,9 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \begin{enumerate}
     \item Parse each \textbf{model generated trace} for referenced categories.
     \item Score a reference as \alert{unsupported} when no GT annotated object of that category exists in that region at that time.
-    \item Apply the identical measurement to the \textbf{human-written traces}, compute the gaps between model and human traces
+    \item Apply the identical measurement to the \textbf{human-written traces}, compute the gaps between model and human traces \alert{unsuported ratios} and report
   \end{enumerate}
+
 
   \vspace{0.5em}
   \begin{block}{Note}
@@ -565,14 +576,14 @@ Slovak University of Technology in Bratislava\\[0.5em]
 \begin{frame}{Controls, because the span might simply be ignored}
   \vspace{0.7em}
   \begin{description}
-    \item[Span masking] Replace the queries with learned null embeddings at
+    \item[Span masking] Replace the queries with null embeddings at
       inference and measure the change in the generated traces. No change means
       the span is inert.
     \item[Span corruption] Substitute queries taken from a different scene. A
       trace that adopts the foreign objects shows the span is genuinely read.
   \end{description}
-
 \end{frame}
+
 
 \begin{frame}{Phase 3: temporal propagation, and the grounding reward \\
   \hfill\normalfont\footnotesize\itshape depends on the time remaining}

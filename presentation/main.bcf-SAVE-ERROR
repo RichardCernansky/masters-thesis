@@ -2359,39 +2359,4 @@
       <bcf:constraint type="data" datatype="issn">
         <bcf:field>issn</bcf:field>
       </bcf:constraint>
-      <bcf:constraint type="data" datatype="ismn">
-        <bcf:field>ismn</bcf:field>
-      </bcf:constraint>
-      <bcf:constraint type="data" datatype="pattern" pattern="(?:sf|sm|sn|pf|pm|pn|pp)">
-        <bcf:field>gender</bcf:field>
-      </bcf:constraint>
-    </bcf:constraints>
-  </bcf:datamodel>
-  <!-- CITATION DATA -->
-  <!-- SECTION 0 -->
-  <bcf:bibdata section="0">
-    <bcf:datasource type="file" datatype="bibtex" glob="false">bib/references.bib</bcf:datasource>
-  </bcf:bibdata>
-  <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">chen2024end</bcf:citekey>
-    <bcf:citekey order="1" intorder="2">Liang2020PnPNet</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">Gu2023ViP3D</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">Carion2020DETR</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">Zhu2021DeformableDETR</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">Bai2022TransFusion</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">Yin2021CenterPoint</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">Bai2022TransFusion</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">Caesar2020nuScenes</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">Gu2023ViP3D</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">Gu2023ViP3D</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">Halinkovic2026LiViP3DPP</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">Halinkovic2026LiViP3DPP</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">Halinkovic2026LiViP3DPP</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">Gu2023ViP3D</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">Halinkovic2025LiViP3D</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">Halinkovic2026LiViP3DPP</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">NVIDIA2025AlpamayoR1</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">NVIDIA2025AlpamayoR1</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">NVIDIA2025AlpamayoR1</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">Gu2023ViP3D</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">Gu2023ViP3D</bcf:citekey>
+      <bcf:co

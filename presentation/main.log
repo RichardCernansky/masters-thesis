@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  25 OCT 2026 20:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  25 OCT 2026 23:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1153,13 +1153,13 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 <figures/initvip_architecture.png, id=631, 841.1425pt x 728.7225pt>
 File: figures/initvip_architecture.png Graphic file (type png)
 <use figures/initvip_architecture.png>
-Package pdftex.def Info: figures/initvip_architecture.png  used on input line 288.
+Package pdftex.def Info: figures/initvip_architecture.png  used on input line 293.
 (pdftex.def)             Requested size: 219.57748pt x 190.23062pt.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 288.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 293.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Overfull \hbox (22.56686pt too wide) detected at line 288
+Overfull \hbox (22.56686pt too wide) detected at line 293
 \OMS/lmsy/m/n/9 L \OT1/lmss/m/n/9 = \OMS/lmsy/m/n/9 L[] \OT1/lmss/m/n/9 + [] + []
  []
 
@@ -1169,13 +1169,13 @@ Overfull \hbox (22.56686pt too wide) detected at line 288
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 363.
+(Font)              <10> on input line 368.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 363.
+(Font)              <7> on input line 368.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 363.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 368.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 363.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 368.
  [10
 
 ] [11
@@ -1190,9 +1190,13 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 <figures/alpamayo-architecture.png, id=1114, 812.03375pt x 762.85pt>
 File: figures/alpamayo-architecture.png Graphic file (type png)
 <use figures/alpamayo-architecture.png>
-Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 468.
+Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 478.
 (pdftex.def)             Requested size: 202.49992pt x 190.23479pt.
- [15
+
+Overfull \vbox (0.3411pt too high) detected at line 478
+ []
+
+[15
 
  <./figures/alpamayo-architecture.png>] [16
 
@@ -1205,7 +1209,7 @@ Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 4
 ] [20
 
 ]
-Overfull \vbox (0.78336pt too high) detected at line 605
+Overfull \vbox (0.78336pt too high) detected at line 616
  []
 
 [21
@@ -1225,7 +1229,7 @@ Overfull \vbox (0.78336pt too high) detected at line 605
 ] [28
 
 {/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
-Underfull \hbox (badness 10000) detected at line 757
+Underfull \hbox (badness 10000) detected at line 768
 [][][][][][][][][]
  []
 
@@ -1238,23 +1242,23 @@ Underfull \hbox (badness 10000) detected at line 757
 ] [32
 
 ]
-<figures/lidar-bev-pred.png, id=2085, 1195.46625pt x 598.235pt>
+<figures/lidar-bev-pred.png, id=2083, 1195.46625pt x 598.235pt>
 File: figures/lidar-bev-pred.png Graphic file (type png)
 <use figures/lidar-bev-pred.png>
-Package pdftex.def Info: figures/lidar-bev-pred.png  used on input line 850.
+Package pdftex.def Info: figures/lidar-bev-pred.png  used on input line 861.
 (pdftex.def)             Requested size: 353.00607pt x 176.65123pt.
  [33
 
  <./figures/lidar-bev-pred.png>]
-<figures/smca-attn-top20.png, id=2112, 1771.61874pt x 1126.2075pt>
+<figures/smca-attn-top20.png, id=2110, 1771.61874pt x 1126.2075pt>
 File: figures/smca-attn-top20.png Graphic file (type png)
 <use figures/smca-attn-top20.png>
-Package pdftex.def Info: figures/smca-attn-top20.png  used on input line 861.
+Package pdftex.def Info: figures/smca-attn-top20.png  used on input line 872.
 (pdftex.def)             Requested size: 277.86902pt x 176.63968pt.
  [34
 
  <./figures/smca-attn-top20.png>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 869.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 880.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [35
@@ -1284,21 +1288,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35421 strings out of 467525
- 709504 string characters out of 5418983
- 1532415 words of memory out of 5000000
+ 35420 strings out of 467525
+ 709498 string characters out of 5418983
+ 1533415 words of memory out of 5000000
  63600 multiletter control sequences out of 15000+600000
  749432 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,20n,123p,746b,2352s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{actionexpert} has been referenced but does not exist, replaced by a fixed one
-
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt8.pfb>
-Output written on main.pdf (36 pages, 1609005 bytes).
+Output written on main.pdf (36 pages, 1611108 bytes).
 PDF statistics:
- 2284 PDF objects out of 2487 (max. 8388607)
- 1207 compressed objects within 13 object streams
- 93 named destinations out of 1000 (max. 500000)
+ 2282 PDF objects out of 2487 (max. 8388607)
+ 1205 compressed objects within 13 object streams
+ 92 named destinations out of 1000 (max. 500000)
  563 words of extra memory for PDF output out of 10000 (max. 10000000)
 
