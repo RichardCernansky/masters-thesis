@@ -189,8 +189,8 @@ Slovak University of Technology in Bratislava\\[0.5em]
     \begin{itemize}
         \item learned embedding of fixed size
         \item identical in every frame, scene
-        \item reference points from that embedding, so Query X starts in the
-          same place on an empty motorway and at a busy intersection
+        \item reference points come from that embedding (so Query X starts in the
+          same place on an empty motorway and at a busy intersection)
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -205,8 +205,8 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \vspace{0.4em}
   \textbf{3 research questions:}
   \begin{enumerate}
-    \item What does the query-based formulation achieve once the queries
-       are \textbf{derived from LiDAR}?
+    \item What does the query-based formulation achieve on the queries
+       \textbf{derived from LiDAR}?
     \item Once the queries already carry geometric evidence, what \textbf{does the
       camera still contribute}, and to which metrics and classes?
     \item A query that starts near its object \textbf{needs less layers to correct}. What does
@@ -309,6 +309,23 @@ Slovak University of Technology in Bratislava\\[0.5em]
 \end{frame}
 
 \begin{frame}{InitVip3D Architecture}
+  \vspace{-0.2em}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.62\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]%
+        {figures/initvip_architecture.png}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \footnotesize
+      Queries are \alert{born from the LiDAR BEV heatmap} rather than from a
+      learned embedding.
+
+      \vspace{0.7em}
+      Two decoder layers refine them, deformable BEV attention and then
+      camera SMCA.
+    \end{column}
+  \end{columns}
 \end{frame}
 
 
@@ -328,14 +345,14 @@ Slovak University of Technology in Bratislava\\[0.5em]
       \toprule
       Run & Queries & EPA \up & minADE \dn & minFDE \dn & MR \dn & Params (M) & Latency (ms) \dn \\
       \midrule
-      ViP3D \emph{as published}\refcite{Gu2023ViP3D}      & 300 & 0.245 & 1.47  & 2.21  & 0.237 & --- & 64.3 \\
+      ViP3D \emph{as published}\refcite{Gu2023ViP3D} (baseline)     & 300 & 0.245 & 1.47  & 2.21  & 0.237 & 41.77 & 64.3 \\
       Li-ViP3D++ \emph{as published}\refcite{Halinkovic2026LiViP3DPP} & 300 & 0.505 & 1.11 & 1.80 & 0.209 & --- & 76.28 \\
       \midrule
-      Stage 1, LiDAR only             & 300 & 0.293 & 0.956 & 1.776 & 0.183 & 40.80 & 90.0\\
+      \textbf{Stage 1, LiDAR only}             & 300 & \alert{\textbf{0.293}} & 0.956 & 1.776 & 0.183 & 40.80 & 90.0\\
       Stage 1, LiDAR only             & 100 & 0.256 & 1.022 & 1.937 & 0.239 & 40.80 & 81.1\\
-      Stage 1, LiDAR only, 5 sweeps   & 300 &  &  &  &  & 40.80 & \alert{58.2} \\
+      \textbf{Stage 1, LiDAR only, 5 sweeps} & 300 & \alert{0.263} & 1.001 & 1.947 & 0.204 & 40.80 & \alert{58.2} \\
       \midrule
-      \textbf{Stage 2, $+$ SMCA camera} & 300 & \alert{\textbf{0.318}} & \alert{\textbf{0.882}} & \alert{\textbf{1.590}} & \textbf{0.176} & 41.66 & 130 \\
+      \textbf{Stage 2, $+$ SMCA camera} & 300 & \alert{\textbf{0.318}} & \alert{\textbf{0.882}} & \alert{\textbf{1.590}} & \textbf{0.176} & 41.66 & 130.3 \\
       \bottomrule
     \end{tabular}
   \end{table}
@@ -378,22 +395,26 @@ Slovak University of Technology in Bratislava\\[0.5em]
     \item \textbf{Agents of the most represented classes get most of the gradient.}
     Need for augmentation for less represented classes (future step).
     \item \textbf{Query origin matters more than the fusion does.} 
-     Heatmap-derived queries take minADE from
-      1.47 to 0.956 and EPA from 0.245 to 0.293 (at the same parameter count
-      and against a baseline trained in the same harness).
+  \vspace{+0.4em}
+
     \item \textbf{Camera fusion brings small benefit with increased latency.}
-      Adding the camera layer on top of the frozen LiDAR model moves EPA
-      0.293 to 0.318. The camera still contributes once the queries already
-      carry geometry, which is the answer to question 2.
-    \item \textbf{Reduction in number of queries}
-    \item \textbf{Reduction in number of sweeps is favorable.}
+    Camera fusion brings +40.3ms latency only for +0.025 EPA
+  \vspace{+0.4em}
+
+    \item \textbf{Reduction in number of queries $\to$ $-9$\,ms latency},
+      but EPA drops 0.293 to 0.256 (savings cost)
+  \vspace{+0.4em}
+
+    \item \textbf{Reduction in number of sweeps \alert{beats ViP3D in every metric}.}
+  \vspace{+0.4em}
+
     \item \textbf{PointPillar LiDAR backbone is weak on detections.}
-    This detection inability propagates to the prediction causing errors. 
-    Trying more complex LiDAR backbone is the future step.
+    Next step is to try Voxel Net (higher cost)
 
 
   \end{enumerate}
 \end{frame}
+
 
 
 % ============================================================================
@@ -403,24 +424,40 @@ Slovak University of Technology in Bratislava\\[0.5em]
 \begin{frame}{Motivation}
   Vision-language-action models are a route to interpretable end-to-end
   driving. \textbf{Alpamayo-R1}\refcite{NVIDIA2025AlpamayoR1} generates a
-  Chain-of-Causation reasoning trace, and a flow-matching action expert decodes
+  \textbf{Chain-of-Causation reasoning trace}, and \textbf{flow-matching action expert} decodes
   a trajectory conditioned on it.
 
   \vspace{0.4em}
-  The reported gains concentrate exactly where imitation learning is weakest:
-  \alert{12\,\% improvement in planning accuracy on challenging cases} and a
+  The reported gains concentrate exactly where imitation learning is weakest: \\
+  \alert{12\,\% improvement in planning accuracy on challenging cases} \\
   \alert{35\,\% reduction in close-encounter rate} in closed-loop simulation.
 
   \vspace{0.4em}
-  So the trace is not decorative. It is a functional intermediate
-  representation between perception and planning.
-
-  \vspace{0.4em}
-  \begin{alertblock}{The structural observation this proposal starts from}
-    End-to-end driving removed the hand-crafted interface between perception
+  \begin{alertblock}{Important structural observation}
+  Trace is a functional intermediate representation between perception and planning.
+    End-to-end driving removed the hard interface between perception
     and planning. AR1 restores an interface, but expresses it in natural
-    language, where nothing can check it.
+    language.
   \end{alertblock}
+\end{frame}
+
+\begin{frame}{Alpamayo-R1 architecture}
+  \vspace{-0.2em}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.62\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]%
+        {figures/alpamayo-architecture.png}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \footnotesize
+      One backbone pass emits the reasoning and the trajectory tokens.
+
+      \vspace{0.7em}
+      The grey spans carry \alert{no supervision}.
+
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{The research gap}
@@ -430,19 +467,16 @@ Slovak University of Technology in Bratislava\\[0.5em]
   requires that SUV to exist.
 
   \begin{itemize}
-    \item The image tokens the reasoning conditions on are shaped only by the
-      language-modelling objective. There is no detection head, no depth or
-      segmentation supervision, and no object-level entry anywhere in the
-      KV-cache that the reasoning and the action expert read.
-    \item Weak visual grounding is listed among the limitations of supervised
+    \item The image tokens the reasoning conditions on are shaped \textbf{only by the
+      language-modelling objective.} 
+    \item \textbf{Weak visual grounding} is listed among the limitations of supervised
       fine-tuning, and the mitigation is post-hoc, a reasoning model grading
-      traces during RL. Nothing constrains the reasoning at inference time.
-    \item The second gap is temporal. Causal locality in the labelling protocol
-      and a KV-cache rebuilt each frame mean the scene is re-derived every step
-      and no identity persists.
+      traces during RL (nothing constrains the reasoning at inference time)
+    \item \textbf{No temporal preservation} - causal locality in the labelling protocol
+      and a KV-cache rebuilt each frame.
   \end{itemize}
 
-  \begin{block}{Gap}
+  \begin{block}{Observation}
     Driving VLAs couple perception to reasoning through an \alert{unverifiable,
     memoryless interface}, grounded in neither sensor evidence nor time.
   \end{block}
@@ -725,6 +759,8 @@ Slovak University of Technology in Bratislava\\[0.5em]
 \appendix
 % ============================================================================
 
+% TODO:add visulizations
+
 \begin{frame}{Backup: why EPA is the primary metric}
   \vspace{-0.3em}
   EPA as defined by ViP3D\refcite{Gu2023ViP3D}:
@@ -736,8 +772,8 @@ Slovak University of Technology in Bratislava\\[0.5em]
   \begin{itemize}
     \item Predicted agents are matched to annotated agents by Hungarian
       assignment on centre distance, gated at 2\,m, in the current frame.
-    \item A matched agent counts as a hit only if its minFDE$_K$ stays within
-      2\,m at the horizon.
+    \item $N_{\text{hit}}$ counts an agent as a hit only if its minFDE$_K$
+      stays within 2\,m at the horizon.
     \item minADE, minFDE and MR average \alert{only over matched agents}, so a
       model that detects fewer objects can improve all three.
     \item $N_{\mathrm{GT}}$ counts the annotated agents that survive the whole
@@ -745,6 +781,7 @@ Slovak University of Technology in Bratislava\\[0.5em]
       failure modes at once.
   \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Backup: the tracking interface}
   The model's inference behaviour is controlled by parameters that no gradient

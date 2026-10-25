@@ -450,6 +450,87 @@
       \field{title}{nuScenes: A Multimodal Dataset for Autonomous Driving}
       \field{year}{2020}
     \endentry
+    \entry{Halinkovic2026LiViP3DPP}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=a33460d8b40845ae79a40ef18a931161}{%
+           family={Halinkovic},
+           familyi={H\bibinitperiod},
+           given={Matej},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f922e8a9250477ebfb1b3ec000a97abf}{%
+           family={Masarykova},
+           familyi={M\bibinitperiod},
+           given={Nina},
+           giveni={N\bibinitperiod}}}%
+        {{hash=b1eeb394d288bf38263096dba672703d}{%
+           family={Vinel},
+           familyi={V\bibinitperiod},
+           given={Alexey},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4a4e0559a681b1abc11771d4d8f4a088}{%
+           family={Galinski},
+           familyi={G\bibinitperiod},
+           given={Marek},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{fullhash}{52591f4ce637f9d70fddafdf168f83e6}
+      \strng{fullhashraw}{52591f4ce637f9d70fddafdf168f83e6}
+      \strng{bibnamehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{authorbibnamehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{authornamehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{authorfullhash}{52591f4ce637f9d70fddafdf168f83e6}
+      \strng{authorfullhashraw}{52591f4ce637f9d70fddafdf168f83e6}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.CV}
+      \field{eprinttype}{arXiv}
+      \field{title}{Li-Vi{P}3{D}++: Query-Gated Deformable Camera--{LiDAR} Fusion for End-to-End Perception and Trajectory Prediction}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2601.20720
+      \endverb
+    \endentry
+    \entry{Halinkovic2025LiViP3D}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{hash=a33460d8b40845ae79a40ef18a931161}{%
+           family={Halinkovic},
+           familyi={H\bibinitperiod},
+           given={Matej},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b1eeb394d288bf38263096dba672703d}{%
+           family={Vinel},
+           familyi={V\bibinitperiod},
+           given={Alexey},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b281d03a48d23d35c18d4d365ac0da67}{%
+           family={Benesova},
+           familyi={B\bibinitperiod},
+           given={Wanda},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{fullhash}{e06a1073ba2c266976c44f16ce134112}
+      \strng{fullhashraw}{e06a1073ba2c266976c44f16ce134112}
+      \strng{bibnamehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{authorbibnamehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{authornamehash}{608c4e21fc480b883fcbc3db2257e406}
+      \strng{authorfullhash}{e06a1073ba2c266976c44f16ce134112}
+      \strng{authorfullhashraw}{e06a1073ba2c266976c44f16ce134112}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2025 IEEE International Automated Vehicle Validation Conference (IAVVC)}
+      \field{title}{Li-Vi{P}3{D}: Enhancing End-to-End Perception and Prediction with Camera-{LiDAR} Fusion}
+      \field{year}{2025}
+      \field{pages}{1\bibrangedash 6}
+      \range{pages}{6}
+    \endentry
     \entry{NVIDIA2025AlpamayoR1}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=4265c1c6676601774c1a926ce1009c43}{%

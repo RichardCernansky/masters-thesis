@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber main"] 1792878014.50528 "main.bcf" "main.bbl" "main" 1792878403.81241 0
+["biber main"] 1792921600.95574 "main.bcf" "main.bbl" "main" 1792923165.14248 0
   "bib/references.bib" 1792868664.23507 23078 ebb8cf1a1cc627eae9cff4f06fd367df ""
-  "main.bcf" 1792878403.65637 109278 f22c1127c9b0fd9144476212cbf9d584 "pdflatex"
+  "main.bcf" 1792923164.97596 109278 f22c1127c9b0fd9144476212cbf9d584 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1792878399.21812 "/Users/richard/Desktop/DP/documentation/presentation/main.tex" "main.pdf" "main" 1792878403.8128 0
-  "/Users/richard/Desktop/DP/documentation/presentation/main.tex" 1792878397.53454 36837 4ef337691509fc0ba80d8430954aef90 ""
+["pdflatex"] 1792923159.11412 "/Users/richard/Desktop/DP/documentation/presentation/main.tex" "main.pdf" "main" 1792923165.14288 0
+  "/Users/richard/Desktop/DP/documentation/presentation/main.tex" 1792923158.82884 37491 712e9e2d065f9da7b5687daaa282d697 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -283,13 +283,15 @@
   "/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1778347097 5573038 b99aad5e4898a9034e953632f940512b ""
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1778347081 3636770 9668ad56b46851fdaa8d4db9f9cfe896 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
-  "main.aux" 1792878403.65316 8790 5b602f677226e177fb51f9565e9f8d80 "pdflatex"
-  "main.bbl" 1792878016.0068 22936 9fd3ccf4074f80ed6b82660b79659185 "biber main"
-  "main.nav" 1792878403.65735 4087 7a7d8acbe00f4332805ce5c51eec0406 "pdflatex"
-  "main.out" 1792878390.733 454 1707c90d7cf6b28b7e731d6c7ebf1e4c "pdflatex"
-  "main.run.xml" 1792878403.65729 2309 e5d8d7d70ae4f63fd36050b5cd3c24d0 "pdflatex"
-  "main.tex" 1792878397.53454 36837 4ef337691509fc0ba80d8430954aef90 ""
-  "main.toc" 1792878403.65738 187 263ae5713065d49ed3557c030ab7e582 "pdflatex"
+  "figures/alpamayo-architecture.png" 1792922697.4622 83199 2fa599e913da2c623b124c51da09b884 ""
+  "figures/initvip_architecture.png" 1792922675.34285 74140 6633e73ccb0c6d66c726a00a122c26fe ""
+  "main.aux" 1792923164.97234 8919 ea217b404d9cde1f7852520a75a42116 "pdflatex"
+  "main.bbl" 1792921602.67122 22936 9fd3ccf4074f80ed6b82660b79659185 "biber main"
+  "main.nav" 1792923164.97681 4180 15bb692236e3ed338dce12c92c87d2cc "pdflatex"
+  "main.out" 1792923164.97503 454 1707c90d7cf6b28b7e731d6c7ebf1e4c "pdflatex"
+  "main.run.xml" 1792923164.97675 2309 e5d8d7d70ae4f63fd36050b5cd3c24d0 "pdflatex"
+  "main.tex" 1792923158.82884 37491 712e9e2d065f9da7b5687daaa282d697 ""
+  "main.toc" 1792923164.9769 187 ae3fafdaf506d6731b5924cac663f04d "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"

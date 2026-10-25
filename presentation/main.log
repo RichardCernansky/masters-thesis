@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  24 OCT 2026 23:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  25 OCT 2026 11:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1095,7 +1095,7 @@ Package biblatex Info: Reference segment=0 on input line 126.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 196.
 
-Overfull \vbox (0.46133pt too high) detected at line 196
+Overfull \vbox (1.06969pt too high) detected at line 196
  []
 
 [4
@@ -1151,17 +1151,23 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 
 {/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [8
 
-] [9
-
 ]
+<figures/initvip_architecture.png, id=716, 841.1425pt x 728.7225pt>
+File: figures/initvip_architecture.png Graphic file (type png)
+<use figures/initvip_architecture.png>
+Package pdftex.def Info: figures/initvip_architecture.png  used on input line 329.
+(pdftex.def)             Requested size: 219.57748pt x 190.23062pt.
+ [9
+
+ <./figures/initvip_architecture.png>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 345.
+(Font)              <10> on input line 362.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 345.
+(Font)              <7> on input line 362.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 345.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 362.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 345.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 362.
  [10
 
 {/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] [11
@@ -1172,9 +1178,15 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 
 ] [14
 
-] [15
+]
+<figures/alpamayo-architecture.png, id=1137, 812.03375pt x 762.85pt>
+File: figures/alpamayo-architecture.png Graphic file (type png)
+<use figures/alpamayo-architecture.png>
+Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 461.
+(pdftex.def)             Requested size: 202.49992pt x 190.23479pt.
+ [15
 
-] [16
+ <./figures/alpamayo-architecture.png>] [16
 
 ] [17
 
@@ -1186,9 +1198,9 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 
 ] [21
 
-] (./main.toc) [22
+] [22
 
-] [23
+] (./main.toc) [23
 
 ] [24
 
@@ -1198,27 +1210,29 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 
 ] [27
 
+] [28
+
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 747.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 783.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [28
+) [29
 
-{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [29
-
-] [30
+{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [30
 
 ] [31
 
 ] [32
 
+] [33
+
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 884.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 921.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [33
+) [34
 
-] [34
+] [35
 
 
 ]
@@ -1243,18 +1257,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35341 strings out of 467525
- 707446 string characters out of 5418983
+ 35359 strings out of 467525
+ 708038 string characters out of 5418983
  1533391 words of memory out of 5000000
- 63530 multiletter control sequences out of 15000+600000
+ 63546 multiletter control sequences out of 15000+600000
  740682 words of font info for 110 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,20n,123p,746b,2352s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt8.pfb>
-Output written on main.pdf (34 pages, 418533 bytes).
+Output written on main.pdf (35 pages, 512728 bytes).
 PDF statistics:
- 2182 PDF objects out of 2487 (max. 8388607)
- 1150 compressed objects within 12 object streams
- 84 named destinations out of 1000 (max. 500000)
- 543 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2307 PDF objects out of 2487 (max. 8388607)
+ 1211 compressed objects within 13 object streams
+ 86 named destinations out of 1000 (max. 500000)
+ 553 words of extra memory for PDF output out of 10000 (max. 10000000)
 

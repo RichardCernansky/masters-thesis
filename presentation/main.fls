@@ -498,6 +498,11 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmsso9.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmsso8.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmssbx10.tfm
+INPUT ./figures/initvip_architecture.png
+INPUT ./figures/initvip_architecture.png
+INPUT ./figures/initvip_architecture.png
+INPUT ./figures/initvip_architecture.png
+INPUT ./figures/initvip_architecture.png
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/rm-lmss10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/rm-lmss8.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi10.tfm
@@ -516,6 +521,11 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT ./main.toc
 INPUT ./main.toc
 INPUT main.toc
+INPUT ./figures/alpamayo-architecture.png
+INPUT ./figures/alpamayo-architecture.png
+INPUT ./figures/alpamayo-architecture.png
+INPUT ./figures/alpamayo-architecture.png
+INPUT ./figures/alpamayo-architecture.png
 INPUT ./main.toc
 INPUT ./main.toc
 INPUT main.toc

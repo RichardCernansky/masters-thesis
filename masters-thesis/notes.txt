@@ -1,3 +1,7 @@
+expert → field → Euler integration → controls → unicycle integration → waypoints.
+add clicking on this and epa
+add visualisations
+
 should I use emphasis?
 is it correct to state the deformable detr as predecessor of prior initialization
 
