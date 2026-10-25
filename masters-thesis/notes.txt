@@ -2,6 +2,8 @@ expert → field → Euler integration → controls → unicycle integration →
 add clicking on this and epa
 add visualisations
 
+rm presentation/main\ \(*
+
 should I use emphasis?
 is it correct to state the deformable detr as predecessor of prior initialization
 

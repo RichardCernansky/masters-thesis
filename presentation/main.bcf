@@ -2394,6 +2394,7 @@
     <bcf:citekey order="18" intorder="1">NVIDIA2025AlpamayoR1</bcf:citekey>
     <bcf:citekey order="19" intorder="1">NVIDIA2025AlpamayoR1</bcf:citekey>
     <bcf:citekey order="20" intorder="1">Gu2023ViP3D</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">Gu2023ViP3D</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

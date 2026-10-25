@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  25 OCT 2026 11:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.5.9)  25 OCT 2026 13:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1152,7 +1152,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 {/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [8
 
 ]
-<figures/initvip_architecture.png, id=716, 841.1425pt x 728.7225pt>
+<figures/initvip_architecture.png, id=698, 841.1425pt x 728.7225pt>
 File: figures/initvip_architecture.png Graphic file (type png)
 <use figures/initvip_architecture.png>
 Package pdftex.def Info: figures/initvip_architecture.png  used on input line 329.
@@ -1179,10 +1179,10 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 ] [14
 
 ]
-<figures/alpamayo-architecture.png, id=1137, 812.03375pt x 762.85pt>
+<figures/alpamayo-architecture.png, id=1107, 812.03375pt x 762.85pt>
 File: figures/alpamayo-architecture.png Graphic file (type png)
 <use figures/alpamayo-architecture.png>
-Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 461.
+Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 463.
 (pdftex.def)             Requested size: 202.49992pt x 190.23479pt.
  [15
 
@@ -1196,7 +1196,11 @@ Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 4
 
 ] [20
 
-] [21
+]
+Overfull \vbox (0.78336pt too high) detected at line 600
+ []
+
+[21
 
 ] [22
 
@@ -1210,29 +1214,32 @@ Package pdftex.def Info: figures/alpamayo-architecture.png  used on input line 4
 
 ] [27
 
-] [28
-
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 783.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 743.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [29
+) [28
 
-{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [30
+{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
+Underfull \hbox (badness 10000) detected at line 767
+[][][][][][][][][]
+ []
+
+[29
+
+] [30
 
 ] [31
 
 ] [32
 
-] [33
-
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 921.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 864.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [34
+) [33
 
-] [35
+] [34
 
 
 ]
@@ -1257,18 +1264,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35359 strings out of 467525
- 708038 string characters out of 5418983
+ 35355 strings out of 467525
+ 708009 string characters out of 5418983
  1533391 words of memory out of 5000000
- 63546 multiletter control sequences out of 15000+600000
+ 63544 multiletter control sequences out of 15000+600000
  740682 words of font info for 110 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,20n,123p,746b,2352s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmss9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/lm/lmtt8.pfb>
-Output written on main.pdf (35 pages, 512728 bytes).
+Output written on main.pdf (34 pages, 507805 bytes).
 PDF statistics:
- 2307 PDF objects out of 2487 (max. 8388607)
- 1211 compressed objects within 13 object streams
- 86 named destinations out of 1000 (max. 500000)
+ 2188 PDF objects out of 2487 (max. 8388607)
+ 1152 compressed objects within 12 object streams
+ 84 named destinations out of 1000 (max. 500000)
  553 words of extra memory for PDF output out of 10000 (max. 10000000)
 
