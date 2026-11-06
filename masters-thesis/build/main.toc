@@ -19,36 +19,70 @@
 \contentsline {subsection}{\numberline {2.2.1}Modular (Detect-Track-Predict)}{8}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Joint Learning (End-to-End Perception \& Prediction)}{9}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}Datasets}{9}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Evaluation Metrics}{10}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Evaluation Metrics}{11}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Detection Metrics}{11}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Tracking Metrics}{12}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Trajectory Prediction Metrics}{14}{subsection.2.4.3}%
 \contentsline {chapter}{\numberline {3}Related Work}{17}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Query-Based Detection and Tracking}{17}{section.3.1}%
 \contentsline {section}{\numberline {3.2}LiDAR Backbones and Heatmap Query Initialisation}{18}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Attention-Based Camera-LiDAR Fusion}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.3}Attention-Based Camera-LiDAR Fusion}{18}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Trajectory Decoding from Agent Features}{19}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Positioning of This Work}{19}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Summary and Starting Points}{20}{section.3.6}%
 \contentsline {chapter}{\numberline {4}Objectives and Methodology}{23}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Objectives}{23}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Methodology}{24}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Design / Methods Description}{25}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Implementation}{27}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{29}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Setup}{29}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{30}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{30}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{30}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Summary}{30}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusion}{31}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Summary}{31}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Future Work}{31}{section.8.2}%
-\contentsline {chapter}{Resumé}{31}{section.8.2}%
-\contentsline {chapter}{List of Abbreviations}{33}{table.8.1}%
-\contentsline {chapter}{List of Figures}{36}{chapter*.6}%
-\contentsline {chapter}{List of Tables}{37}{chapter*.7}%
-\contentsline {chapter}{References}{41}{chapter*.9}%
+\contentsline {chapter}{\numberline {5}Design of the Proposed Model}{25}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Requirements}{25}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Overview}{26}{section.5.2}%
+\contentsline {section}{\numberline {5.3}The ViP3D Baseline}{26}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Agent Queries and Track State}{27}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Camera Feature Extraction}{28}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Six-Layer Decoder with Projective Cross-Attention}{28}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Prediction Branches}{28}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Tracking}{29}{subsection.5.3.5}%
+\contentsline {paragraph}{Identity assignment in training.}{29}{section*.5}%
+\contentsline {paragraph}{Track birth and death at inference.}{29}{section*.6}%
+\contentsline {paragraph}{Memory bank.}{31}{section*.7}%
+\contentsline {paragraph}{Query interaction module.}{31}{section*.8}%
+\contentsline {paragraph}{Propagation into the next frame.}{31}{section*.9}%
+\contentsline {subsection}{\numberline {5.3.6}Trajectory Prediction}{31}{subsection.5.3.6}%
+\contentsline {section}{\numberline {5.4}LiDAR Branch}{32}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Query Initialisation from the LiDAR Heatmap}{33}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Class-Wise Heatmap Head}{33}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Selecting Peaks and Building Queries}{34}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Integration with the Tracker}{36}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}Two-Layer Fusion Decoder}{37}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Layer 0: Reading the BEV Map}{37}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Layer 1: Spatially Modulated Camera Attention}{37}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Reference Refinement}{38}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.4}Comparison with the Decoder of ViP3D}{39}{subsection.5.6.4}%
+\contentsline {section}{\numberline {5.7}Camera Visibility for Partial Camera Rigs}{40}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Training}{40}{section.5.8}%
+\contentsline {subsection}{\numberline {5.8.1}Loss}{40}{subsection.5.8.1}%
+\contentsline {subsection}{\numberline {5.8.2}Two-Stage Schedule}{41}{subsection.5.8.2}%
+\contentsline {section}{\numberline {5.9}Complexity Analysis}{41}{section.5.9}%
+\contentsline {paragraph}{The query path is cheap.}{43}{section*.10}%
+\contentsline {paragraph}{The feature extractors dominate the arithmetic.}{43}{section*.11}%
+\contentsline {paragraph}{The camera layer dominates the decoder and its memory.}{43}{section*.12}%
+\contentsline {paragraph}{Communication.}{44}{section*.13}%
+\contentsline {section}{\numberline {5.10}Summary}{44}{section.5.10}%
+\contentsline {chapter}{\numberline {6}Implementation}{45}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{47}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Setup}{47}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{48}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{48}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{48}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Summary}{48}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusion}{49}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Summary}{49}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Future Work}{49}{section.8.2}%
+\contentsline {chapter}{Resumé}{49}{section.8.2}%
+\contentsline {chapter}{List of Abbreviations}{51}{table.8.1}%
+\contentsline {chapter}{List of Figures}{54}{chapter*.15}%
+\contentsline {chapter}{List of Tables}{55}{chapter*.16}%
+\contentsline {chapter}{References}{59}{chapter*.18}%
 \contentsline {chapter}{\numberline {A}Description of Digital Submission }{B-1}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Technical Documentation}{B-3}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Installation Manual}{B-3}{section.B.1}%
@@ -56,8 +90,8 @@
 \contentsline {section}{\numberline {B.3}Developer Manual}{B-3}{section.B.3}%
 \contentsline {chapter}{\numberline {C}Work Schedule}{B-1}{appendix.C}%
 \contentsline {section}{\numberline {C.1}Work Schedule for BP1/DP1}{B-1}{section.C.1}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.10}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.19}%
 \contentsline {section}{\numberline {C.2}Work Schedule for BP2/DP2}{B-2}{section.C.2}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.11}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.20}%
 \contentsline {section}{\numberline {C.3}Work Schedule for DP3}{B-2}{section.C.3}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.12}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.21}%

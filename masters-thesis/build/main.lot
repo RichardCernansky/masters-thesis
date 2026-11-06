@@ -1,0 +1,18 @@
+\acswitchoff 
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Symbols used in this chapter and their values in the configuration used.}}{27}{table.5.1}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces The decoder of ViP3D compared with the decoder of InitViP3D.}}{40}{table.5.2}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Estimated time and memory complexity of one frame. $N_{\mathrm {pts}}$ is the number of points, $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map, $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm {l}}$ the agents and lanes of the predictor. Orders of magnitude refer to the configuration used.}}{43}{table.5.3}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Hardware, software and versioning used for realization}}{47}{table.7.1}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Resumé}}{51}{table.8.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

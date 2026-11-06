@@ -1,47 +1,73 @@
 \chapter{Objectives and Methodology}
 \label{chapter:objectives-and-methodology}
 
-The present work applies the same principle in the \ac{bev} plane. The proposal generator is a class-wise
-heatmap predicted from the \ac{lidar} feature map, and its highest scoring peaks supply both halves of a
-query, the reference point from the metric position of the peak and the content from the feature sampled at
-that cell together with an embedding of its class. Only the slots left free by the tracker are filled in
-this way, so that agents already being followed keep the queries they carry and the initialisation concerns
-newly appearing objects alone. The queries entering the decoder are therefore hypotheses about the scene
-currently observed rather than constants inherited from training, and the camera is reintroduced only
-afterwards, in a second decoder layer trained on top of the frozen \ac{lidar} model, which makes the fusion
-a refinement of those hypotheses rather than their source.
-
+Chapters~\ref{chapter:sota} and~\ref{chapter:related} identified two gaps, namely that query-based
+\ac{pnp} models as ViP3D \cite{Gu2023ViP3D} create their agent queries from a learned embedding that does not depend on the
+scene, and that the consequences of changing this have not been measured in tracking and prediction.
+This chapter states the objectives that follow and the methodology by which they are pursued.
 
 \section{Objectives}
 \label{sec:objectives}
 
-Vybrané ciele pre navrhnuté riešenie alebo špecifikácia požiadaviek (funkčné a nefunkčné požiadavky) na naimplementovaný softvérový produkt.
+The goal of this thesis is to develop and evaluate a deep learning architecture for \ac{e2e} perception and
+prediction in which the agent queries originate in the point cloud and not in a learned embedding. The
+goal is pursued through three objectives.
 
 \begin{itemize}
-    \item povinne pre DP a DiZP, ale aj BP môže
-    \item max 2 pages for the whole chapter.
+    \item \textbf{Objective 1.} Design and implement a query initialisation mechanism that derives the 
+    agent queries from the \ac{lidar} \ac{bev} feature map, and
+    integrate it with the tracker inside ViP3D \cite{Gu2023ViP3D} codebase so that queries carried over from the previous frame keep their slots and
+    the initialisation concerns newly appearing objects alone. The resulting model needs to evaluated next to other 
+    representants of \ac{e2e} trajectory prediction.
+
+    \item \textbf{Objective 2.} Determine what the camera modality still contributes once the queries already carry
+    geometric evidence by implementing multilayer architecture for modality fusion. 
+
+    \item \textbf{Objective 3.} Determine what a query that already begins near its object buys in decoder
+    depth and in inference latency emphasizing the trade-off between prediction accuracy and computational cost. 
 \end{itemize}
 
-As presented in Chapter~\ref{chapter:sota}, the area of... is wide with many interesting unsolved problems. Therefore, the goals of this thesis are focused on selected objectives (maximum 3 objective) to... as follows:
-
-\begin{itemize}
-    \item Objective 1:
-    \item Objective 2:
-    \item Objective 3:
-\end{itemize}
-
-
+Objective 1 addresses the first gap. Objectives 2 and 3 address the second gap mentioned in \ref{sec:summary}.
 
 \section{Methodology}
 \label{sec:methodology}
 
-The following steps have been chosen for the design and development of ...
+The work follows the research cycle of analysis, design, implementation, experimental evaluation and
+interpretation. Each step is carried by one chapter of this thesis. A brief description of the steps 
+is provided in this section.
 
 \begin{itemize}
-    \item Step 1:
-    \item Step 2:
-    \item ...
-    \item Step n:
+    \item \textbf{Step 1, analysis.} Survey trajectory prediction and 3D object detection literature, with attention
+    to how query-based models initialize their agent queries. The
+    outcome is the two gaps and the starting points stated in Section~\ref{sec:summary}. Carried by
+    Chapters~\ref{chapter:sota} and~\ref{chapter:related}.
+
+    \item \textbf{Step 2, design.} Propose an architecture that closes those gaps, deciding how a query is
+    created from the point cloud, at which point the camera modality re-enters and how the training is
+    staged. Designing it mainly concerns designing the initialization mechanisms, design of the fusion decoder layers,
+    design of integration with the ViP3D codebase and finally scheduling the training according to the 
+    identified literature. Carried by Chapter~\ref{chapter:design}.
+
+    \item \textbf{Step 3, implementation.} Realise the design by extending an existing open implementation
+    of ViP3D \cite{Gu2023ViP3D}. Keeping the surrounding code
+    fixed is a methodological choice, since it makes the proposed change the only difference between the
+    baseline and the proposed model. This way direct comparison can be achieved.
+    Carried by Chapter~\ref{chapter:implementation}.
+
+    \item \textbf{Step 4, experimental evaluation.} Measure the implemented model against selected
+    \ac{e2e} \ac{pnp} models from the literature, and isolate the contribution of each added component by
+    ablating it, one ablation per objective. Detection, tracking and prediction metrics are recorded for
+    every configuration and reported per class, together with inference latency and parameter count.
+    Chapter~\ref{chapter:experiments-and-evaluation}.
+
+    \item \textbf{Step 5, interpretation.} Given large number of experiments needed to conduct,
+    proper interpretation of the results is crucial. The results are analysed using metrics provided in
+    Chapter~\ref{sec:sota-metrics} and interpreted in the context of 
+    the objectives and the research questions for clear conclusions and recommendation for future work.
+    Carried by both Chapter~\ref{chapter:experiments-and-evaluation} and
+    Chapter~\ref{chapter:conclusion}.
 \end{itemize}
 
-These steps are commitments to each other in the context of ... of the work.
+This chapter derived three objectives from the gaps identified in Chapter~\ref{chapter:related} and set
+out the research cycle through which they are pursued, from the analysis that produced the gaps to the
+interpretation of the results. In the following chapter, the design of the proposed model is described in detail.

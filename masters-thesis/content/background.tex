@@ -70,6 +70,8 @@ an active research area for capturing game-theoretic interactions and long-horiz
 prediction.
 
 \subsubsection{Deep Learning Methods}
+TODO: add equations and figures to important parts
+
 \label{subsec:sota-dl}
 Various Deep Learning methods perform successfully in learning motion dynamics and now dominate trajectory
 prediction. The field moved through recurrent architectures around 2018, convolutional and graph-based
@@ -109,6 +111,8 @@ although the fixed grid on which they operate represents the individual agents o
 expensive than a vectorised encoding of the same scene \cite{Liu2021DLSurvey}.
 
 \textbf{Graph Neural Networks}
+
+TODO: add graphnn from vip3d
 
 \Acp{gnn} represent the scene as a graph whose nodes are the agents and map elements
 and whose edges encode the relations between them, which makes them a natural fit for
@@ -247,7 +251,7 @@ The protocol used throughout this thesis is the one defined with nuScenes \cite{
 summarized in \cite{Valverde2025Detection}. A
 predicted box is matched to a ground-truth box of the same class when the distance between their centres on
 the ground plane is below a threshold \(d\), which replaces the intersection over union criterion common in
-image-based detection and avoids penalising small objects disproportionately. Matching is greedy over
+image-based detection and avoids penalising small objects disproportionately. Matching is \emph{greedy} over
 predictions sorted by decreasing confidence, and every ground-truth box can be matched at most once. The
 outcome of this assignment defines the counts:
 
@@ -269,7 +273,7 @@ Based on these, the following performance metrics are defined:
         \mathrm{Recall} = \frac{TP}{TP + FN}.
         \label{eq:prec-rec}
     \end{equation}
-    Sweeping the confidence score threshold traces a precision-recall curve \(p(r)\).
+    Sweeping the \emph{confidence score threshold} traces a precision-recall curve \(p(r)\).
 
     \item \textbf{\Acf{ap}} summarises that curve for a given class as the area under its interpolated
     form, so that fluctuations of \(p(r)\) at individual operating points do not influence the result
