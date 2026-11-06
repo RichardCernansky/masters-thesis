@@ -2473,8 +2473,8 @@
     <bcf:citekey order="91" intorder="1">He2016ResNet</bcf:citekey>
     <bcf:citekey order="92" intorder="1">Zhu2019DCNv2</bcf:citekey>
     <bcf:citekey order="93" intorder="1">Lin2017FPN</bcf:citekey>
-    <bcf:citekey order="94" intorder="1">Wang2021DETR3D</bcf:citekey>
-    <bcf:citekey order="95" intorder="1">Vaswani2017Attention</bcf:citekey>
+    <bcf:citekey order="94" intorder="1">Lin2017Focal</bcf:citekey>
+    <bcf:citekey order="95" intorder="1">Zeng2022MOTR</bcf:citekey>
     <bcf:citekey order="96" intorder="1">Kuhn1955Hungarian</bcf:citekey>
     <bcf:citekey order="97" intorder="1">VectorNet2020</bcf:citekey>
     <bcf:citekey order="98" intorder="1">Liang2020LaneGCN</bcf:citekey>
@@ -2486,8 +2486,7 @@
     <bcf:citekey order="104" intorder="1">Bai2022TransFusion</bcf:citekey>
     <bcf:citekey order="105" intorder="1">Zhu2021DeformableDETR</bcf:citekey>
     <bcf:citekey order="106" intorder="1">Gao2021SMCA</bcf:citekey>
-    <bcf:citekey order="107" intorder="1">Lin2017Focal</bcf:citekey>
-    <bcf:citekey order="108" intorder="1">Bai2022TransFusion</bcf:citekey>
+    <bcf:citekey order="107" intorder="1">Bai2022TransFusion</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

@@ -49,6 +49,8 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/parskip/parskip.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/parskip/parskip.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
@@ -652,6 +654,9 @@ INPUT content/design.tex
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Bold-tlf-ot1.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Bold-tlf-ot1.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Bold-tlf-ot1.tfm
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/public/newpx/zplmia.vf
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/pxmiaX.tfm
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newtx/txmiaSTbb.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/public/eulervm/zeurm7.vf
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/euler/eurm7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmmi7.tfm
@@ -663,9 +668,6 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Regular-tlf-
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Regular-tlf-sc-t1.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Regular-tlf-sc-t1.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-pc.enc
-INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/public/newpx/zplmia.vf
-INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/pxmiaX.tfm
-INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newtx/txmiaSTbb.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Regular-tlf-t1.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Regular-tlf-ot1.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Regular-tlf-ot1.tfm
