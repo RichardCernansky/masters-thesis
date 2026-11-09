@@ -1,3 +1,7 @@
+- invent the \modelname macro
+- add hungarian cost
+- add deduplication logic in the final DP3
+
 - train lidar  on beast from scratch
 
 expert → field → Euler integration → controls → unicycle integration → waypoints.

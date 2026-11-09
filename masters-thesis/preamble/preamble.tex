@@ -29,10 +29,6 @@
 \newcommand{\myInstitute}[0] {Institute of Informatics, Information Systems and Software Engineering}
 \newcommand{\myInstituteSK}[0] {Ústav informatiky, informačných systémov a softvérového inžinierstva}
 
-% Name of the proposed model, use \modelname in the text
-\usepackage{xspace}
-\newcommand{\modelname}{our model\xspace}
-
 \usepackage[parfill]{parskip}
 \usepackage{enumitem}
 
@@ -133,3 +129,19 @@
     \usepackage{verbatim}       % for verbatim environment and \verbatiminput
     \usepackage{sverb}          % for \verbinput
 % GN setting end
+
+
+% Name of the proposed model, use \modelname in the text
+\usepackage{xspace}
+\newcommand{\modelname}{our model\xspace}
+
+% \paragraph as an unnumbered bold heading on its own line (not run-in)
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+    {2ex \@plus 1ex \@minus .2ex}%
+    {0.5ex}%
+    {\normalfont\normalsize\bfseries}}
+\makeatother
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}

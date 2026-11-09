@@ -33,9 +33,9 @@ One frame passes through these 5 stages.
     an \ac{hdmap}, are decoded into several future trajectories per agent.
 \end{enumerate}
 
-The camera part of stage 1 and stages 4 and 5 are taken from ViP3D. The \ac{lidar} part of stage 1 is
+The \ac{lidar} part of stage 1 is
 added, stage 2 replaces the learned query embedding of ViP3D, and stage 3 replaces its six-layer camera
-decoder.
+decoder. The stages 4 and 5 are following ViP3D implementation.
 
 %figure: Block scheme of the complete \modelname architecture. Two input branches at the top: the point cloud
 % passes the LiDAR branch and becomes the BEV feature map, the six camera images pass ResNet-50 and the FPN and
@@ -61,15 +61,15 @@ values they take in the configuration used for the experiments.
         \midrule
         $N_q$ & empty query slots appended in every frame & 300 \\
         $N_a$ & track queries carried over from the previous frame & varies \\
-        $Q = N_q + N_a$ & queries processed by the decoder in one frame & varies \\
+        $N_Q = N_q + N_a$ & queries processed by the decoder in one frame & varies \\
         $D$ & embedding width & 256 \\
         $N_{\mathrm{cls}}$ & object classes & 7 \\
         $H \times W$ & \ac{bev} grid & $256 \times 256$ \\
         $s$ & \ac{bev} cell size & 0.4\,m \\
-        $C$ & channels of the \ac{bev} feature map & 384 \\
+        $C_{\mathrm{BEV}}$ & channels of the \ac{bev} feature map & 384 \\
         $N_{\mathrm{cam}}$ & cameras & 6 \\
         $h \times w$ & camera feature map read by the fusion layer & $68 \times 120$ \\
-        $T$ & frames in a training clip & 3 \\
+        $T_h$ & frames in a training clip & 3 \\
         $L$ & length of the memory bank & 4 \\
         $M$ & predicted trajectories per agent & 6 \\
         $T_f$ & predicted future positions, 6\,s at 2\,Hz & 12 \\
@@ -79,14 +79,14 @@ values they take in the configuration used for the experiments.
 
 
 % ============================================================================
-\section{Components Reused from ViP3D}
+\section{ViP3D pipeline components}
 \label{sec:design-vip3d}
 % ============================================================================
 
 This section describes the parts of ViP3D that \modelname reuses, namely the agent queries, the camera
 feature extraction, the prediction branches, the tracking modules and the trajectory predictor. The general
-idea of ViP3D was introduced in Section~\ref{sec:rw-decoding}, so the focus here is on how these parts
-operate and exchange data.
+idea of ViP3D was introduced in Section~\ref{chapter:related}, so the focus here is on how these parts
+operate and exchange data as it is important for understanding the changes that \modelname introduces.
 
 \subsection{Agent Queries and Track State}
 \label{subsec:design-state}
@@ -94,7 +94,7 @@ operate and exchange data.
 The central object of ViP3D is the agent query. Following MOTR \cite{Zeng2022MOTR}, a frame is processed
 with two kinds of queries. Track queries are carried over from the previous frame and follow objects that
 have already been found, while a fixed number $N_q$ of empty slots is appended in every frame to find
-objects that are new. The decoder therefore processes $Q = N_q + N_a$ queries in a frame, where $N_a$ is the
+objects that are new. The decoder therefore processes $N_Q = N_q + N_a$ queries in a frame, where $N_a$ is the
 number of tracks alive at that moment. Each slot $i$ holds a state
 
 \begin{equation}
@@ -149,15 +149,15 @@ three regression branches are \acp{mlp} of the same depth that output six geomet
 cosine of the heading, and the velocity $(v_x, v_y)$. Together they give the \textbf{box code}
 
 \begin{equation}
-    \vec{b} = \left( c_x,\, c_y,\, \log w,\, \log l,\, c_z,\, \log h,\, \sin\theta,\, \cos\theta,\,
-    v_x,\, v_y \right).
+\mathbf{b}_i = \left( c_x,\, c_y,\, \log w,\, \log l,\, c_z,\, \log h,\, \sin\theta,\, \cos\theta,\,
+v_x,\, v_y \right).
     \label{eq:design-boxcode}
 \end{equation}
 
 The centre is predicted as an offset from the reference point in inverse-sigmoid space,
 $\hat{\tilde{c}}_x = \sigma(\Delta c_x + r_x)$ and likewise for $y$ and $z$, and is then scaled back to
 metres. The size (width, length, height as w, l, h) is predicted as an offset in logarithmic space and added to the size carried by the slot,
-$\hat{\mathbf{z}} = \mathbf{z} + \Delta \mathbf{z}$. The class score of a slot is the maximum sigmoid
+$\hat{\vec{\mathbf{z}}} = \vec{\mathbf{z}} + \Delta \vec{\mathbf{z}}$. The class score of a slot is the maximum sigmoid
 probability over the classes, $s_i = \max_k \sigma(\hat{y}_{i,k})$, taken from the \emph{last decoder layer}. Every
 layer is supervised separately, so that each layer learns to produce a usable prediction.
 
@@ -171,12 +171,13 @@ The predictions of layer $l$ in frame $t$ are supervised by the detection loss
 
 with the weights $\lambda_{\mathrm{cls}} = 2$ and $\lambda_{\mathrm{box}} = 0.25$. Which object a slot has to
 predict, if any, is decided by the identity assignment of Algorithm~\ref{alg:design-assign}. With
-$\mathcal{A}$ the set of slots that receive a target in this assignment and $\mathcal{P} \subseteq \mathcal{A}$
-those whose target $g_i$ is an annotated object, the two terms are
+$\mathcal{S}$ the set of all slots of the frame, the tracks and the empty slots, $\mathcal{A} \subseteq \mathcal{S}$
+the slots that receive a target in this assignment and $\mathcal{P} \subseteq \mathcal{A}$
+those whose target $g_i$ is an annotated object ($\mathcal{P}$ is a subset because of situations where objects annotations are missing such as occlusion), the two terms are
 
 \begin{equation}
     \begin{aligned}
-        \mathcal{L}_{\mathrm{cls}}^{t,l} &= \frac{1}{\lvert \mathcal{A} \rvert} \sum_{i}
+        \mathcal{L}_{\mathrm{cls}}^{t,l} &= \frac{1}{\lvert \mathcal{A} \rvert} \sum_{i \in \mathcal{S}}
         \sum_{k=1}^{N_{\mathrm{cls}}} \operatorname{FL}\!\left( \sigma(\hat{y}_{i,k}),\, y_{i,k} \right), \\
         \mathcal{L}_{\mathrm{box}}^{t,l} &= \frac{1}{\lvert \mathcal{P} \rvert} \sum_{i \in \mathcal{P}}
         \sum_{j=1}^{10} \omega_j \left\lvert \hat{b}_{i,j} - b_{g_i,j} \right\rvert,
@@ -184,7 +185,8 @@ those whose target $g_i$ is an annotated object, the two terms are
     \label{eq:design-detterms}
 \end{equation}
 
-where the first sum runs over all slots of the frame, $y_{i,k} = 1$ if slot $i$ is assigned to an object of
+where the classification term covers all slots of $\mathcal{S}$ but is normalised by the assigned ones,
+$y_{i,k} = 1$ if slot $i$ is assigned to an object of
 class $k$ and $0$ otherwise, and $b_{g_i,j}$ is the $j$-th component of the box code of the assigned object.
 The first eight components are weighted by $\omega_j = 1$ and the two velocity components by
 $\omega_j = 0.2$. A slot whose object has left the scene belongs to $\mathcal{A}$ but not to $\mathcal{P}$, so it
@@ -210,7 +212,7 @@ easy background do not outweigh the few slots that hold an object.
 Tracking decides which slot follows which object, keeps the embedding of a followed object informed about
 its past, and moves its query into the next frame. It is realised differently in training and at inference.
 
-\paragraph{Identity assignment in training.}
+\paragraph{Identity assignment in training}
 During training the identity of a slot is taken from the \ac{gt}, as in MOTR \cite{Zeng2022MOTR}. 
 A slot that follows an object keeps it as long as the object is annotated, and only the empty slots compete for objects that no slot
 follows yet. The competition is resolved by the Hungarian method \cite{Kuhn1955Hungarian}.
@@ -223,7 +225,7 @@ only the assignment made on the last layer is kept as the identity of the slot.
     \caption{Identity assignment and supervision targets for one frame during training}
     \label{alg:design-assign}
     \begin{algorithmic}[1]
-        \Require slots with identities $\mathrm{id}_i$ and predictions $(\hat{\mathbf{y}}_i, \hat{\vec{b}}_i)$,
+        \Require slots with identities $\mathrm{id}_i$ and predictions $(\hat{\mathbf{y}}_i, \hat{\mathbf{b}}_i)$,
         annotated objects $\mathcal{G}_t$ of frame $t$ with persistent identities
         \Ensure target $g_i$ of every slot, an object of $\mathcal{G}_t$ or none
         \For{every slot $i$ with $\mathrm{id}_i \geq 0$}
@@ -235,21 +237,19 @@ only the assignment made on the last layer is kept as the identity of the slot.
         \EndFor
         \State $\mathcal{E} \gets \{ i : \mathrm{id}_i = -1 \}$ \Comment{empty slots}
         \State $\mathcal{U} \gets$ objects of $\mathcal{G}_t$ that no slot follows \Comment{new or reappearing}
-        \State $\pi \gets \Call{Hungarian}{\mathcal{C}(\mathcal{E}, \mathcal{U})}$ \Comment{cost of Eq.~\eqref{eq:design-cost}}
-        \For{every pair $(i, n) \in \pi$}
+        \State $\pi \gets \Call{Hungarian}{\mathcal{C}(\mathcal{E}, \mathcal{U})}$  \Comment{ returns $\pi$ as a set of pairs of slot and object assigned to it}
+        \For{every pair $(slot\ i, object\ n) \in \pi$}
             \State $\mathrm{id}_i \gets$ identity of $n$, \quad $g_i \gets n$ \Comment{track birth}
         \EndFor
-        \State classification loss on all slots, positive where $g_i$ is an object
-        \State box loss on the slots whose $g_i$ is an object
     \end{algorithmic}
 \end{algorithm}
 
-\paragraph{Track birth and death at inference.}
+\paragraph{Track birth and death at inference}
 At inference no annotation is available, and identities are governed by the score of each slot, as given in
 Algorithm~\ref{alg:design-lifecycle}. An empty slot whose score reaches $\tau_{\mathrm{new}} = 0.4$ becomes a
 new track. A track whose score falls below $\tau_{\mathrm{keep}} = 0.35$ accumulates a miss, and after
 $m_{\max} = 5$ consecutive misses it is ended. Between the two thresholds a track neither resets nor
-accumulates misses, so the gate has a hysteresis. Only tracks with a score of at least $\tau_{\mathrm{keep}}$
+accumulates misses. Only tracks with a score of at least $\tau_{\mathrm{keep}}$
 are reported in the output. These thresholds sit behind hard comparisons, so no gradient reaches them, and
 they are inherited from ViP3D unchanged.
 
@@ -260,7 +260,7 @@ they are inherited from ViP3D unchanged.
         \Require slots with scores $s_i$, identities $\mathrm{id}_i$ and miss counters $m_i$
         \For{every slot $i$}
             \If{$s_i \geq \tau_{\mathrm{new}}$}
-                \State $m_i \gets 0$
+                \State $m_i \gets 0$ \Comment{reset miss counter}
             \EndIf
             \If{$\mathrm{id}_i = -1$ \textbf{and} $s_i \geq \tau_{\mathrm{new}}$}
                 \State $\mathrm{id}_i \gets$ next unused identity \Comment{track birth}
@@ -279,7 +279,7 @@ they are inherited from ViP3D unchanged.
 % missing stays missing while 0.35 <= s < 0.4, missing to ended after 5 consecutive misses. A note that only
 % slots with s >= 0.35 are reported.
 
-\paragraph{Memory bank.}
+\paragraph{Memory bank}
 Every track keeps its last $L$ stored embeddings in $\mathbf{B}_i$. Once a track has at least one stored
 entry, its current output embedding $\mathbf{h}_i$ attends to them with multi-head attention, followed by a
 residual connection, layer normalisation and an \ac{ffn}, so that the embedding of a track is refined by its
@@ -287,7 +287,7 @@ own history. A projection of the refined embedding is then pushed into the bank 
 During training every frame is stored, while at inference a track stores an entry only every fourth frame,
 so at test time the bank spans a longer stretch of the past than it does in training.
 
-\paragraph{Query interaction module.}
+\paragraph{Query interaction module}
 The \ac{qim} updates the queries of the tracks that survive into the next frame. The active tracks attend to
 each other through self-attention, with the sum of their positional half and output embedding as queries
 and keys and their output embedding as values, followed by an \ac{ffn}. Two further \acp{ffn} map the result
@@ -297,9 +297,9 @@ the next one. During training the module also drops each active track with proba
 each active track with probability 0.3, one of the empty slots with the highest score, so that the model
 learns to recover a lost track and to reject a false one.
 
-\paragraph{Propagation into the next frame.}
+\paragraph{Propagation into the next frame}
 Before a track is decoded in the next frame, its reference point is moved by its own predicted velocity and
-by the motion of the ego vehicle. With $(\mathbf{R}_t, \mathbf{t}_t)$ the pose of the \ac{lidar} frame at
+by the motion of the ego vehicle. With $(\mathbf{R}_t, \mathbf{t}_t)$ the pose (rotation, translation) of the \ac{lidar} frame at
 time $t$ in global coordinates and $\Delta t$ the time between the frames, the metric reference point
 $\mathbf{x}_t$ becomes
 
@@ -321,9 +321,8 @@ Trajectory prediction follows VectorNet \cite{VectorNet2020} with the agent and 
 discretised at 1\,m, each becomes a polyline of vectors, and a polyline subgraph of self-attention layers and
 max-pooling encodes each polyline into one vector.
 
-The agents are not described by their past trajectories. Their representation is the output embedding of
-their track query, which already holds what the decoder and the memory bank gathered about the agent, so that
-nothing is lost at the interface between tracking and prediction. When camera features are available, this
+The representation of agents is the output embedding of
+their track query, which already holds what the decoder and the memory bank gathered about the agent. When camera features are available, this
 embedding is first refined by one more projective camera cross-attention at the last box centre of the
 agent. It then passes two \ac{mlp} layers, and the predictor reads its first 128 components, which is the
 working width of the predictor. The lanes attend to the lanes and the agents, a global self-attention graph
@@ -331,7 +330,7 @@ relates all agents and lanes to each other, and a decoder outputs for every agen
 positions in the coordinate frame of the agent, together with a probability $\pi_m$ for each of them.
 
 The predictor is trained with a variety loss. For an agent $a$ whose last valid future position is at step
-$\tau_a$, only the mode closest to the \ac{gt} at that step,
+$\tau_a$, only the winner mode closest to the \ac{gt} at that step,
 
 \begin{equation}
     m^{*} = \arg\min_{m} \left\lVert \hat{\mathbf{y}}^{a,m}_{\tau_a} - \mathbf{y}^{a}_{\tau_a} \right\rVert_2,
@@ -353,23 +352,33 @@ their mean. Only tracks matched to an annotated agent with a valid future are su
 
 
 % ============================================================================
-\section{Requirements}
+\section{Proposed Model}
+\label{sec:design-proposed}
+% ============================================================================
+
+This section describes the parts of \modelname that this thesis replaces or adds. It first states the
+requirements on these parts and then describes the \ac{lidar} branch, the query initialisation, the decoder,
+the camera visibility masks and the training.
+
+\subsection{Requirements}
 \label{sec:design-requirements}
 % ============================================================================
 
-The requirements in this section apply to the parts that this thesis replaces or adds, and to how these parts
+The following requirements apply to the parts that this thesis replaces or adds, and to how these parts
 are joined with the components reused from ViP3D. They follow from the gaps and the starting points of
 Section~\ref{sec:summary}.
 
-\subsection{Functional Requirements}
+\paragraph{Functional requirements}
 \label{sec:design-fr}
 
 These functional requirements state what the model has to do.
 
-TODO: add FR0 for lidar modality
 \begin{enumerate}[label=\textbf{FR\arabic*.}, ref=FR\arabic*, leftmargin=*]
-    \item Every query slot that \emph{does not follow an object} is initialised from the current
-    \ac{lidar} observation, with its reference point placed where an object is likely and its content read
+    \item The model takes the \ac{lidar} point cloud of the current frame as an \emph{additional input
+    modality} and encodes it into a dense \ac{bev} feature map, which serves as the shared spatial
+    representation for the query initialisation and the decoder.
+    \item Every query slot that does not follow an object is \emph{initialised from the current
+    \ac{lidar} observation}, with its reference point placed where an object is likely and its content read
     from the \ac{bev} features at that position.
     \item A query that already follows an object \emph{keeps its state from the previous frame}, and
     no new query is placed where such an object lies, so that the initialisation concerns newly appearing
@@ -380,13 +389,13 @@ TODO: add FR0 for lidar modality
     set of queries in an \acl{e2e} manner, as in ViP3D.
 \end{enumerate}
 
-\subsection{Non-Functional Requirements}
+\paragraph{Non-functional requirements}
 \label{sec:design-nfr}
 
 These non-functional requirements constrain how the model has to be implemented.
 
 \begin{enumerate}[label=\textbf{NFR\arabic*.}, ref=NFR\arabic*, leftmargin=*]
-    \item \textbf{Experimental control.} Every part of ViP3D \emph{outside the query path is kept unchanged}, so that a difference
+    \item \textbf{Experimental control.} Parts of ViP3D \emph{outside the query path are kept unchanged}, so that a difference
     in the results can be attributed to the proposed change.
     \item \textbf{Architectural flexibility.} The decoder shall be built from layers that \emph{can be added or
     removed} without changing the rest of the model, so that the number of layers can be lowered below the six
@@ -398,7 +407,7 @@ These non-functional requirements constrain how the model has to be implemented.
 
 
 % ============================================================================
-\section{LiDAR Branches}
+\subsection{LiDAR Branches}
 \label{sec:design-lidar}
 % ============================================================================
 
@@ -431,15 +440,15 @@ features from it at the reference points of the queries.
 
 
 % ============================================================================
-\section{Query Initialisation from the LiDAR Heatmap}
+\subsection{Query Initialisation from the LiDAR Heatmap}
 \label{sec:design-init}
 % ============================================================================
 
-This section describes the first contribution of the thesis, which replaces the learned embedding of ViP3D
+This subsection describes the first contribution of the thesis, which replaces the learned embedding of ViP3D
 by queries derived from the point cloud, as proposed in Starting point~1. The principle was introduced in
 Section~\ref{sec:rw-lidar}, and what follows is its design inside a tracking model.
 
-\subsection{Class-Wise Heatmap Head}
+\paragraph{Class-wise heatmap head}
 \label{subsec:design-heatmap}
 
 The heatmap head predicts, for every class and every \ac{bev} cell, the probability that the centre of an
@@ -490,7 +499,7 @@ $N_{\mathrm{pos}}$ makes the loss an average over objects instead of a sum over 
 % classes) and the target Gaussians side by side, with the selected peaks marked and the ground-truth boxes
 % drawn. The figure presentation/figures/lidar-bev-pred.png can be reused.
 
-\subsection{Selecting Peaks and Building Queries}
+\paragraph{Selecting peaks and building queries}
 \label{subsec:design-select}
 
 The empty slots of a frame are filled by Algorithm~\ref{alg:design-init}. The heatmap probabilities are
@@ -559,7 +568,7 @@ is, and the two halves diverge as soon as the query interaction module updates t
     \end{algorithmic}
 \end{algorithm}
 
-\subsection{Integration with the Tracker}
+\paragraph{Integration with the tracker}
 \label{subsec:design-integration}
 
 The initialisation is inserted into ViP3D at the single place where an empty slot used to receive its learned
@@ -612,11 +621,11 @@ processing of one frame at inference is summarised in Algorithm~\ref{alg:design-
 
 
 % ============================================================================
-\section{Two-Layer Fusion Decoder}
+\subsection{Two-Layer Fusion Decoder}
 \label{sec:design-decoder}
 % ============================================================================
 
-This section describes the second contribution, the shallow decoder of Starting point~2. It replaces the six
+This subsection describes the second contribution, the shallow decoder of Starting point~2. It replaces the six
 camera layers of ViP3D with two layers of different kinds. The first reads the \ac{bev} map and the second
 attends to the camera features, which follows the decoder of TransFusion \cite{Bai2022TransFusion} described
 in Section~\ref{sec:rw-fusion}. Both layers share the structure of a transformer decoder layer, namely
@@ -630,7 +639,7 @@ each followed by a residual connection and layer normalisation, with eight atten
 % -> add & norm -> FFN -> add & norm, with a fallback arrow from the layer 0 output for queries visible in no
 % camera -> prediction branches 1 and refinement. Can be drawn from the hand-written decoder sketch.
 
-\subsection{Layer 0: Reading the BEV Map}
+\paragraph{Layer 0, reading the \ac{bev} map}
 \label{subsec:design-layer0}
 
 The cross-attention of the first layer has the form of deformable attention \cite{Zhu2021DeformableDETR}
@@ -652,7 +661,7 @@ onto its predicted position, so in both cases the reference point already lies o
 feature at that point is the evidence the query needs. Reading a fixed number of points also makes the cost
 of the layer independent of the size of the \ac{bev} grid.
 
-\subsection{Layer 1: Spatially Modulated Camera Attention}
+\paragraph{Layer 1, spatially modulated camera attention}
 \label{subsec:design-layer1}
 
 The second layer reintroduces the camera through \ac{smca} \cite{Gao2021SMCA}, as proposed in Starting
@@ -732,7 +741,7 @@ Algorithm~\ref{alg:design-smca}.
 % a near object gets a wide Gaussian and a far one a narrow Gaussian. The figure
 % presentation/figures/smca-attn-top20.png can be reused.
 
-\subsection{Reference Refinement}
+\paragraph{Reference refinement}
 \label{subsec:design-refine}
 
 After each decoder layer $l$, the regression branch of that layer predicts an offset of the reference point
@@ -755,7 +764,7 @@ particularly here, since layer 1 uses the refined reference point to place its G
 to set its width. The reference point produced by the last layer is the one that is propagated into the next
 frame.
 
-\subsection{Comparison with the Decoder of ViP3D}
+\paragraph{Comparison with the decoder of ViP3D}
 \label{subsec:design-compare}
 
 Table~\ref{tab:design-compare} sets the two decoders side by side. The reduction from six layers to two is
@@ -789,27 +798,11 @@ estimates both.
 
 
 % ============================================================================
-\section{Camera Visibility for Partial Camera Rigs}
-\label{sec:design-visibility}
-% ============================================================================
-
-The six cameras of nuScenes cover the full circle around the vehicle. When the model is configured with
-fewer cameras, objects behind the vehicle remain annotated but leave no trace in any image, and a camera
-model would be trained to detect what it cannot see. Two masks prevent this, and both are active only when
-fewer than six cameras are used. In training, an annotated box whose centre projects into no camera keeps
-its place in the matching, so that the number of objects stays consistent, but its classification and box
-losses are set to zero. In the selection of Algorithm~\ref{alg:design-init}, every \ac{bev} cell is projected
-into the cameras, and cells that no camera sees are set to zero before the peaks are taken, so that queries
-are born only where a camera can confirm them. With six cameras both masks are left out, since they would
-otherwise also remove objects close to the vehicle that the \ac{lidar} sees perfectly well.
-
-
-% ============================================================================
-\section{Training}
+\subsection{Training}
 \label{sec:design-training}
 % ============================================================================
 
-\subsection{Loss}
+\paragraph{Loss}
 \label{subsec:design-loss}
 
 The model is trained on clips of $T$ consecutive frames, so that identities can be carried from one frame to
@@ -828,7 +821,7 @@ prediction loss of Eq.~\eqref{eq:design-predloss}. Each detection and heatmap te
 frame, the detection terms by the number of assigned slots and the heatmap term by the number of peaks, so that
 a crowded frame does not outweigh a sparse frame.
 
-\subsection{Two-Stage Schedule}
+\paragraph{Two-stage schedule}
 \label{subsec:design-schedule}
 
 Training follows the two-stage recipe of TransFusion \cite{Bai2022TransFusion}, which satisfies NFR3.
@@ -932,18 +925,18 @@ reports.
 
 Three observations follow from the table.
 
-\paragraph{The query path is cheap.} The selection of queries from the heatmap is linear in the size of the
+\paragraph{The query path is cheap} The selection of queries from the heatmap is linear in the size of the
 grid and costs no more than a pooling and a partial sort, and the read of layer 0 is linear in the number of
 queries and independent of the grid. The contribution of this thesis to the query path therefore adds almost
 nothing to the cost of a frame. The heatmap head costs more, but it is a few convolutions over a map that the
 backbone has already produced.
 
-\paragraph{The feature extractors dominate the arithmetic.} The two convolutional backbones account for the
+\paragraph{The feature extractors dominate the arithmetic} The two convolutional backbones account for the
 largest share of the operations. The camera backbone is the larger of the two, since it processes six images,
 and it is absent in stage 1, which makes the \ac{lidar}-only model considerably cheaper than the fused one
 independently of the decoder.
 
-\paragraph{The camera layer dominates the decoder and its memory.} Removing four layers saves little, since a
+\paragraph{The camera layer dominates the decoder and its memory} Removing four layers saves little, since a
 layer of ViP3D samples only a few points per query. The \ac{smca} layer instead forms, for each camera, an
 attention matrix of $8 \times Q \times hw$ entries, about $2 \times 10^{7}$ values, and a Gaussian mask of
 $Q \times N_{\mathrm{cam}} \times hw$ entries, about $1.5 \times 10^{7}$ values. These are the largest
@@ -952,7 +945,7 @@ its run time is limited by memory traffic rather than by the operation count of 
 decoder is therefore not cheaper by construction, and whether it is faster than the six layers of ViP3D is a
 question for measurement.
 
-\paragraph{Communication.} At inference the model runs on a single device and exchanges no data. Training is
+\paragraph{Communication} At inference the model runs on a single device and exchanges no data. Training is
 data-parallel, so each step exchanges the gradients of the trainable parameters among the devices, which is
 $O(\lvert \theta \rvert)$ per step and fewer parameters in stage 2, where the feature extractors are frozen.
 

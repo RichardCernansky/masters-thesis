@@ -133,15 +133,14 @@ initialises the reference points from the centres of the highest scoring region 
 on top of the encoder output, so that the decoder starts from positions determined by
 the input. This variant outperformed the single-stage one, which is evidence that reference points derived from the data
 are prefereable to reference points learned as constants. 
-In this thesis, the same principle was applied in the \ac{bev} plane. The proposal generator is a class-wise heatmap
+In this thesis, the grounding principle was applied in the \ac{bev} plane. The proposal generator is a class-wise heatmap
 predicted from the \ac{lidar} feature map, and its highest scoring peaks supply the query with both the 
 reference point from the position of the peak and the content from the feature sampled at that cell.
 
-This work is therefore positioned differently from the two that precede it. Li-ViP3D and Li-ViP3D++ combine
+This work is therefore positioned differently from Li-ViP3D and Li-ViP3D++ that combine
 the two modalities for queries that are still created the way ViP3D creates them, so the \ac{lidar} enters
 at the moment a query is refined. Here it enters earlier, at the moment a query is created, and the camera
 is reintroduced only afterwards in a second decoder layer trained on top of the frozen \ac{lidar} model.
-Fusion is thus a refinement of a hypothesis that the point cloud has already formed.
 
 % TODO: state explicitly what this thesis adds beyond the two works above, for example the
 % heatmap-based query initialisation, the two-stage schedule, the camera visibility handling for

@@ -2,7 +2,7 @@ PWD /Users/richard/Desktop/DP/documentation/masters-thesis
 INPUT /usr/local/texlive/2026/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/richard/Desktop/DP/documentation/masters-thesis/main.tex
+INPUT main.tex
 OUTPUT build/main.log
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/book.cls
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/book.cls
@@ -49,8 +49,6 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/ifthen.sty
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/parskip/parskip.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/parskip/parskip.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
@@ -374,6 +372,8 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/verbatim.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/verbatim.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/mdwtools/sverb.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/mdwtools/sverb.sty
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/newpx/zpl-Regular-tlf-t1.tfm
 INPUT build/main.aux
 INPUT build/main.aux

@@ -35,40 +35,40 @@
 \contentsline {section}{\numberline {4.2}Methodology}{24}{section.4.2}%
 \contentsline {chapter}{\numberline {5}Design of the Proposed Model}{25}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Overview}{25}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Components Reused from ViP3D}{26}{section.5.2}%
+\contentsline {section}{\numberline {5.2}ViP3D pipeline components}{26}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Agent Queries and Track State}{26}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}Camera Feature Extraction}{27}{subsection.5.2.2}%
 \contentsline {subsection}{\numberline {5.2.3}Prediction Branches}{27}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Tracking}{28}{subsection.5.2.4}%
-\contentsline {paragraph}{Identity assignment in training.}{29}{section*.5}%
-\contentsline {paragraph}{Track birth and death at inference.}{29}{section*.6}%
-\contentsline {paragraph}{Memory bank.}{30}{section*.7}%
-\contentsline {paragraph}{Query interaction module.}{30}{section*.8}%
-\contentsline {paragraph}{Propagation into the next frame.}{30}{section*.9}%
+\contentsline {subsection}{\numberline {5.2.4}Tracking}{29}{subsection.5.2.4}%
+\contentsline {paragraph}{Identity assignment in training}{29}{section*.5}%
+\contentsline {paragraph}{Track birth and death at inference}{29}{section*.6}%
+\contentsline {paragraph}{Memory bank}{30}{section*.7}%
+\contentsline {paragraph}{Query interaction module}{30}{section*.8}%
+\contentsline {paragraph}{Propagation into the next frame}{31}{section*.9}%
 \contentsline {subsection}{\numberline {5.2.5}Trajectory Prediction}{31}{subsection.5.2.5}%
-\contentsline {section}{\numberline {5.3}Requirements}{32}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Functional Requirements}{32}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Non-Functional Requirements}{32}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}LiDAR Branches}{32}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Query Initialisation from the LiDAR Heatmap}{33}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Class-Wise Heatmap Head}{33}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Selecting Peaks and Building Queries}{34}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Integration with the Tracker}{35}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}Two-Layer Fusion Decoder}{36}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Layer 0: Reading the BEV Map}{37}{subsection.5.6.1}%
-\contentsline {subsection}{\numberline {5.6.2}Layer 1: Spatially Modulated Camera Attention}{37}{subsection.5.6.2}%
-\contentsline {subsection}{\numberline {5.6.3}Reference Refinement}{38}{subsection.5.6.3}%
-\contentsline {subsection}{\numberline {5.6.4}Comparison with the Decoder of ViP3D}{39}{subsection.5.6.4}%
-\contentsline {section}{\numberline {5.7}Camera Visibility for Partial Camera Rigs}{39}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Training}{40}{section.5.8}%
-\contentsline {subsection}{\numberline {5.8.1}Loss}{40}{subsection.5.8.1}%
-\contentsline {subsection}{\numberline {5.8.2}Two-Stage Schedule}{40}{subsection.5.8.2}%
-\contentsline {section}{\numberline {5.9}Complexity Analysis}{42}{section.5.9}%
-\contentsline {paragraph}{The query path is cheap.}{42}{section*.10}%
-\contentsline {paragraph}{The feature extractors dominate the arithmetic.}{42}{section*.11}%
-\contentsline {paragraph}{The camera layer dominates the decoder and its memory.}{43}{section*.12}%
-\contentsline {paragraph}{Communication.}{43}{section*.13}%
-\contentsline {section}{\numberline {5.10}Summary}{43}{section.5.10}%
+\contentsline {section}{\numberline {5.3}Proposed Model}{32}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Requirements}{32}{subsection.5.3.1}%
+\contentsline {paragraph}{Functional requirements}{32}{section*.10}%
+\contentsline {paragraph}{Non-functional requirements}{32}{section*.11}%
+\contentsline {subsection}{\numberline {5.3.2}LiDAR Branches}{33}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Query Initialisation from the LiDAR Heatmap}{33}{subsection.5.3.3}%
+\contentsline {paragraph}{Class-wise heatmap head}{33}{section*.12}%
+\contentsline {paragraph}{Selecting peaks and building queries}{34}{section*.13}%
+\contentsline {paragraph}{Integration with the tracker}{36}{section*.14}%
+\contentsline {subsection}{\numberline {5.3.4}Two-Layer Fusion Decoder}{37}{subsection.5.3.4}%
+\contentsline {paragraph}{Layer 0, reading the \ac {bev} map}{37}{section*.15}%
+\contentsline {paragraph}{Layer 1, spatially modulated camera attention}{37}{section*.16}%
+\contentsline {paragraph}{Reference refinement}{38}{section*.17}%
+\contentsline {paragraph}{Comparison with the decoder of ViP3D}{39}{section*.18}%
+\contentsline {subsection}{\numberline {5.3.5}Training}{39}{subsection.5.3.5}%
+\contentsline {paragraph}{Loss}{39}{section*.19}%
+\contentsline {paragraph}{Two-stage schedule}{40}{section*.20}%
+\contentsline {section}{\numberline {5.4}Complexity Analysis}{41}{section.5.4}%
+\contentsline {paragraph}{The query path is cheap}{42}{section*.21}%
+\contentsline {paragraph}{The feature extractors dominate the arithmetic}{42}{section*.22}%
+\contentsline {paragraph}{The camera layer dominates the decoder and its memory}{42}{section*.23}%
+\contentsline {paragraph}{Communication}{43}{section*.24}%
+\contentsline {section}{\numberline {5.5}Summary}{43}{section.5.5}%
 \contentsline {chapter}{\numberline {6}Implementation}{45}{chapter.6}%
 \contentsline {chapter}{\numberline {7}Experiments and Evaluation}{47}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Setup}{47}{section.7.1}%
@@ -81,9 +81,9 @@
 \contentsline {section}{\numberline {8.2}Future Work}{49}{section.8.2}%
 \contentsline {chapter}{Resumé}{49}{section.8.2}%
 \contentsline {chapter}{List of Abbreviations}{51}{table.8.1}%
-\contentsline {chapter}{List of Figures}{54}{chapter*.15}%
-\contentsline {chapter}{List of Tables}{55}{chapter*.16}%
-\contentsline {chapter}{References}{59}{chapter*.18}%
+\contentsline {chapter}{List of Figures}{54}{chapter*.26}%
+\contentsline {chapter}{List of Tables}{55}{chapter*.27}%
+\contentsline {chapter}{References}{59}{chapter*.29}%
 \contentsline {chapter}{\numberline {A}Description of Digital Submission }{B-1}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Technical Documentation}{B-3}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Installation Manual}{B-3}{section.B.1}%
@@ -91,8 +91,8 @@
 \contentsline {section}{\numberline {B.3}Developer Manual}{B-3}{section.B.3}%
 \contentsline {chapter}{\numberline {C}Work Schedule}{B-1}{appendix.C}%
 \contentsline {section}{\numberline {C.1}Work Schedule for BP1/DP1}{B-1}{section.C.1}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.19}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.30}%
 \contentsline {section}{\numberline {C.2}Work Schedule for BP2/DP2}{B-2}{section.C.2}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.20}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.31}%
 \contentsline {section}{\numberline {C.3}Work Schedule for DP3}{B-2}{section.C.3}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.21}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.32}%
