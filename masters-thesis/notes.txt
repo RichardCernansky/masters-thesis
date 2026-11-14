@@ -1,3 +1,7 @@
+- number sweeps
+The bias of the final convolutions is initialised so that every cell starts with a probability
+of about 0.1, which keeps the loss stable in the first iterations when almost every cell is background.
+- what about the DP1 experiments
 - invent the \modelname macro
 - add hungarian cost
 - add deduplication logic in the final DP3

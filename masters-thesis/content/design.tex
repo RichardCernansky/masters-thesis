@@ -66,7 +66,8 @@ values they take in the configuration used for the experiments.
         $N_{\mathrm{cls}}$ & object classes & 7 \\
         $H \times W$ & \ac{bev} grid & $256 \times 256$ \\
         $s$ & \ac{bev} cell size & 0.4\,m \\
-        $C_{\mathrm{BEV}}$ & channels of the \ac{bev} feature map & 384 \\
+        $C_{\mathrm{BEV}}$ & channels of the \ac{bev} feature map & 384 (for pillar-based) \\
+        $N_{\mathrm{sw}}$ & accumulated \ac{lidar} sweeps, the current one included & 5--10 \\
         $N_{\mathrm{cam}}$ & cameras & 6 \\
         $h \times w$ & camera feature map read by the fusion layer & $68 \times 120$ \\
         $T_h$ & frames in a training clip & 3 \\
@@ -346,7 +347,7 @@ is regressed, and the probability of that mode is pushed up,
     \label{eq:design-predloss}
 \end{equation}
 
-where $\mathcal{V}_a$ is the set of valid future steps of agent $a$ and $A$ the number of supervised agents.
+where $\mathcal{V}_a$ is the set of \emph{valid future steps} of agent $a$ and $A$ the number of supervised agents.
 Regressing only the closest mode lets the modes specialise to different futures instead of collapsing onto
 their mean. Only tracks matched to an annotated agent with a valid future are supervised.
 
@@ -400,9 +401,9 @@ These non-functional requirements constrain how the model has to be implemented.
     \item \textbf{Architectural flexibility.} The decoder shall be built from layers that \emph{can be added or
     removed} without changing the rest of the model, so that the number of layers can be lowered below the six
     layers of ViP3D as far as the experiments show it to be sufficient.
-    \item \textbf{Modularity and trainability.} The camera fusion layer shall be \emph{trainable independently} while 
-    freezing the pre-trained \ac{lidar} feature extractor weights, ensuring the camera stream can be added on top of 
-    a fixed geometric representation.
+    \item \textbf{Modularity and trainability.} 
+    The decoder layers shall be \emph{separable in training}, so that a subset of them can be trained 
+    alone and further layers added on top of it later while the already trained weights stay frozen.
 \end{enumerate}
 
 
@@ -411,28 +412,36 @@ These non-functional requirements constrain how the model has to be implemented.
 \label{sec:design-lidar}
 % ============================================================================
 
-The point cloud of the current frame is accumulated with the nine preceding sweeps, so that ten sweeps enter
-the branch, and every point carries five features, its three coordinates, its intensity and its time offset
-from the current sweep. The branch follows PointPillars \cite{Lang2019PointPillars} and the convolutional
-backbone of SECOND \cite{Yan2018SECOND}, as introduced in Section~\ref{sec:rw-lidar}.
-
-Space within $\pm 51.2$\,m around the vehicle is divided into pillars of $0.2 \times 0.2$\,m that span the
-whole vertical range, and a pillar holds at most 20 points. A PointNet-style encoder \cite{Qi2017PointNet}
-turns the points of each non-empty pillar into a vector of 64 features, and the vectors are scattered back to
-the positions of their pillars, which gives a pseudo-image of $512 \times 512$ cells. A two-dimensional
-\ac{cnn} with two strided stages reduces it to $256 \times 256$ cells with 128 channels and to $128 \times 128$
-cells with 256 channels, and a neck upsamples both to $256 \times 256$ and concatenates them. The result is
-the \ac{bev} feature map
+The point cloud of the current frame is accumulated with the $N_{\mathrm{sw}} - 1$ preceding sweeps, so that
+$N_{\mathrm{sw}}$ sweeps enter the branch, with $N_{\mathrm{sw}}$ between 5 and 10, and every point carries
+five features, its three coordinates, its intensity and its time offset from the current sweep. The space
+within $\pm 51.2$\,m around the vehicle is covered. Every \ac{lidar} branch turns this input into a \ac{bev}
+feature map
 
 \begin{equation}
-    \mathbf{F} \in \mathbb{R}^{C \times H \times W}, \qquad C = 384,\quad H = W = 256,\quad s = 0.4\,\mathrm{m}.
+    \mathbf{F} \in \mathbb{R}^{C_{\mathrm{BEV}} \times H \times W}, \qquad H = W = 256,\quad s = 0.4\,\mathrm{m},
     \label{eq:design-bev}
 \end{equation}
 
-The map serves twice. The heatmap head predicts object centres from it, and the first decoder layer reads
-features from it at the reference points of the queries.
+whose channel count $C_{\mathrm{BEV}}$ depends on the branch. The map serves twice. The heatmap head predicts
+object centres from it, and the first decoder layer reads features from it at the reference points of the
+queries. Because the rest of the model sees only $\mathbf{F}$, the branches described below are
+interchangeable.
 
-%figure: Block scheme of the LiDAR branch. Ten accumulated sweeps (N points x 5 features) -> pillar grid
+\paragraph{Pillar-based branch}
+
+The branch follows PointPillars \cite{Lang2019PointPillars} and the convolutional backbone of SECOND
+\cite{Yan2018SECOND}, as introduced in Section~\ref{sec:rw-lidar}. Space is divided into pillars of
+$0.2 \times 0.2$\,m that span the whole vertical range, and a pillar holds at most 20 points. A PointNet-style
+encoder \cite{Qi2017PointNet} turns the points of each non-empty pillar into a vector of 64 features, and the
+vectors are scattered back to the positions of their pillars, which gives a pseudo-image of $512 \times 512$
+cells. A two-dimensional \ac{cnn} with two strided stages reduces it to $256 \times 256$ cells with 128
+channels and to $128 \times 128$ cells with 256 channels, and a neck upsamples both to $256 \times 256$ and
+concatenates them, which gives $C_{\mathrm{BEV}} = 384$.
+
+% TODO: further LiDAR branches as \paragraph{...}, each ending in the same 256 x 256 grid with its own C_BEV
+
+%figure: Block scheme of the LiDAR branch. N_sw accumulated sweeps (N points x 5 features) -> pillar grid
 % 512 x 512 at 0.2 m -> PointNet pillar encoder (5 -> 64) -> scatter to pseudo-image 64 x 512 x 512 -> 2D CNN
 % stage 1 (stride 2, 128 x 256 x 256) and stage 2 (stride 2, 256 x 128 x 128) -> neck upsampling both to
 % 256 x 256 -> concatenation, BEV map 384 x 256 x 256 at 0.4 m, which feeds both the heatmap head and decoder
@@ -444,7 +453,7 @@ features from it at the reference points of the queries.
 \label{sec:design-init}
 % ============================================================================
 
-This subsection describes the first contribution of the thesis, which replaces the learned embedding of ViP3D
+This subsection describes the central idea of the thesis, which is to replace the learned embedding of ViP3D
 by queries derived from the point cloud, as proposed in Starting point~1. The principle was introduced in
 Section~\ref{sec:rw-lidar}, and what follows is its design inside a tracking model.
 
@@ -458,13 +467,13 @@ a group of classes, with the classes grouped as in CenterPoint \cite{Yin2021Cent
 shapes share a head. Each head consists of a $3 \times 3$ convolution with normalisation and activation and a
 final $3 \times 3$ convolution with one output channel per class. The outputs are reordered into the class
 order of the model, which gives the logits $\hat{\mathbf{Y}} \in \mathbb{R}^{N_{\mathrm{cls}} \times H
-\times W}$. The bias of the final convolutions is initialised so that every cell starts with a probability
-of about 0.1, which keeps the loss stable in the first iterations when almost every cell is background.
+\times W}$. 
 
 The target heatmap is built from the annotated boxes. An object $n$ of class $k_n$ with centre $(x_n, y_n)$
-and footprint $w_n \times l_n$ falls into the cell $(i_n, j_n)$ with $j_n = \lfloor (x_n - x_{\min}) / s
-\rfloor$ and $i_n = \lfloor (y_n - y_{\min}) / s \rfloor$, and is drawn as a Gaussian whose radius follows
-its size,
+and rectangle of size $w_n \times l_n$ falls into the cell $(i_n, j_n)$ with $j_n = \lfloor (x_n - x_{\min}) / s
+\rfloor$ and $i_n = \lfloor (y_n - y_{\min}) / s \rfloor$ ($s$ being the cell size), and is marked by a Gaussian centered on that cell,
+whose radius is derived from the size of the rectangle. If two objects overlap in the same cell,
+the larger value is kept. The target heatmap is then 
 
 \begin{equation}
     \begin{aligned}
@@ -476,8 +485,7 @@ its size,
 \end{equation}
 
 evaluated within a window of $2\rho_n + 1$ cells around the centre. The radius $\rho_n$ is half the diagonal
-of the footprint in cells, so a bus spreads over more cells than a pedestrian, and the maximum keeps the
-peak of every object at exactly 1 where objects of the same class overlap. The head is trained with the
+of the rectangle (measured in cells), so larger objects span more than smaller ones \cite{Law2018CornerNet}. The head is trained with the
 Gaussian focal loss of CornerNet \cite{Law2018CornerNet},
 
 \begin{equation}
@@ -492,8 +500,8 @@ Gaussian focal loss of CornerNet \cite{Law2018CornerNet},
 
 where $\hat{\mathbf{P}} = \sigma(\hat{\mathbf{Y}})$, $N_{\mathrm{pos}}$ is the number of cells with
 $Y_{k,i,j} = 1$, and $\alpha = 2$ and $\beta = 4$. The factor $(1 - Y)^{\beta}$ lowers the penalty on cells
-close to a centre, so the head is not punished for a peak that lands one cell off. Normalising by
-$N_{\mathrm{pos}}$ makes the loss an average over objects instead of a sum over the whole grid.
+close to a centre, so the head is not punished for a peak that lands off near the center cell. Normalising by
+$N_{\mathrm{pos}}$ makes the loss an average over objects for scenes with different numbers of objects.
 
 %figure: Visualisation of the heatmap on one frame: the BEV feature map, the predicted heatmap (maximum over
 % classes) and the target Gaussians side by side, with the selected peaks marked and the ground-truth boxes
@@ -504,12 +512,12 @@ $N_{\mathrm{pos}}$ makes the loss an average over objects instead of a sum over 
 
 The empty slots of a frame are filled by Algorithm~\ref{alg:design-init}. The heatmap probabilities are
 first detached from the computation graph, since the selection of a cell is a discrete choice through which
-no gradient can pass. Cells around every active track are then set to zero within a window of $5 \times 5$
+no gradient shall pass. Cells around every active track are then set to zero within a window of $5 \times 5$
 cells, which is $2 \times 2$\,m, so that a new query cannot be born on an object that a track already
 follows. A $3 \times 3$ max-pooling keeps only the local maxima of every class, which acts as a cheap
 non-maximum suppression. It is skipped for bicycles and pedestrians, whose footprints are smaller than the
 pooling window and which often stand closer to each other than one window, so that suppression would remove
-real objects. The strongest cells are finally selected jointly over all classes and all positions, so that
+real objects. The strongest cells are finally selected jointly over all classes and all positions, so that all
 the classes compete for the slots according to their scores.
 
 A selected cell $(i, j)$ of class $k$ becomes a query in two steps. Its reference point is the metric centre
@@ -522,8 +530,8 @@ of the cell,
     \label{eq:design-cell2metric}
 \end{equation}
 
-normalised and passed through $\sigma^{-1}$ as in Eq.~\eqref{eq:design-invsig}. The height is set to the
-middle of the range, since the \ac{bev} map carries no vertical position, and is left for the decoder to
+normalised and passed through $\sigma^{-1}$ as in Eq.~\eqref{eq:design-invsig}. The height is \emph{set to the
+middle of the range, since the \ac{bev} map carries no vertical position}, and is left for the decoder to
 refine. Its content is the \ac{bev} feature of the cell, projected to the embedding width, plus a learned
 embedding of the class,
 
@@ -534,10 +542,10 @@ embedding of the class,
 \end{equation}
 
 where $\mathbf{W}_{\mathrm{bev}} \in \mathbb{R}^{D \times C}$ and $\mathbf{e}_k \in \mathbb{R}^{D}$. The
-positional half is set equal to the content half at birth, since the content already encodes where the cell
-is, and the two halves diverge as soon as the query interaction module updates them.
+positional half is set equal to the content half at birth but the two halves diverge as soon as the \ac{qim} updates them and gives each
+its own update path.
 
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
     \caption{Initialisation of the empty slots from the \ac{lidar} heatmap}
     \label{alg:design-init}
     \begin{algorithmic}[1]
@@ -553,7 +561,7 @@ is, and the two halves diverge as soon as the query interaction module updates t
             \State $\mathbf{P}^{\max} \gets \operatorname{maxpool}_{3 \times 3}(\mathbf{P})$
             \For{every class $k$ except bicycle and pedestrian}
                 \State $\mathbf{P}_k \gets \mathbf{P}_k \odot \mathbf{1}\!\left[ \mathbf{P}_k = \mathbf{P}^{\max}_k \right]$
-                \Comment{keep local maxima only}
+                \Comment{keep local maxima only for large objects}
             \EndFor
             \State $\mathcal{E} \gets \{ i \in \mathcal{S} : \mathrm{id}_i = -1 \}$ \Comment{empty slots}
             \State $\{(k_n, i_n, j_n)\}_{n=1}^{\lvert \mathcal{E} \rvert} \gets$ the $\lvert \mathcal{E} \rvert$
@@ -561,8 +569,8 @@ is, and the two halves diverge as soon as the query interaction module updates t
             \For{$n = 1, \dots, \lvert \mathcal{E} \rvert$}
                 \State $(x, y, z) \gets$ metric centre of cell $(i_n, j_n)$ \Comment{Eq.~\eqref{eq:design-cell2metric}}
                 \State $\mathbf{r}_{\mathcal{E}_n} \gets \sigma^{-1}\big( \operatorname{normalise}(x, y, z) \big)$
-                \State $\mathbf{c} \gets \mathbf{W}_{\mathrm{bev}}\, \mathbf{F}_{:,i_n,j_n} + \mathbf{e}_{k_n}$
-                \State $(\mathbf{p}_{\mathcal{E}_n}, \mathbf{c}_{\mathcal{E}_n}) \gets (\mathbf{c}, \mathbf{c})$
+                \State $\mathbf{c} \gets \mathbf{W}_{\mathrm{bev}}\, \mathbf{F}_{:,i_n,j_n} + \mathbf{e}_{k_n}$  \Comment{project features and add class embedding}
+                \State $(\mathbf{p}_{\mathcal{E}_n}, \mathbf{c}_{\mathcal{E}_n}) \gets (\mathbf{c}, \mathbf{c})$  \Comment{positional and content halves}
             \EndFor
         \EndFunction
     \end{algorithmic}
@@ -572,31 +580,24 @@ is, and the two halves diverge as soon as the query interaction module updates t
 \label{subsec:design-integration}
 
 The initialisation is inserted into ViP3D at the single place where an empty slot used to receive its learned
-values, and it touches no other part of the tracking. Four properties of the integration follow from that
-placement.
+from the learned embeddings. These properties of the integration follow from the placement.
 
 \begin{itemize}
-    \item \textbf{Only empty slots are filled.} A slot with an identity keeps the query and the reference
-    point it carried from the previous frame, so a followed object is never re-initialised and keeps its
-    history. The suppression around active tracks complements this by keeping new queries off the cells
-    those tracks occupy.
-    \item \textbf{Birth is still decided by the tracker.} Placing a query on a peak does not create a track.
+    \item \textbf{Only empty slots are filled:} A slot with an identity keeps the query and the reference
+    point it carried from the previous frame preserving the history of the tracked object.
+    \item \textbf{Birth is still decided by the tracker:} Placing a query on a peak does not create a track.
     In training the slot must still win the matching of Algorithm~\ref{alg:design-assign}, and at inference
     its score must still reach $\tau_{\mathrm{new}}$ in Algorithm~\ref{alg:design-lifecycle}. A weak peak
     therefore produces a query that the decoder can reject.
-    \item \textbf{Gradients reach the initialisation only through the content.} The choice of cells is
+    \item \textbf{Gradients reach the initialisation only through the content:} The choice of cells is
     discrete, so the heatmap head learns only from its own loss of Eq.~\eqref{eq:design-hmloss}. The
     detection loss reaches the \ac{bev} features, the projection $\mathbf{W}_{\mathrm{bev}}$ and the class
     embeddings through the content of Eq.~\eqref{eq:design-content}, which teaches them to describe an object
-    in a way the decoder can use.
-    \item \textbf{The initial box size is a learned constant.} The size of a new slot is not derived from
-    its class, so every new query starts from the same learned size, which the first decoder layer refines
-    before the second layer needs it.
+    in a useful way for the decoder.
 \end{itemize}
 
-Slots that the query interaction module adds as false positives during training keep the identity $-1$, so
-in the next frame they are re-initialised from the heatmap like any other empty slot. The complete
-processing of one frame at inference is summarised in Algorithm~\ref{alg:design-frame}.
+To summarize the integration, the complete processing of one frame at inference in Algorithm~\ref{alg:design-frame}
+is described in the following pseudocode.
 
 \begin{algorithm}[htbp]
     \caption{Processing of one frame by \modelname at inference}
@@ -611,7 +612,7 @@ processing of one frame at inference is summarised in Algorithm~\ref{alg:design-
         $\{\mathbf{F}^m\} \gets \Call{CameraBranch}{\{I^m_t\}}$
         \State $\hat{\mathbf{Y}} \gets \Call{HeatmapHead}{\mathbf{F}}$
         \State \Call{InitQueries}{$\hat{\mathbf{Y}}, \mathbf{F}, \mathcal{S}$} \Comment{Algorithm~\ref{alg:design-init}}
-        \State decode all slots of $\mathcal{S}$ with layer 0 and layer 1 \Comment{Section~\ref{sec:design-decoder}}
+        \State decode all slots of $\mathcal{S}$ using multilayer transformer decoder \Comment{Section~\ref{sec:design-decoder}}
         \State update scores and identities \Comment{Algorithm~\ref{alg:design-lifecycle}}
         \State refine the embeddings of the slots with the memory bank
         \State $\mathcal{T}_t \gets$ the slots with $\mathrm{id} \geq 0$, their queries updated by the \ac{qim}
@@ -843,6 +844,11 @@ Freezing the \ac{lidar} feature extractor means that the camera cannot degrade t
 that the queries are built from. Fusion becomes a refinement of hypotheses that the point cloud has already
 formed, as intended in Section~\ref{sec:rw-positioning}. Algorithm~\ref{alg:design-train} summarises the
 processing of one training clip.
+
+Besides the surviving tracks, the \ac{qim} carries a few empty slots with the highest scores
+into the next frame during training, as false positives in the manner of MOTR \cite{Zeng2022MOTR}. These slots
+keep the identity $-1$, so in the next frame they are re-initialised from the heatmap like any other empty
+slot.
 
 %figure: Diagram of the two training stages. Stage 1: LiDAR branch, heatmap head, layer 0, branches, tracking and
 % predictor all trainable (one colour), camera path absent, layer 1 bypassed. Stage 2: LiDAR feature extractor and

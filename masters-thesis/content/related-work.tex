@@ -43,7 +43,7 @@ query itself rather than recovered afterwards by an association heuristic \cite{
 that identity survives across frames is what the tracking metrics of
 Section~\ref{subsec:sota-metrics-track} measure. ViP3D
 combines the two ideas and extends them to forecasting. Agent queries are initialised in the DETR3D
-manner, propagated through time in the MOTR manner by a memory bank and a query interaction module,
+manner, propagated through time in the MOTR manner by a memory bank and a \ac{qim},
 and read directly by the trajectory decoder. The result is a pipeline that is differentiable from the
 camera images to the predicted trajectories and that contains no thresholded intermediate representation
 \cite{Gu2023ViP3D}. ViP3D is the model this thesis builds upon.

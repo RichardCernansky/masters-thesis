@@ -2483,10 +2483,12 @@
     <bcf:citekey order="101" intorder="1">Qi2017PointNet</bcf:citekey>
     <bcf:citekey order="102" intorder="1">Yin2021CenterPoint</bcf:citekey>
     <bcf:citekey order="103" intorder="1">Law2018CornerNet</bcf:citekey>
-    <bcf:citekey order="104" intorder="1">Bai2022TransFusion</bcf:citekey>
-    <bcf:citekey order="105" intorder="1">Zhu2021DeformableDETR</bcf:citekey>
-    <bcf:citekey order="106" intorder="1">Gao2021SMCA</bcf:citekey>
-    <bcf:citekey order="107" intorder="1">Bai2022TransFusion</bcf:citekey>
+    <bcf:citekey order="104" intorder="1">Law2018CornerNet</bcf:citekey>
+    <bcf:citekey order="105" intorder="1">Bai2022TransFusion</bcf:citekey>
+    <bcf:citekey order="106" intorder="1">Zhu2021DeformableDETR</bcf:citekey>
+    <bcf:citekey order="107" intorder="1">Gao2021SMCA</bcf:citekey>
+    <bcf:citekey order="108" intorder="1">Bai2022TransFusion</bcf:citekey>
+    <bcf:citekey order="109" intorder="1">Zeng2022MOTR</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
