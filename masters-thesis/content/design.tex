@@ -1,12 +1,12 @@
 \chapter{Design of the Proposed Model}
 \label{chapter:design}
 
-This chapter describes the design of the proposed model, referred to as \modelname in what follows, at the
-level of its components, the data that passes between them and the algorithms they execute. Its
-realisation in a particular library is left to Chapter~\ref{chapter:implementation}. \modelname extends
+This chapter describes the design of the proposed model, at the
+level of its components, the data that passes between them and the algorithms executed by them. Its
+realisation in code is left to Chapter~\ref{chapter:implementation}. \modelname extends
 ViP3D \cite{Gu2023ViP3D} and reuses most of its pipeline, so the chapter first describes the parts of ViP3D
-that it reuses and then the parts that this thesis replaces or adds, which follow the starting points of
-Section~\ref{sec:summary}. It closes with the training schedule and an estimate of the time and memory
+that it reuses and then the parts that this thesis replaces or adds, which follow from the starting points of
+Section~\ref{sec:summary}. The chapter closes with the training methodology and an estimate of the time and memory
 complexity of every stage.
 
 
@@ -15,7 +15,7 @@ complexity of every stage.
 \label{sec:design-overview}
 % ============================================================================
 
-Our model processes a scene frame by frame and carries a set of agent queries from one frame to the next.
+Our model processes a scene frame by frame and uses a set of agent queries carried from one frame to the next.
 One frame passes through these 5 stages.
 
 \begin{enumerate}
@@ -35,7 +35,7 @@ One frame passes through these 5 stages.
 
 The \ac{lidar} part of stage 1 is
 added, stage 2 replaces the learned query embedding of ViP3D, and stage 3 replaces its six-layer camera
-decoder. The stages 4 and 5 are following ViP3D implementation.
+decoder. The stages 4 and 5 follow ViP3D implementation.
 
 %figure: Block scheme of the complete \modelname architecture. Two input branches at the top: the point cloud
 % passes the LiDAR branch and becomes the BEV feature map, the six camera images pass ResNet-50 and the FPN and
@@ -141,7 +141,7 @@ each map receives a sine positional encoding of its pixel coordinates, a learned
 level and a learned embedding of its camera, so that \emph{every feature carries where and in which image it was
 computed}.
 
-\subsection{Prediction Branches}
+\subsection{Prediction Branches for Detection}
 \label{subsec:design-branches}
 
 Every decoder layer has its own set of four prediction branches applied to its output embedding. The
@@ -365,7 +365,7 @@ the camera visibility masks and the training.
 \label{sec:design-requirements}
 % ============================================================================
 
-The following requirements apply to the parts that this thesis replaces or adds, and to how these parts
+The following requirements apply to the parts that are replaced or added, and how these parts
 are joined with the components reused from ViP3D. They follow from the gaps and the starting points of
 Section~\ref{sec:summary}.
 
@@ -400,7 +400,7 @@ These non-functional requirements constrain how the model has to be implemented.
     in the results can be attributed to the proposed change.
     \item \textbf{Architectural flexibility.} The decoder shall be built from layers that \emph{can be added or
     removed} without changing the rest of the model, so that the number of layers can be lowered below the six
-    layers of ViP3D as far as the experiments show it to be sufficient.
+    layers of ViP3D.
     \item \textbf{Modularity and trainability.} 
     The decoder layers shall be \emph{separable in training}, so that a subset of them can be trained 
     alone and further layers added on top of it later while the already trained weights stay frozen.
@@ -622,16 +622,16 @@ is described in the following pseudocode.
 
 
 % ============================================================================
-\subsection{Two-Layer Fusion Decoder}
+\subsection{Fusion Decoder}
 \label{sec:design-decoder}
 % ============================================================================
 
-This subsection describes the second contribution, the shallow decoder of Starting point~2. It replaces the six
-camera layers of ViP3D with two layers of different kinds. The first reads the \ac{bev} map and the second
+This subsection describes the shallower decoder of Starting point~2. It replaces the six
+camera layers of ViP3D with only up to two layers of different kinds. The first reads the \ac{bev} map and the second
 attends to the camera features, which follows the decoder of TransFusion \cite{Bai2022TransFusion} described
 in Section~\ref{sec:rw-fusion}. Both layers share the structure of a transformer decoder layer, namely
-self-attention among all queries, cross-attention to a sensor, and an \ac{ffn} with a hidden width of 512,
-each followed by a residual connection and layer normalisation, with eight attention heads throughout.
+self-attention among all queries, cross-attention to a sensor, and an \ac{ffn},
+each followed by a residual connection and layer normalisation, with multi-head attention throughout.
 
 %figure: Internal structure of the two-layer decoder. Input: queries (positional and content halves),
 % reference points and box sizes. Layer 0: self-attention (8 heads) -> add & norm -> BEV read at the reference
@@ -643,24 +643,78 @@ each followed by a residual connection and layer normalisation, with eight atten
 \paragraph{Layer 0, reading the \ac{bev} map}
 \label{subsec:design-layer0}
 
-The cross-attention of the first layer has the form of deformable attention \cite{Zhu2021DeformableDETR}
-with $P = 4$ sampling points per query and learned weights over them. In the configuration used, the learned
-sampling offsets are disabled, so all four points coincide with the reference point of the query and the
-layer reduces to a bilinear read of the \ac{bev} map at that point,
+The cross-attention of the first layer has the form of multi-head deformable attention
+\cite{Zhu2021DeformableDETR}. Instead of attending to every cell of the \ac{bev} map, each query $i$ reads the
+map at a few sampling points around its reference point $\tilde{\mathbf{r}}_i$. The map is first projected to
+the embedding width and normalised,
 
 \begin{equation}
-    \mathbf{o}_i = \mathbf{W}_o\, \mathbf{W}_{\mathrm{in}}\, \mathbf{F}\!\left( \tilde{r}_{i,x},
-    \tilde{r}_{i,y} \right),
+    \mathbf{V} = \mathrm{GN}\!\left( \mathbf{W}_{\mathrm{in}}\, \mathbf{F} \right),
+    \label{eq:design-layer0-proj}
+\end{equation}
+
+where $\mathbf{W}_{\mathrm{in}} \in \mathbb{R}^{D \times C}$ projects the \ac{bev} channels to the embedding
+width and $\mathrm{GN}$ denotes group normalisation. The channels of $\mathbf{V}$ and of the query
+$\mathbf{q}_i$ are split into $H$ heads, and each head $h$ samples its own channels at its own $P$ points.
+The first point stays on the reference point, and the other $P-1$ are moved by offsets predicted from the
+query,
+
+\begin{equation}
+    \Delta\mathbf{p}_{ih1} = \mathbf{0}, \qquad
+    \Delta\mathbf{p}_{ihp} = s \tanh\!\left( \mathbf{W}_{\Delta,hp}\, \mathbf{q}_i \right),
+    \quad p = 2, \dots, P,
+    \label{eq:design-layer0-offsets}
+\end{equation}
+
+where $s$ bounds the displacement. The feature read by head $h$ at point $p$ is
+
+\begin{equation}
+    \mathbf{v}_{ihp} = \mathbf{V}_h\!\left( \tilde{\mathbf{r}}_i + \Delta\mathbf{p}_{ihp} \right),
+    \label{eq:design-layer0-sample}
+\end{equation}
+
+where $\mathbf{V}_h(\cdot)$ denotes bilinear interpolation of the channels of head $h$ at the normalised
+position. The moving points are weighted by their content and combined into a context feature,
+
+\begin{equation}
+    A_{ihp} = \operatorname*{softmax}_{p = 2, \dots, P}
+              \left( \frac{\mathrm{MLP}_A\!\left[ \mathbf{v}_{ihp},\, \mathbf{q}_{ih},\,
+              \Delta\mathbf{p}_{ihp} \right]}{\tau} \right), \qquad
+    \mathbf{c}_{ih} = \sum_{p=2}^{P} A_{ihp}\, \mathbf{v}_{ihp},
+    \label{eq:design-layer0-context}
+\end{equation}
+
+where $\mathbf{q}_{ih}$ are the query channels of head $h$ and $\tau$ is a temperature. Concatenating the
+heads gives the centre feature $\mathbf{v}_i = [\mathbf{v}_{i11}, \dots, \mathbf{v}_{iH1}]$ and the context
+feature $\mathbf{c}_i = [\mathbf{c}_{i1}, \dots, \mathbf{c}_{iH}]$, which a learned gate mixes,
+
+\begin{equation}
+    \mathbf{o}_i = \mathbf{W}_o \left( g_i^{\mathrm{c}}\, \mathbf{v}_i + g_i^{\mathrm{x}}\, \mathbf{c}_i \right),
+    \qquad
+    \left( g_i^{\mathrm{c}}, g_i^{\mathrm{x}} \right) = \operatorname{softmax}\!\left(
+    \frac{\mathrm{MLP}_g\!\left[ \mathbf{v}_i,\, \mathbf{c}_i \right]}{\tau} \right),
     \label{eq:design-layer0}
 \end{equation}
 
-where $\mathbf{F}(\cdot)$ denotes bilinear interpolation of the map at the normalised position,
-$\mathbf{W}_{\mathrm{in}} \in \mathbb{R}^{D \times C}$ projects the \ac{bev} channels to the embedding width
-and $\mathbf{W}_o$ is an output projection. The output is added to the query as a residual. The reasoning
-behind this simplification is that a new query is born on a heatmap peak and a track has just been moved
-onto its predicted position, so in both cases the reference point already lies on the object and the
-feature at that point is the evidence the query needs. Reading a fixed number of points also makes the cost
-of the layer independent of the size of the \ac{bev} grid.
+where $\mathbf{W}_o$ is an output projection. The output is added to the query as a residual. Since bilinear
+interpolation is differentiable with respect to the sampling position, the offsets are learned from the
+detection loss alone, and since each query reads a fixed number of points, the cost of the layer does not
+depend on the size of the \ac{bev} grid.
+
+\textbf{Sigle-point read} \\
+With the offsets disabled, all points coincide with the reference point, so $\mathbf{c}_i = \mathbf{v}_i$
+and, because both $A_{ihp}$ and the gate weights sum to one, the layer reduces to a single bilinear read,
+
+\begin{equation}
+    \mathbf{o}_i = \mathbf{W}_o\, \mathbf{V}\!\left( \tilde{\mathbf{r}}_i \right).
+    \label{eq:design-layer0-single}
+\end{equation}
+
+The single read relies on the reference point already lying on the object, since a new query is born on a
+heatmap peak and a track has just been moved onto its predicted position. The offsets, additionally, can reach the
+visible surfaces of the object, where more of its LiDAR points lie, when the cell under the box centre holds little
+evidence in a sparse map. Both the \emph{single-point read} and the \emph{multi-point read} version of the layer are evaluated in this thesis.
+
 
 \paragraph{Layer 1, spatially modulated camera attention}
 \label{subsec:design-layer1}
@@ -668,24 +722,24 @@ of the layer independent of the size of the \ac{bev} grid.
 The second layer reintroduces the camera through \ac{smca} \cite{Gao2021SMCA}, as proposed in Starting
 point~2. Unlike the projective cross-attention of ViP3D, which reads one point per camera, it attends to every
 position of a camera feature map, and a Gaussian centred on the projection of the reference point decides
-how much each position may contribute. It reads only the finest pyramid level, at stride 8, whose map has
+how much each position may contribute. It reads the pyramid level of the highest resolution (stride 8) whose map has
 $h \times w$ positions per camera.
 
 For each camera $m$, the reference point is projected into the image, which gives its position
-$(u_m, v_m)$ on the feature map and a flag $\nu_m$ that holds when the point lies in front of the camera and
-inside the image. The width of the Gaussian follows the size of the box in the image. The centre of the box
+$(u_m, v_m)$ on the feature map, and a visibility flag $\chi_m$ that is set when the point lies in front of
+the camera and inside its image. The width of the Gaussian is inferred from the size of the box in the image. The centre of the box
 and the four points at half its width and half its length along the axes are projected, the extent they
 cover on the feature map is measured, and
 
 \begin{equation}
-    \varsigma_m = \operatorname{clip}\!\left( \beta \cdot \tfrac{1}{2} \sqrt{\Delta u_m^2 + \Delta v_m^2},\;
+    \varsigma_m = \operatorname{clip}\!\left( \tfrac{1}{2} \sqrt{\Delta u_m^2 + \Delta v_m^2},\;
     1,\; 50 \right), \qquad
     G_m(u, v) = \exp\!\left( -\frac{(u - u_m)^2 + (v - v_m)^2}{\varsigma_m^2} \right),
     \label{eq:design-sigma}
 \end{equation}
 
 where $\Delta u_m$ and $\Delta v_m$ are the horizontal and vertical extent in feature-map positions,
-$\beta = 1$ is a scale, and only points in front of the camera are used to measure the extent. A nearby car
+and only points in front of the camera are used to measure the extent. A nearby car
 covers many positions and receives a wide Gaussian, a distant one a narrow Gaussian. The attention of each
 head adds the logarithm of the Gaussian to the logits before the softmax,
 
@@ -697,20 +751,12 @@ head adds the logarithm of the Gaussian to the logits before the softmax,
 \end{equation}
 
 where $\mathbf{Q}$ is projected from the queries, $\mathbf{K}_m$ and $\mathbf{V}_m$ from the features of
-camera $m$, and $d_h = D / 8$. Since $\log G_m = 0$ at the projected centre and falls quadratically away from
-it, a position far from the object is excluded however similar its features are. The outputs are averaged
-over the cameras that see the query,
+camera $m$, and $d_h = D / 8$. The outputs are averaged
+over the cameras that see the query projected, and added to the query together with an encoding of the three-dimensional reference point
+produced by a small \ac{mlp}. 
 
-\begin{equation}
-    \mathbf{o} = \frac{\sum_{m} \nu_m\, \mathbf{o}_m}{\max\!\left( 1, \sum_{m} \nu_m \right)},
-    \label{eq:design-camavg}
-\end{equation}
-
-projected, and added to the query together with an encoding of the three-dimensional reference point
-produced by a small \ac{mlp}. A query that no camera sees receives nothing from Eq.~\eqref{eq:design-camavg},
-and for such queries the whole output of the layer is replaced by the output of layer 0. Objects outside the
-field of view of every camera, or close to the vehicle below the lower image edges, are therefore described
-by the \ac{lidar} alone rather than by an update computed from no evidence. The computation is summarised in
+A \emph{query visible to no camera receives nothing from this layer}, since its whole output is replaced by the output of layer 0. 
+Objects outside the field of view of every camera are therefore described by the \ac{lidar} alone. The computation process is summarised in
 Algorithm~\ref{alg:design-smca}.
 
 \begin{algorithm}[htbp]
@@ -721,21 +767,23 @@ Algorithm~\ref{alg:design-smca}.
         camera features $\mathbf{F}^1, \dots, \mathbf{F}^{N_{\mathrm{cam}}}$
         \Ensure updated queries and the set of queries seen by no camera
         \Function{SMCA}{$\mathbf{X}, \mathbf{r}, \mathbf{z}, \{\mathbf{F}^m\}$}
-            \State $\mathbf{o} \gets \mathbf{0}$, \quad $\mathbf{n} \gets \mathbf{0}$
+            \State $\mathbf{o} \gets \mathbf{0}$, \quad $\mathbf{n} \gets \mathbf{0}$  \Comment{counters for averaging over cameras}
             \State $\mathbf{Q} \gets \mathbf{W}_Q \mathbf{X}$ split into 8 heads
             \For{$m = 1, \dots, N_{\mathrm{cam}}$}
-                \State $(u_m, v_m, \nu_m) \gets$ projection of the reference points into camera $m$
+                \State $(u_m, v_m, \chi_m) \gets$ projection of the reference points into camera $m$
                 \State $\varsigma_m \gets$ width from the projected box extent \Comment{Eq.~\eqref{eq:design-sigma}}
                 \State $\mathbf{G}_m \gets$ Gaussian over the $h \times w$ positions
-                \State $\mathbf{K}_m, \mathbf{V}_m \gets \mathbf{W}_K \mathbf{F}^m,\ \mathbf{W}_V \mathbf{F}^m$
-                \State $\mathbf{A}_m \gets \operatorname{softmax}\big( \mathbf{Q}\mathbf{K}_m^{\top} / \sqrt{d_h} + \log \mathbf{G}_m \big)$
-                \State $\mathbf{o} \gets \mathbf{o} + \nu_m\, \mathbf{A}_m \mathbf{V}_m$, \quad $\mathbf{n} \gets \mathbf{n} + \nu_m$
+                \State $\mathbf{K}_m, \mathbf{V}_m \gets \mathbf{W}_K \mathbf{F}^m,\ \mathbf{W}_V \mathbf{F}^m$  \Comment{Project features to keys and values}
+                \State $\mathbf{A}_m \gets \operatorname{softmax}\big( \mathbf{Q}\mathbf{K}_m^{\top} / \sqrt{d_h} + \log \mathbf{G}_m \big)$ \Comment{Eq.~\eqref{eq:design-smca}}
+                \State $\mathbf{o} \gets \mathbf{o} + \chi_m\, \mathbf{A}_m \mathbf{V}_m$, \quad $\mathbf{n} \gets \mathbf{n} + \chi_m$ \Comment{accumulate outputs and counts}
             \EndFor
-            \State $\mathbf{o} \gets \mathbf{W}_o\, \mathbf{o} / \max(1, \mathbf{n})$
-            \State \Return $\mathbf{X} + \mathbf{o} + \operatorname{MLP}\big( \sigma^{-1}(\tilde{\mathbf{r}}) \big)$, \quad $\{ i : n_i = 0 \}$
+            \State $\mathbf{o} \gets \mathbf{W}_o \big( \mathbf{o} / \max(1, \mathbf{n}) \big)$
+            \State \Return $\mathbf{X} + \mathbf{o} + \operatorname{MLP}\big( \sigma^{-1}(\tilde{\mathbf{r}}) \big)$, \quad $\{ i : \mathbf{x}_i \in \mathbf{X},\ n_i = 0 \}$ \Comment{return updated queries and the set of queries seen by no camera}
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+
 
 %figure: SMCA on one frame: the six camera images with the projected reference points of the top 20 queries,
 % the Gaussian of each drawn as an ellipse or heat overlay, and next to it the resulting attention maps. Shows that
@@ -749,21 +797,24 @@ After each decoder layer $l$, the regression branch of that layer predicts an of
 and of the box size, and both are updated before the next layer,
 
 \begin{equation}
-    \tilde{\mathbf{r}}^{(l+1)} = \operatorname{stopgrad}\!\left( \sigma\!\left( \sigma^{-1}\big(
-    \tilde{\mathbf{r}}^{(l)} \big) + \Delta \mathbf{r}^{(l)} \right) \right), \qquad
-    \mathbf{z}^{(l+1)} = \operatorname{stopgrad}\!\left( \mathbf{z}^{(l)} + \Delta \mathbf{z}^{(l)} \right),
+    \begin{aligned}
+        \hat{\mathbf{r}}^{(l)} &= \sigma\!\left( \sigma^{-1}\big( \tilde{\mathbf{r}}^{(l)} \big) +
+        \Delta \mathbf{r}^{(l)} \right), &
+        \hat{\mathbf{z}}^{(l)} &= \mathbf{z}^{(l)} + \Delta \mathbf{z}^{(l)}
+        & &\text{(box of layer $l$, enters $\mathcal{L}_{\mathrm{det}}^{t,l}$)}, \\
+        \tilde{\mathbf{r}}^{(l+1)} &= \operatorname{stopgrad}\big( \hat{\mathbf{r}}^{(l)} \big), &
+        \mathbf{z}^{(l+1)} &= \operatorname{stopgrad}\big( \hat{\mathbf{z}}^{(l)} \big)
+        & &\text{(start of layer $l+1$)},
+    \end{aligned}
     \label{eq:design-refine}
 \end{equation}
 
 where $\tilde{\mathbf{r}}^{(l)} \in [0, 1]^3$ is the normalised reference point entering layer $l$, so the
-offset is added in inverse-sigmoid space and the result is mapped straight back into the range.
-
-The stop-gradient keeps each layer responsible for its own prediction. A layer is supervised on the
-correction it makes, and its error is not propagated back into the layer that supplied its starting point,
-which stabilises training in the same way as in Deformable DETR. The refinement of layer 0 matters
-particularly here, since layer 1 uses the refined reference point to place its Gaussian and the refined size
-to set its width. The reference point produced by the last layer is the one that is propagated into the next
-frame.
+offset is added in inverse-sigmoid space. The centre $\hat{\mathbf{r}}^{(l)}$ and the size
+$\hat{\mathbf{z}}^{(l)}$ form the box that the detection loss of Eq.~\eqref{eq:design-detloss} compares with
+the assigned object. The stop-gradient keeps each layer responsible for its own prediction. 
+The starting values are constant for the gradient, the loss of a layer trains only on the correction as in DeformableDETR \cite{Zhu2021DeformableDETR}. 
+The reference point produced by the last layer is the one that is propagated into the next frame.
 
 \paragraph{Comparison with the decoder of ViP3D}
 \label{subsec:design-compare}
@@ -957,7 +1008,7 @@ $O(\lvert \theta \rvert)$ per step and fewer parameters in stage 2, where the fe
 
 
 % ============================================================================
-\section{Summary}
+\section{Summary of the design}
 \label{sec:design-summary}
 % ============================================================================
 

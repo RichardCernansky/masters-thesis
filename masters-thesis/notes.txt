@@ -1,3 +1,6 @@
+and a flag $\nu_m$ that holds when the point lies in front of the camera and
+inside the image
+- think about where to specify parameters, embedding widths, feature channels, number of heads
 - number sweeps
 The bias of the final convolutions is initialised so that every cell starts with a probability
 of about 0.1, which keeps the loss stable in the first iterations when almost every cell is background.

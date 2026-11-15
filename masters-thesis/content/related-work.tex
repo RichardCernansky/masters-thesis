@@ -90,7 +90,7 @@ centred on the projection of the reference point of the query to the attention l
 so that a query attends only where it can geometrically be and converges considerably faster than
 unconstrained cross-attention.
 
-The initialisation itself operates in the \ac{bev} plane rather than in the image. TransFusion collapses
+The initialisation itself operates in the \ac{bev} plane. TransFusion collapses
 the features of each image along the vertical axis, so that one image column becomes a single token, on the
 observation that a \ac{bev} location maps to a column by camera geometry and that a column rarely holds
 more than one object. The \ac{bev} cells then attend to those columns, the result is averaged over the
@@ -132,16 +132,11 @@ As mentioned in \ref{sec:rw-queries}, Deformable DETR \cite{Zhu2021DeformableDET
 initialises the reference points from the centres of the highest scoring region proposals generated
 on top of the encoder output, so that the decoder starts from positions determined by
 the input. This variant outperformed the single-stage one, which is evidence that reference points derived from the data
-are prefereable to reference points learned as constants. 
-In this thesis, the grounding principle was applied in the \ac{bev} plane. The proposal generator is a class-wise heatmap
+are prefereable. 
+
+In this thesis, the grounding principle is applied in the \ac{bev} plane. The proposal generator is a class-wise heatmap
 predicted from the \ac{lidar} feature map, and its highest scoring peaks supply the query with both the 
 reference point from the position of the peak and the content from the feature sampled at that cell.
-
-This work is therefore positioned differently from Li-ViP3D and Li-ViP3D++ that combine
-the two modalities for queries that are still created the way ViP3D creates them, so the \ac{lidar} enters
-at the moment a query is refined. Here it enters earlier, at the moment a query is created, and the camera
-is reintroduced only afterwards in a second decoder layer trained on top of the frozen \ac{lidar} model.
-
 % TODO: state explicitly what this thesis adds beyond the two works above, for example the
 % heatmap-based query initialisation, the two-stage schedule, the camera visibility handling for
 % reduced camera counts, and the study of the non-differentiable tracking interface.
@@ -179,15 +174,3 @@ To fill in the gaps, the following starting points are proposed.
     predicted from the \ac{bev} feature map, taking the position of the cell as an initial position of the query. 
     \item \textbf{Starting point 2:} introduce a shallower decoder to exploit the fact that the queries already begin near their objects. Compare a decoder given only \ac{lidar} with one that reintroduces the camera, and measure the performance differences.
 \end{itemize}
-
-\newpage
-\textbf{Priebežná správa BP1/DP1 musí obsahovať:}
-\begin{enumerate}
-    \item Prehľad podobných riešení alebo produktov, s ktorými sa študent oboznámil pri štúdiu danej problematiky.
-    \item Špecifikáciu požiadaviek na vytvárané riešenie alebo produkt
-            (Chapter~\ref{chapter:objectives-and-methodology}).
-    \item Návrh
-    \item Vlastne zhodnotenie práce za príslušné obdobie
-            (Chapter~\ref{chapter:Work-Schedule} -
-            Section~\ref{sec:Work-Schedule-1st-semester}).
-\end{enumerate}
