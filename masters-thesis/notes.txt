@@ -1,5 +1,5 @@
-and a flag $\nu_m$ that holds when the point lies in front of the camera and
-inside the image
+
+- parametrize attention heads and mention
 - think about where to specify parameters, embedding widths, feature channels, number of heads
 - number sweeps
 The bias of the final convolutions is initialised so that every cell starts with a probability

@@ -138,8 +138,8 @@ Each of the $N_{\mathrm{cam}}$ images is encoded by a ResNet-50 \cite{He2016ResN
 use deformable convolutions \cite{Zhu2019DCNv2}, followed by an \ac{fpn} \cite{Lin2017FPN} that produces four
 feature maps of $D$ channels at strides 8, 16, 32 and 64 of the input image. Before the decoder reads them,
 each map receives a sine positional encoding of its pixel coordinates, a learned embedding of its pyramid
-level and a learned embedding of its camera, so that \emph{every feature carries where and in which image it was
-computed}.
+level and a learned embedding of its camera, so that every feature carries where and in which image it was
+computed.
 
 \subsection{Prediction Branches for Detection}
 \label{subsec:design-branches}
@@ -516,7 +516,7 @@ no gradient shall pass. Cells around every active track are then set to zero wit
 cells, which is $2 \times 2$\,m, so that a new query cannot be born on an object that a track already
 follows. A $3 \times 3$ max-pooling keeps only the local maxima of every class, which acts as a cheap
 non-maximum suppression. It is skipped for bicycles and pedestrians, whose footprints are smaller than the
-pooling window and which often stand closer to each other than one window, so that suppression would remove
+pooling window and which often stand closer to each other than one window, so that suppression would potentially remove
 real objects. The strongest cells are finally selected jointly over all classes and all positions, so that all
 the classes compete for the slots according to their scores.
 
@@ -589,7 +589,7 @@ from the learned embeddings. These properties of the integration follow from the
     In training the slot must still win the matching of Algorithm~\ref{alg:design-assign}, and at inference
     its score must still reach $\tau_{\mathrm{new}}$ in Algorithm~\ref{alg:design-lifecycle}. A weak peak
     therefore produces a query that the decoder can reject.
-    \item \textbf{Gradients reach the initialisation only through the content:} The choice of cells is
+    \item \textbf{Gradients reach the initialisation through the content:} The choice of cells is
     discrete, so the heatmap head learns only from its own loss of Eq.~\eqref{eq:design-hmloss}. The
     detection loss reaches the \ac{bev} features, the projection $\mathbf{W}_{\mathrm{bev}}$ and the class
     embeddings through the content of Eq.~\eqref{eq:design-content}, which teaches them to describe an object
@@ -720,8 +720,9 @@ evidence in a sparse map. Both the \emph{single-point read} and the \emph{multi-
 \label{subsec:design-layer1}
 
 The second layer reintroduces the camera through \ac{smca} \cite{Gao2021SMCA}, as proposed in Starting
-point~2. Unlike the projective cross-attention of ViP3D, which reads one point per camera, it attends to every
-position of a camera feature map, and a Gaussian centred on the projection of the reference point decides
+point~2. It is a multi-head attention with 8 heads, each attending with its own $D/8$ channels. Unlike the
+projective cross-attention of ViP3D, which reads one point per camera, it attends to every position of a camera
+feature map. Gaussian centred on the projection of the reference point decides
 how much each position may contribute. It reads the pyramid level of the highest resolution (stride 8) whose map has
 $h \times w$ positions per camera.
 
@@ -730,6 +731,7 @@ $(u_m, v_m)$ on the feature map, and a visibility flag $\chi_m$ that is set when
 the camera and inside its image. The width of the Gaussian is inferred from the size of the box in the image. The centre of the box
 and the four points at half its width and half its length along the axes are projected, the extent they
 cover on the feature map is measured, and
+
 
 \begin{equation}
     \varsigma_m = \operatorname{clip}\!\left( \tfrac{1}{2} \sqrt{\Delta u_m^2 + \Delta v_m^2},\;

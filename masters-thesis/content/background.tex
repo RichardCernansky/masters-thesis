@@ -69,6 +69,8 @@ historically have been more common in planning than in pure trajectory forecasti
 an active research area for capturing game-theoretic interactions and long-horizon planning in
 prediction.
 
+TODO: add citation game-theoretic
+
 \subsubsection{Deep Learning Methods}
 TODO: add equations and figures to important parts
 
@@ -219,8 +221,7 @@ their annotations support perception, forecasting, or both.
     sampled at \(10\,\mathrm{Hz}\), with \acp{hdmap} and a large share of interactive situations. It
     introduced \acs{map} for multi-modal predictions. Later releases of the dataset extend these scenarios
     with \ac{lidar} point clouds \cite{Chen2024WOMDLiDAR} and with camera information, but both cover only
-    the first second of each nine-second window, and the camera data is distributed as learned image tokens
-    rather than as raw images.
+    the first second of each nine-second window, and the camera data is distributed as learned image tokens.
 \end{itemize}
 
 NuScenes is used for every experiment reported in this thesis. A jointly trained perception and prediction
@@ -430,7 +431,7 @@ annotation:
         \label{eq:minade}
     \end{equation}
     A single annotated future step is sufficient for an agent to contribute, and the average is taken over
-    \(|\mathcal{T}|\) rather than over the full horizon, so agents that leave the scene early are scored on
+    \(|\mathcal{T}|\) and not the full horizon, so agents that leave the scene early are scored on
     a correspondingly shorter forecast.
 
     \item \textbf{min\acs{fde}} evaluates only the endpoint of the horizon, where the uncertainty of the
@@ -465,7 +466,7 @@ annotation:
     where \(N_{\mathrm{hit}}\) counts the matched agents whose \(\mathrm{minFDE}_K\) does not exceed
     \(\tau\), and \(N_{\mathrm{GT}}\) the annotated agents that survive the whole horizon. Unlike the three
     metrics above, which are averaged over the agents that were found, \acs{epa} is normalised by the
-    annotated agents rather than the matched ones, so \emph{a model cannot improve it by detecting fewer objects
+    annotated agents, so \emph{a model cannot improve it by detecting fewer objects
     and forecasting only the easy ones}.
 \end{enumerate}
 

@@ -173,7 +173,6 @@
 \newlabel{sec:sota-paradigms}{{2.2}{8}{Prediction Paradigms}{section.2.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Modular (Detect-Track-Predict)}{8}{subsection.2.2.1}\protected@file@percent }
 \newlabel{subsec:sota-modular}{{2.2.1}{8}{Modular (Detect-Track-Predict)}{subsection.2.2.1}{}}
-\ACRO{recordpage}{lidar}{24}{1}{8}
 \abx@aux@cite{0}{Luo2018FaF}
 \abx@aux@segm{0}{1}{Luo2018FaF}
 \abx@aux@cite{0}{hu2025survey}
@@ -192,15 +191,13 @@
 \abx@aux@segm{0}{1}{madjid2025survey}
 \abx@aux@cite{0}{Geiger2012KITTI}
 \abx@aux@segm{0}{1}{Geiger2012KITTI}
+\ACRO{recordpage}{lidar}{25}{1}{9}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Joint Learning (End-to-End Perception \& Prediction)}{9}{subsection.2.2.2}\protected@file@percent }
 \newlabel{subsec:sota-e2e}{{2.2.2}{9}{Joint Learning (End-to-End Perception \& Prediction)}{subsection.2.2.2}{}}
 \ACRO{recordpage}{lidar}{25}{1}{9}
 \ACRO{recordpage}{bev}{25}{1}{9}
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}Datasets}{9}{section.2.3}\protected@file@percent }
 \newlabel{sec:sota-datasets}{{2.3}{9}{Datasets}{section.2.3}{}}
-\ACRO{recordpage}{av}{25}{1}{9}
-\ACRO{recordpage}{lidar}{25}{1}{9}
-\ACRO{recordpage}{gps}{25}{1}{9}
 \abx@aux@cite{0}{Huang2018ApolloScape}
 \abx@aux@segm{0}{1}{Huang2018ApolloScape}
 \abx@aux@cite{0}{Kesten2019Lyft}
@@ -215,6 +212,9 @@
 \abx@aux@segm{0}{1}{Ettinger2021WOMD}
 \abx@aux@cite{0}{Chen2024WOMDLiDAR}
 \abx@aux@segm{0}{1}{Chen2024WOMDLiDAR}
+\ACRO{recordpage}{av}{26}{1}{10}
+\ACRO{recordpage}{lidar}{26}{1}{10}
+\ACRO{recordpage}{gps}{26}{1}{10}
 \ACRO{recordpage}{imu}{26}{1}{10}
 \ACRO{recordpage}{slam}{26}{1}{10}
 \ACRO{recordpage}{lidar}{26}{1}{10}
@@ -515,20 +515,20 @@
 \ACRO{recordpage}{bev}{51}{1}{35}
 \newlabel{eq:design-content}{{5.14}{35}{Selecting peaks and building queries}{equation.5.14}{}}
 \ACRO{recordpage}{qim}{51}{1}{35}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Initialisation of the empty slots from the \ac {lidar} heatmap}}{35}{algorithm.3}\protected@file@percent }
-\newlabel{alg:design-init}{{3}{35}{Selecting peaks and building queries}{algorithm.3}{}}
-\abx@aux@cite{0}{Bai2022TransFusion}
-\abx@aux@segm{0}{1}{Bai2022TransFusion}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Initialisation of the empty slots from the \ac {lidar} heatmap}}{36}{algorithm.3}\protected@file@percent }
+\newlabel{alg:design-init}{{3}{36}{Selecting peaks and building queries}{algorithm.3}{}}
 \@writefile{toc}{\contentsline {paragraph}{Integration with the tracker}{36}{section*.15}\protected@file@percent }
 \newlabel{subsec:design-integration}{{5.3.3}{36}{Integration with the tracker}{section*.15}{}}
 \ACRO{recordpage}{bev}{52}{1}{36}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Processing of one frame by our model\xspace  at inference}}{36}{algorithm.4}\protected@file@percent }
-\newlabel{alg:design-frame}{{4}{36}{Integration with the tracker}{algorithm.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Fusion Decoder}{36}{subsection.5.3.4}\protected@file@percent }
-\newlabel{sec:design-decoder}{{5.3.4}{36}{Fusion Decoder}{subsection.5.3.4}{}}
-\ACRO{recordpage}{bev}{52}{1}{36}
+\abx@aux@cite{0}{Bai2022TransFusion}
+\abx@aux@segm{0}{1}{Bai2022TransFusion}
 \abx@aux@cite{0}{Zhu2021DeformableDETR}
 \abx@aux@segm{0}{1}{Zhu2021DeformableDETR}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Processing of one frame by our model\xspace  at inference}}{37}{algorithm.4}\protected@file@percent }
+\newlabel{alg:design-frame}{{4}{37}{Integration with the tracker}{algorithm.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Fusion Decoder}{37}{subsection.5.3.4}\protected@file@percent }
+\newlabel{sec:design-decoder}{{5.3.4}{37}{Fusion Decoder}{subsection.5.3.4}{}}
+\ACRO{recordpage}{bev}{53}{1}{37}
 \ACRO{recordpage}{ffn}{53}{1}{37}
 \ACRO{recordpage}{bev}{53}{1}{37}
 \@writefile{toc}{\contentsline {paragraph}{Layer 0, reading the \ac {bev} map}{37}{section*.16}\protected@file@percent }
@@ -537,35 +537,33 @@
 \newlabel{eq:design-layer0-proj}{{5.15}{37}{Layer 0, reading the \ac {bev} map}{equation.5.15}{}}
 \ACRO{recordpage}{bev}{53}{1}{37}
 \newlabel{eq:design-layer0-offsets}{{5.16}{37}{Layer 0, reading the \ac {bev} map}{equation.5.16}{}}
-\newlabel{eq:design-layer0-sample}{{5.17}{37}{Layer 0, reading the \ac {bev} map}{equation.5.17}{}}
-\newlabel{eq:design-layer0-context}{{5.18}{37}{Layer 0, reading the \ac {bev} map}{equation.5.18}{}}
-\newlabel{eq:design-layer0}{{5.19}{37}{Layer 0, reading the \ac {bev} map}{equation.5.19}{}}
 \abx@aux@cite{0}{Gao2021SMCA}
 \abx@aux@segm{0}{1}{Gao2021SMCA}
+\newlabel{eq:design-layer0-sample}{{5.17}{38}{Layer 0, reading the \ac {bev} map}{equation.5.17}{}}
+\newlabel{eq:design-layer0-context}{{5.18}{38}{Layer 0, reading the \ac {bev} map}{equation.5.18}{}}
+\newlabel{eq:design-layer0}{{5.19}{38}{Layer 0, reading the \ac {bev} map}{equation.5.19}{}}
 \ACRO{recordpage}{bev}{54}{1}{38}
 \newlabel{eq:design-layer0-single}{{5.20}{38}{Layer 0, reading the \ac {bev} map}{equation.5.20}{}}
-\@writefile{toc}{\contentsline {paragraph}{Layer 1, spatially modulated camera attention}{38}{section*.17}\protected@file@percent }
-\newlabel{subsec:design-layer1}{{5.3.4}{38}{Layer 1, spatially modulated camera attention}{section*.17}{}}
-\ACRO{recordpage}{smca}{54}{1}{38}
-\newlabel{eq:design-sigma}{{5.21}{38}{Layer 1, spatially modulated camera attention}{equation.5.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Layer 1, spatially modulated camera attention}{39}{section*.17}\protected@file@percent }
+\newlabel{subsec:design-layer1}{{5.3.4}{39}{Layer 1, spatially modulated camera attention}{section*.17}{}}
+\ACRO{recordpage}{smca}{55}{1}{39}
+\newlabel{eq:design-sigma}{{5.21}{39}{Layer 1, spatially modulated camera attention}{equation.5.21}{}}
 \newlabel{eq:design-smca}{{5.22}{39}{Layer 1, spatially modulated camera attention}{equation.5.22}{}}
 \ACRO{recordpage}{mlp}{55}{1}{39}
 \ACRO{recordpage}{lidar}{55}{1}{39}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Spatially modulated cross-attention of decoder layer 1}}{39}{algorithm.5}\protected@file@percent }
-\newlabel{alg:design-smca}{{5}{39}{Layer 1, spatially modulated camera attention}{algorithm.5}{}}
-\@writefile{toc}{\contentsline {paragraph}{Reference refinement}{39}{section*.18}\protected@file@percent }
-\newlabel{subsec:design-refine}{{5.3.4}{39}{Reference refinement}{section*.18}{}}
 \abx@aux@cite{0}{Zhu2021DeformableDETR}
 \abx@aux@segm{0}{1}{Zhu2021DeformableDETR}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5}{\ignorespaces Spatially modulated cross-attention of decoder layer 1}}{40}{algorithm.5}\protected@file@percent }
+\newlabel{alg:design-smca}{{5}{40}{Layer 1, spatially modulated camera attention}{algorithm.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Reference refinement}{40}{section*.18}\protected@file@percent }
+\newlabel{subsec:design-refine}{{5.3.4}{40}{Reference refinement}{section*.18}{}}
 \newlabel{eq:design-refine}{{5.23}{40}{Reference refinement}{equation.5.23}{}}
 \@writefile{toc}{\contentsline {paragraph}{Comparison with the decoder of ViP3D}{40}{section*.19}\protected@file@percent }
 \newlabel{subsec:design-compare}{{5.3.4}{40}{Comparison with the decoder of ViP3D}{section*.19}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces The decoder of ViP3D compared with the decoder of our model\xspace  .}}{40}{table.5.2}\protected@file@percent }
-\newlabel{tab:design-compare}{{5.2}{40}{The decoder of ViP3D compared with the decoder of \modelname }{table.5.2}{}}
 \abx@aux@cite{0}{Bai2022TransFusion}
 \abx@aux@segm{0}{1}{Bai2022TransFusion}
-\abx@aux@cite{0}{Zeng2022MOTR}
-\abx@aux@segm{0}{1}{Zeng2022MOTR}
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces The decoder of ViP3D compared with the decoder of our model\xspace  .}}{41}{table.5.2}\protected@file@percent }
+\newlabel{tab:design-compare}{{5.2}{41}{The decoder of ViP3D compared with the decoder of \modelname }{table.5.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3.5}Training}{41}{subsection.5.3.5}\protected@file@percent }
 \newlabel{sec:design-training}{{5.3.5}{41}{Training}{subsection.5.3.5}{}}
 \@writefile{toc}{\contentsline {paragraph}{Loss}{41}{section*.20}\protected@file@percent }
@@ -574,64 +572,66 @@
 \@writefile{toc}{\contentsline {paragraph}{Two-stage schedule}{41}{section*.21}\protected@file@percent }
 \newlabel{subsec:design-schedule}{{5.3.5}{41}{Two-stage schedule}{section*.21}{}}
 \ACRO{recordpage}{lidar}{57}{1}{41}
-\ACRO{recordpage}{lidar}{57}{1}{41}
-\ACRO{recordpage}{lidar}{57}{1}{41}
-\ACRO{recordpage}{lidar}{57}{1}{41}
-\ACRO{recordpage}{qim}{57}{1}{41}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces Training on one clip}}{42}{algorithm.6}\protected@file@percent }
-\newlabel{alg:design-train}{{6}{42}{Two-stage schedule}{algorithm.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Complexity Analysis}{43}{section.5.4}\protected@file@percent }
-\newlabel{sec:design-complexity}{{5.4}{43}{Complexity Analysis}{section.5.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Estimated time and memory complexity of one frame. $N_{\mathrm  {pts}}$ is the number of points, $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map, $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm  {l}}$ the agents and lanes of the predictor. Orders of magnitude refer to the configuration used.}}{43}{table.5.3}\protected@file@percent }
-\newlabel{tab:design-complexity}{{5.3}{43}{Estimated time and memory complexity of one frame. $N_{\mathrm {pts}}$ is the number of points, $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map, $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm {l}}$ the agents and lanes of the predictor. Orders of magnitude refer to the configuration used}{table.5.3}{}}
-\@writefile{toc}{\contentsline {paragraph}{The query path is cheap}{43}{section*.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{The feature extractors dominate the arithmetic}{43}{section*.23}\protected@file@percent }
+\abx@aux@cite{0}{Zeng2022MOTR}
+\abx@aux@segm{0}{1}{Zeng2022MOTR}
+\ACRO{recordpage}{lidar}{58}{1}{42}
+\ACRO{recordpage}{lidar}{58}{1}{42}
+\ACRO{recordpage}{lidar}{58}{1}{42}
+\ACRO{recordpage}{qim}{58}{1}{42}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Complexity Analysis}{42}{section.5.4}\protected@file@percent }
+\newlabel{sec:design-complexity}{{5.4}{42}{Complexity Analysis}{section.5.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{The query path is cheap}{42}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The feature extractors dominate the arithmetic}{42}{section*.23}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces Training on one clip}}{43}{algorithm.6}\protected@file@percent }
+\newlabel{alg:design-train}{{6}{43}{Two-stage schedule}{algorithm.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Estimated time and memory complexity of one frame. $N_{\mathrm  {pts}}$ is the number of points, $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map, $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm  {l}}$ the agents and lanes of the predictor. Orders of magnitude refer to the configuration used.}}{44}{table.5.3}\protected@file@percent }
+\newlabel{tab:design-complexity}{{5.3}{44}{Estimated time and memory complexity of one frame. $N_{\mathrm {pts}}$ is the number of points, $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map, $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm {l}}$ the agents and lanes of the predictor. Orders of magnitude refer to the configuration used}{table.5.3}{}}
 \ACRO{recordpage}{lidar}{60}{1}{44}
 \@writefile{toc}{\contentsline {paragraph}{The camera layer dominates the decoder and its memory}{44}{section*.24}\protected@file@percent }
 \ACRO{recordpage}{smca}{60}{1}{44}
 \@writefile{toc}{\contentsline {paragraph}{Communication}{44}{section*.25}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Summary of the design}{44}{section.5.5}\protected@file@percent }
-\newlabel{sec:design-summary}{{5.5}{44}{Summary of the design}{section.5.5}{}}
-\ACRO{recordpage}{lidar}{60}{1}{44}
-\ACRO{recordpage}{bev}{60}{1}{44}
-\ACRO{recordpage}{bev}{60}{1}{44}
-\ACRO{recordpage}{lidar}{60}{1}{44}
-\ACRO{recordpage}{lidar}{60}{1}{44}
-\ACRO{recordpage}{lidar}{60}{1}{44}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Implementation}{45}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Summary of the design}{45}{section.5.5}\protected@file@percent }
+\newlabel{sec:design-summary}{{5.5}{45}{Summary of the design}{section.5.5}{}}
+\ACRO{recordpage}{lidar}{61}{1}{45}
+\ACRO{recordpage}{bev}{61}{1}{45}
+\ACRO{recordpage}{bev}{61}{1}{45}
+\ACRO{recordpage}{lidar}{61}{1}{45}
+\ACRO{recordpage}{lidar}{61}{1}{45}
+\ACRO{recordpage}{lidar}{61}{1}{45}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Implementation}{47}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chapter:implementation}{{6}{45}{Implementation}{chapter.6}{}}
-\newlabel{eq_bounce-rate}{{6.1}{45}{Implementation}{equation.6.1}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{47}{chapter.7}\protected@file@percent }
+\newlabel{chapter:implementation}{{6}{47}{Implementation}{chapter.6}{}}
+\newlabel{eq_bounce-rate}{{6.1}{47}{Implementation}{equation.6.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{49}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chapter:experiments-and-evaluation}{{7}{47}{Experiments and Evaluation}{chapter.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Setup}{47}{section.7.1}\protected@file@percent }
-\newlabel{sec:exp-setup}{{7.1}{47}{Setup}{section.7.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Hardware, software and versioning used for realization}}{47}{table.7.1}\protected@file@percent }
-\newlabel{table:experiments_environment}{{7.1}{47}{Hardware, software and versioning used for realization}{table.7.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{48}{section.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{48}{section.7.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{48}{section.7.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.5}Summary}{48}{section.7.5}\protected@file@percent }
-\newlabel{sec:exp-summary}{{7.5}{48}{Summary}{section.7.5}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Conclusion}{49}{chapter.8}\protected@file@percent }
+\newlabel{chapter:experiments-and-evaluation}{{7}{49}{Experiments and Evaluation}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Setup}{49}{section.7.1}\protected@file@percent }
+\newlabel{sec:exp-setup}{{7.1}{49}{Setup}{section.7.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Hardware, software and versioning used for realization}}{49}{table.7.1}\protected@file@percent }
+\newlabel{table:experiments_environment}{{7.1}{49}{Hardware, software and versioning used for realization}{table.7.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{50}{section.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{50}{section.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{50}{section.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}Summary}{50}{section.7.5}\protected@file@percent }
+\newlabel{sec:exp-summary}{{7.5}{50}{Summary}{section.7.5}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Conclusion}{51}{chapter.8}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chapter:conclusion}{{8}{49}{Conclusion}{chapter.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8.1}Summary}{49}{section.8.1}\protected@file@percent }
-\newlabel{sec:conclusion-summary}{{8.1}{49}{Summary}{section.8.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8.2}Future Work}{49}{section.8.2}\protected@file@percent }
-\newlabel{sec:conclusion-future-work}{{8.2}{49}{Future Work}{section.8.2}{}}
-\@writefile{toc}{\contentsline {chapter}{Resumé}{49}{section.8.2}\protected@file@percent }
-\newlabel{chapter:resume}{{8.2}{51}{Resumé}{chapter*.26}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Resumé}}{51}{table.8.1}\protected@file@percent }
-\newlabel{tab:Resumé}{{8.1}{51}{Resumé}{table.8.1}{}}
-\@writefile{toc}{\contentsline {chapter}{List of Abbreviations}{51}{table.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Figures}{54}{chapter*.27}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Tables}{55}{chapter*.28}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{References}{59}{chapter*.30}\protected@file@percent }
+\newlabel{chapter:conclusion}{{8}{51}{Conclusion}{chapter.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}Summary}{51}{section.8.1}\protected@file@percent }
+\newlabel{sec:conclusion-summary}{{8.1}{51}{Summary}{section.8.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}Future Work}{51}{section.8.2}\protected@file@percent }
+\newlabel{sec:conclusion-future-work}{{8.2}{51}{Future Work}{section.8.2}{}}
+\@writefile{toc}{\contentsline {chapter}{Resumé}{51}{section.8.2}\protected@file@percent }
+\newlabel{chapter:resume}{{8.2}{53}{Resumé}{chapter*.26}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Resumé}}{53}{table.8.1}\protected@file@percent }
+\newlabel{tab:Resumé}{{8.1}{53}{Resumé}{table.8.1}{}}
+\@writefile{toc}{\contentsline {chapter}{List of Abbreviations}{53}{table.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Figures}{56}{chapter*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Tables}{57}{chapter*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{References}{61}{chapter*.30}\protected@file@percent }
 \@input{appendices/digital_medium.aux}
 \@input{appendices/plan.aux}
 \ACRO{total-barriers}{1}
@@ -756,8 +756,8 @@
 \ACRO{pages}{lstm=={23@1@7}}
 \ACRO{pages}{tcn=={23@1@7}}
 \ACRO{pages}{gnn=={24@1@8}}
-\ACRO{pages}{av=={25@1@9}}
-\ACRO{pages}{gps=={25@1@9}}
+\ACRO{pages}{av=={26@1@10}}
+\ACRO{pages}{gps=={26@1@10}}
 \ACRO{pages}{imu=={26@1@10}}
 \ACRO{pages}{slam=={26@1@10}}
 \ACRO{pages}{iou=={28@1@12}}
@@ -782,8 +782,8 @@
 \ACRO{pages}{cnn=={23@1@7|49@1@33}}
 \ACRO{pages}{ffn=={46@1@30|53@1@37}}
 \ACRO{pages}{mlp=={43@1@27|47@1@31|55@1@39}}
-\ACRO{pages}{qim=={34@1@18|46@1@30|51@1@35|57@1@41}}
-\ACRO{pages}{smca=={54@1@38|60@1@44}}
-\ACRO{pages}{bev=={23@1@7|25@1@9|34@1@18|35@1@19|36@1@20|39@1@23|41@1@25|48@1@32|49@1@33|51@1@35|52@1@36|53@1@37|54@1@38|60@1@44}}
-\ACRO{pages}{lidar=={23@1@7|24@1@8|25@1@9|26@1@10|29@1@13|33@1@17|35@1@19|36@1@20|37@1@21|39@1@23|42@1@26|47@1@31|48@1@32|49@1@33|55@1@39|57@1@41|60@1@44}}
-\gdef \@abspage@last{85}
+\ACRO{pages}{qim=={34@1@18|46@1@30|51@1@35|58@1@42}}
+\ACRO{pages}{smca=={55@1@39|60@1@44}}
+\ACRO{pages}{bev=={23@1@7|25@1@9|34@1@18|35@1@19|36@1@20|39@1@23|41@1@25|48@1@32|49@1@33|51@1@35|52@1@36|53@1@37|54@1@38|61@1@45}}
+\ACRO{pages}{lidar=={23@1@7|25@1@9|26@1@10|29@1@13|33@1@17|35@1@19|36@1@20|37@1@21|39@1@23|42@1@26|47@1@31|48@1@32|49@1@33|55@1@39|57@1@41|58@1@42|60@1@44|61@1@45}}
+\gdef \@abspage@last{87}

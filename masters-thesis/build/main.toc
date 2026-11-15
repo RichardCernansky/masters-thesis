@@ -56,35 +56,35 @@
 \contentsline {paragraph}{Class-wise heatmap head}{33}{section*.13}%
 \contentsline {paragraph}{Selecting peaks and building queries}{34}{section*.14}%
 \contentsline {paragraph}{Integration with the tracker}{36}{section*.15}%
-\contentsline {subsection}{\numberline {5.3.4}Fusion Decoder}{36}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.4}Fusion Decoder}{37}{subsection.5.3.4}%
 \contentsline {paragraph}{Layer 0, reading the \ac {bev} map}{37}{section*.16}%
-\contentsline {paragraph}{Layer 1, spatially modulated camera attention}{38}{section*.17}%
-\contentsline {paragraph}{Reference refinement}{39}{section*.18}%
+\contentsline {paragraph}{Layer 1, spatially modulated camera attention}{39}{section*.17}%
+\contentsline {paragraph}{Reference refinement}{40}{section*.18}%
 \contentsline {paragraph}{Comparison with the decoder of ViP3D}{40}{section*.19}%
 \contentsline {subsection}{\numberline {5.3.5}Training}{41}{subsection.5.3.5}%
 \contentsline {paragraph}{Loss}{41}{section*.20}%
 \contentsline {paragraph}{Two-stage schedule}{41}{section*.21}%
-\contentsline {section}{\numberline {5.4}Complexity Analysis}{43}{section.5.4}%
-\contentsline {paragraph}{The query path is cheap}{43}{section*.22}%
-\contentsline {paragraph}{The feature extractors dominate the arithmetic}{43}{section*.23}%
+\contentsline {section}{\numberline {5.4}Complexity Analysis}{42}{section.5.4}%
+\contentsline {paragraph}{The query path is cheap}{42}{section*.22}%
+\contentsline {paragraph}{The feature extractors dominate the arithmetic}{42}{section*.23}%
 \contentsline {paragraph}{The camera layer dominates the decoder and its memory}{44}{section*.24}%
 \contentsline {paragraph}{Communication}{44}{section*.25}%
-\contentsline {section}{\numberline {5.5}Summary of the design}{44}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Implementation}{45}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{47}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Setup}{47}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{48}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{48}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{48}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Summary}{48}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusion}{49}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Summary}{49}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Future Work}{49}{section.8.2}%
-\contentsline {chapter}{Resumé}{49}{section.8.2}%
-\contentsline {chapter}{List of Abbreviations}{51}{table.8.1}%
-\contentsline {chapter}{List of Figures}{54}{chapter*.27}%
-\contentsline {chapter}{List of Tables}{55}{chapter*.28}%
-\contentsline {chapter}{References}{59}{chapter*.30}%
+\contentsline {section}{\numberline {5.5}Summary of the design}{45}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Implementation}{47}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{49}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Setup}{49}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{50}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{50}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{50}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Summary}{50}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusion}{51}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Summary}{51}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Future Work}{51}{section.8.2}%
+\contentsline {chapter}{Resumé}{51}{section.8.2}%
+\contentsline {chapter}{List of Abbreviations}{53}{table.8.1}%
+\contentsline {chapter}{List of Figures}{56}{chapter*.27}%
+\contentsline {chapter}{List of Tables}{57}{chapter*.28}%
+\contentsline {chapter}{References}{61}{chapter*.30}%
 \contentsline {chapter}{\numberline {A}Description of Digital Submission }{B-1}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Technical Documentation}{B-3}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Installation Manual}{B-3}{section.B.1}%
