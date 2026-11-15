@@ -37,32 +37,32 @@ interpretation. Each step is carried by one chapter of this thesis. A brief desc
 is provided in this section.
 
 \begin{itemize}
-    \item \textbf{Step 1, analysis.} Survey trajectory prediction and 3D object detection literature, with attention
-    to how query-based models initialize their agent queries. The
-    outcome is the two gaps and the starting points stated in Section~\ref{sec:summary}. Carried by
+    \item \textbf{Step 1, analysis.} Survey \ac{e2e} trajectory prediction and 3D object detection literature, with focus on 
+    how query-based models initialize their agent queries and techniques for injecting information from different modalities into them.
+    The outcome is the two gaps and the starting points stated in Section~\ref{sec:summary}. Carried by
     Chapters~\ref{chapter:sota} and~\ref{chapter:related}.
 
-    \item \textbf{Step 2, design.} Propose an architecture that closes those gaps, deciding how a query is
-    created from the point cloud, at which point the camera modality re-enters and how the training is
+    \item \textbf{Step 2, design.} Propose an architecture that relates to these gaps, deciding how a query is
+    created from the point cloud, at which point the camera modality enters and how the training is
     staged. Designing it mainly concerns designing the initialization mechanisms, design of the fusion decoder layers,
     design of integration with the ViP3D codebase and finally scheduling the training according to the 
     identified literature. Carried by Chapter~\ref{chapter:design}.
 
     \item \textbf{Step 3, implementation.} Realise the design by extending an existing open implementation
     of ViP3D \cite{Gu2023ViP3D}. Keeping the surrounding code
-    fixed is a methodological choice, since it makes the proposed change the only difference between the
+    fixed is a methodological choice, because it makes the proposed change the difference between the
     baseline and the proposed model. This way direct comparison can be achieved.
     Carried by Chapter~\ref{chapter:implementation}.
 
     \item \textbf{Step 4, experimental evaluation.} Measure the implemented model against selected
     \ac{e2e} \ac{pnp} models from the literature, and isolate the contribution of each added component by
-    ablating it, one ablation per objective. Detection, tracking and prediction metrics are recorded for
-    every configuration and reported per class, together with inference latency and parameter count.
+    ablating it, one ablation per objective. Detection, tracking and prediction metrics are reported for
+    every various configurations of hyperparameters, together with inference latency measurements and parameter count.
     Chapter~\ref{chapter:experiments-and-evaluation}.
 
     \item \textbf{Step 5, interpretation.} The results are analysed using metrics provided in
     Chapter~\ref{sec:sota-metrics} and interpreted in the context of 
-    the objectives and the research questions for conclusions and recommendation for future work.
+    the objectives and the research questions for conclusions and recommendations for future work.
     Carried by both Chapter~\ref{chapter:experiments-and-evaluation} and
     Chapter~\ref{chapter:conclusion}.
 \end{itemize}
