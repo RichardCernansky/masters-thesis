@@ -251,8 +251,7 @@ in different ways.
 The protocol used throughout this thesis is the one defined with nuScenes \cite{Caesar2020nuScenes} and 
 summarized in \cite{Valverde2025Detection}. A
 predicted box is matched to a ground-truth box of the same class when the distance between their centres on
-the ground plane is below a threshold \(d\), which replaces the intersection over union criterion common in
-image-based detection and avoids penalising small objects disproportionately. Matching is \emph{greedy} over
+the ground plane is below a threshold \(d\). Unlike intersection over union, it avoids penalising small objects disproportionately. Matching is \emph{greedy} over
 predictions sorted by decreasing confidence, and every ground-truth box can be matched at most once. The
 outcome of this assignment defines the counts:
 

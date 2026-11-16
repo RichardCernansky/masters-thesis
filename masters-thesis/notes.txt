@@ -2,6 +2,10 @@
 - parametrize attention heads and mention
 - think about where to specify parameters, embedding widths, feature channels, number of heads
 - number sweeps
+Besides the surviving tracks, the \ac{qim} carries a few empty slots with the highest scores
+into the next frame during training, as false positives in the manner of MOTR \cite{Zeng2022MOTR}. These slots
+keep the identity $-1$, so in the next frame they are re-initialised from the heatmap like any other empty
+slot.
 The bias of the final convolutions is initialised so that every cell starts with a probability
 of about 0.1, which keeps the loss stable in the first iterations when almost every cell is background.
 - what about the DP1 experiments

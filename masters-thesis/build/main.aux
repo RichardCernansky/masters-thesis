@@ -516,13 +516,13 @@
 \ACRO{recordpage}{bev}{51}{1}{35}
 \newlabel{eq:design-content}{{5.14}{35}{Selecting peaks and building queries}{equation.5.14}{}}
 \ACRO{recordpage}{qim}{51}{1}{35}
+\abx@aux@cite{0}{Bai2022TransFusion}
+\abx@aux@segm{0}{1}{Bai2022TransFusion}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Initialisation of the empty slots from the \ac {lidar} heatmap}}{36}{algorithm.3}\protected@file@percent }
 \newlabel{alg:design-init}{{3}{36}{Selecting peaks and building queries}{algorithm.3}{}}
 \@writefile{toc}{\contentsline {paragraph}{Integration with the tracker}{36}{section*.15}\protected@file@percent }
 \newlabel{subsec:design-integration}{{5.3.3}{36}{Integration with the tracker}{section*.15}{}}
 \ACRO{recordpage}{bev}{52}{1}{36}
-\abx@aux@cite{0}{Bai2022TransFusion}
-\abx@aux@segm{0}{1}{Bai2022TransFusion}
 \abx@aux@cite{0}{Zhu2021DeformableDETR}
 \abx@aux@segm{0}{1}{Zhu2021DeformableDETR}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Processing of one frame by our model\xspace  at inference}}{37}{algorithm.4}\protected@file@percent }
@@ -565,74 +565,61 @@
 \abx@aux@segm{0}{1}{Bai2022TransFusion}
 \@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces The decoder of ViP3D compared with the decoder of our model\xspace  .}}{41}{table.5.2}\protected@file@percent }
 \newlabel{tab:design-compare}{{5.2}{41}{The decoder of ViP3D compared with the decoder of \modelname }{table.5.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.5}Training}{41}{subsection.5.3.5}\protected@file@percent }
-\newlabel{sec:design-training}{{5.3.5}{41}{Training}{subsection.5.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.5}Training methodology}{41}{subsection.5.3.5}\protected@file@percent }
+\newlabel{sec:design-training}{{5.3.5}{41}{Training methodology}{subsection.5.3.5}{}}
 \@writefile{toc}{\contentsline {paragraph}{Loss}{41}{section*.20}\protected@file@percent }
 \newlabel{subsec:design-loss}{{5.3.5}{41}{Loss}{section*.20}{}}
 \newlabel{eq:design-loss}{{5.24}{41}{Loss}{equation.5.24}{}}
-\@writefile{toc}{\contentsline {paragraph}{Two-stage schedule}{41}{section*.21}\protected@file@percent }
-\newlabel{subsec:design-schedule}{{5.3.5}{41}{Two-stage schedule}{section*.21}{}}
-\ACRO{recordpage}{lidar}{57}{1}{41}
-\abx@aux@cite{0}{Zeng2022MOTR}
-\abx@aux@segm{0}{1}{Zeng2022MOTR}
+\@writefile{toc}{\contentsline {paragraph}{Multi-stage training schedule}{41}{section*.21}\protected@file@percent }
+\newlabel{subsec:design-schedule}{{5.3.5}{41}{Multi-stage training schedule}{section*.21}{}}
 \ACRO{recordpage}{lidar}{58}{1}{42}
 \ACRO{recordpage}{lidar}{58}{1}{42}
 \ACRO{recordpage}{lidar}{58}{1}{42}
-\ACRO{recordpage}{qim}{58}{1}{42}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Complexity Analysis}{42}{section.5.4}\protected@file@percent }
-\newlabel{sec:design-complexity}{{5.4}{42}{Complexity Analysis}{section.5.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{The query path is cheap}{42}{section*.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{The feature extractors dominate the arithmetic}{42}{section*.23}\protected@file@percent }
+\ACRO{recordpage}{lidar}{58}{1}{42}
+\ACRO{recordpage}{lidar}{58}{1}{42}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {6}{\ignorespaces Training on one clip}}{43}{algorithm.6}\protected@file@percent }
-\newlabel{alg:design-train}{{6}{43}{Two-stage schedule}{algorithm.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Estimated time and memory complexity of one frame. $N_{\mathrm  {pts}}$ is the number of points, $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map, $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm  {l}}$ the agents and lanes of the predictor. Orders of magnitude refer to the configuration used.}}{44}{table.5.3}\protected@file@percent }
-\newlabel{tab:design-complexity}{{5.3}{44}{Estimated time and memory complexity of one frame. $N_{\mathrm {pts}}$ is the number of points, $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map, $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm {l}}$ the agents and lanes of the predictor. Orders of magnitude refer to the configuration used}{table.5.3}{}}
-\ACRO{recordpage}{lidar}{60}{1}{44}
-\@writefile{toc}{\contentsline {paragraph}{The camera layer dominates the decoder and its memory}{44}{section*.24}\protected@file@percent }
-\ACRO{recordpage}{smca}{60}{1}{44}
-\@writefile{toc}{\contentsline {paragraph}{Communication}{44}{section*.25}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Summary of the design}{45}{section.5.5}\protected@file@percent }
-\newlabel{sec:design-summary}{{5.5}{45}{Summary of the design}{section.5.5}{}}
-\ACRO{recordpage}{lidar}{61}{1}{45}
-\ACRO{recordpage}{bev}{61}{1}{45}
-\ACRO{recordpage}{bev}{61}{1}{45}
-\ACRO{recordpage}{lidar}{61}{1}{45}
-\ACRO{recordpage}{lidar}{61}{1}{45}
-\ACRO{recordpage}{lidar}{61}{1}{45}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Implementation}{47}{chapter.6}\protected@file@percent }
+\newlabel{alg:design-train}{{6}{43}{Multi-stage training schedule}{algorithm.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Summary of the design}{43}{section.5.4}\protected@file@percent }
+\newlabel{sec:design-summary}{{5.4}{43}{Summary of the design}{section.5.4}{}}
+\ACRO{recordpage}{lidar}{59}{1}{43}
+\ACRO{recordpage}{bev}{59}{1}{43}
+\ACRO{recordpage}{bev}{59}{1}{43}
+\ACRO{recordpage}{lidar}{59}{1}{43}
+\ACRO{recordpage}{lidar}{59}{1}{43}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Implementation}{45}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chapter:implementation}{{6}{47}{Implementation}{chapter.6}{}}
-\newlabel{eq_bounce-rate}{{6.1}{47}{Implementation}{equation.6.1}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{49}{chapter.7}\protected@file@percent }
+\newlabel{chapter:implementation}{{6}{45}{Implementation}{chapter.6}{}}
+\newlabel{eq_bounce-rate}{{6.1}{45}{Implementation}{equation.6.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{47}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chapter:experiments-and-evaluation}{{7}{49}{Experiments and Evaluation}{chapter.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Setup}{49}{section.7.1}\protected@file@percent }
-\newlabel{sec:exp-setup}{{7.1}{49}{Setup}{section.7.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Hardware, software and versioning used for realization}}{49}{table.7.1}\protected@file@percent }
-\newlabel{table:experiments_environment}{{7.1}{49}{Hardware, software and versioning used for realization}{table.7.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{50}{section.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{50}{section.7.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{50}{section.7.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.5}Summary}{50}{section.7.5}\protected@file@percent }
-\newlabel{sec:exp-summary}{{7.5}{50}{Summary}{section.7.5}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Conclusion}{51}{chapter.8}\protected@file@percent }
+\newlabel{chapter:experiments-and-evaluation}{{7}{47}{Experiments and Evaluation}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Setup}{47}{section.7.1}\protected@file@percent }
+\newlabel{sec:exp-setup}{{7.1}{47}{Setup}{section.7.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Hardware, software and versioning used for realization}}{47}{table.7.1}\protected@file@percent }
+\newlabel{table:experiments_environment}{{7.1}{47}{Hardware, software and versioning used for realization}{table.7.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{48}{section.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{48}{section.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{48}{section.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}Summary}{48}{section.7.5}\protected@file@percent }
+\newlabel{sec:exp-summary}{{7.5}{48}{Summary}{section.7.5}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Conclusion}{49}{chapter.8}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chapter:conclusion}{{8}{51}{Conclusion}{chapter.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8.1}Summary}{51}{section.8.1}\protected@file@percent }
-\newlabel{sec:conclusion-summary}{{8.1}{51}{Summary}{section.8.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8.2}Future Work}{51}{section.8.2}\protected@file@percent }
-\newlabel{sec:conclusion-future-work}{{8.2}{51}{Future Work}{section.8.2}{}}
-\@writefile{toc}{\contentsline {chapter}{Resumé}{51}{section.8.2}\protected@file@percent }
-\newlabel{chapter:resume}{{8.2}{53}{Resumé}{chapter*.26}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Resumé}}{53}{table.8.1}\protected@file@percent }
-\newlabel{tab:Resumé}{{8.1}{53}{Resumé}{table.8.1}{}}
-\@writefile{toc}{\contentsline {chapter}{List of Abbreviations}{53}{table.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Figures}{56}{chapter*.27}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Tables}{57}{chapter*.28}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{References}{61}{chapter*.30}\protected@file@percent }
+\newlabel{chapter:conclusion}{{8}{49}{Conclusion}{chapter.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}Summary}{49}{section.8.1}\protected@file@percent }
+\newlabel{sec:conclusion-summary}{{8.1}{49}{Summary}{section.8.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}Future Work}{49}{section.8.2}\protected@file@percent }
+\newlabel{sec:conclusion-future-work}{{8.2}{49}{Future Work}{section.8.2}{}}
+\@writefile{toc}{\contentsline {chapter}{Resumé}{49}{section.8.2}\protected@file@percent }
+\newlabel{chapter:resume}{{8.2}{51}{Resumé}{chapter*.22}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Resumé}}{51}{table.8.1}\protected@file@percent }
+\newlabel{tab:Resumé}{{8.1}{51}{Resumé}{table.8.1}{}}
+\@writefile{toc}{\contentsline {chapter}{List of Abbreviations}{51}{table.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Figures}{54}{chapter*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Tables}{55}{chapter*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{References}{59}{chapter*.26}\protected@file@percent }
 \@input{appendices/digital_medium.aux}
 \@input{appendices/plan.aux}
 \ACRO{total-barriers}{1}
@@ -701,7 +688,7 @@
 \abx@aux@defaultrefcontext{0}{Law2018CornerNet}{none/global//global/global/global}
 \ACRO{usage}{av=={1}}
 \ACRO{usage}{avs=={2}}
-\ACRO{usage}{lidar=={40}}
+\ACRO{usage}{lidar=={39}}
 \ACRO{usage}{hdmap=={8}}
 \ACRO{usage}{bev=={32}}
 \ACRO{usage}{gps=={1}}
@@ -743,8 +730,8 @@
 \ACRO{usage}{fpn=={1}}
 \ACRO{usage}{ffn=={4}}
 \ACRO{usage}{mlp=={4}}
-\ACRO{usage}{smca=={2}}
-\ACRO{usage}{qim=={4}}
+\ACRO{usage}{smca=={1}}
+\ACRO{usage}{qim=={3}}
 \ACRO{pages}{avs=={17@1@1}}
 \ACRO{pages}{gmm=={22@1@6}}
 \ACRO{pages}{dbn=={22@1@6}}
@@ -781,10 +768,10 @@
 \ACRO{pages}{gt=={30@1@14|45@1@29|47@1@31}}
 \ACRO{pages}{e2e=={39@1@23|40@1@24|48@1@32}}
 \ACRO{pages}{cnn=={23@1@7|49@1@33}}
+\ACRO{pages}{qim=={34@1@18|46@1@30|51@1@35}}
 \ACRO{pages}{ffn=={46@1@30|53@1@37}}
+\ACRO{pages}{smca=={55@1@39}}
 \ACRO{pages}{mlp=={43@1@27|47@1@31|55@1@39}}
-\ACRO{pages}{qim=={34@1@18|46@1@30|51@1@35|58@1@42}}
-\ACRO{pages}{smca=={55@1@39|60@1@44}}
-\ACRO{pages}{bev=={23@1@7|25@1@9|34@1@18|35@1@19|36@1@20|39@1@23|41@1@25|48@1@32|49@1@33|51@1@35|52@1@36|53@1@37|54@1@38|61@1@45}}
-\ACRO{pages}{lidar=={23@1@7|25@1@9|26@1@10|29@1@13|33@1@17|35@1@19|36@1@20|37@1@21|39@1@23|42@1@26|47@1@31|48@1@32|49@1@33|55@1@39|57@1@41|58@1@42|60@1@44|61@1@45}}
-\gdef \@abspage@last{87}
+\ACRO{pages}{bev=={23@1@7|25@1@9|34@1@18|35@1@19|36@1@20|39@1@23|41@1@25|48@1@32|49@1@33|51@1@35|52@1@36|53@1@37|54@1@38|59@1@43}}
+\ACRO{pages}{lidar=={23@1@7|25@1@9|26@1@10|29@1@13|33@1@17|35@1@19|36@1@20|37@1@21|39@1@23|42@1@26|47@1@31|48@1@32|49@1@33|55@1@39|58@1@42|59@1@43}}
+\gdef \@abspage@last{85}

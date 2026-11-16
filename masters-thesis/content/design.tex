@@ -342,8 +342,8 @@ is regressed, and the probability of that mode is pushed up,
 
 \begin{equation}
     \mathcal{L}_{\mathrm{pred}} = \frac{1}{A} \sum_{a=1}^{A} \left( \frac{1}{\lvert \mathcal{V}_a \rvert}
-    \sum_{t \in \mathcal{V}_a} \operatorname{SmoothL1}\!\left( \hat{\mathbf{y}}^{a,m^{*}}_t -
-    \mathbf{y}^{a}_t \right) - \log \pi^{a}_{m^{*}} \right),
+    \left[ \sum_{t \in \mathcal{V}_a} \operatorname{SmoothL1}\!\left( \hat{\mathbf{y}}^{a,m^{*}}_t -
+    \mathbf{y}^{a}_t \right) \right] - \log \pi^{a}_{m^{*}} \right),
     \label{eq:design-predloss}
 \end{equation}
 
@@ -579,8 +579,8 @@ its own update path.
 \paragraph{Integration with the tracker}
 \label{subsec:design-integration}
 
-The initialisation is inserted into ViP3D at the single place where an empty slot used to receive its learned
-from the learned embeddings. These properties of the integration follow from the placement.
+The initialisation is inserted into ViP3D at the single place where an empty slot used to receive learned embedding. 
+The properties of the integration can be summarized as follows:
 
 \begin{itemize}
     \item \textbf{Only empty slots are filled:} A slot with an identity keeps the query and the reference
@@ -592,8 +592,7 @@ from the learned embeddings. These properties of the integration follow from the
     \item \textbf{Gradients reach the initialisation through the content:} The choice of cells is
     discrete, so the heatmap head learns only from its own loss of Eq.~\eqref{eq:design-hmloss}. The
     detection loss reaches the \ac{bev} features, the projection $\mathbf{W}_{\mathrm{bev}}$ and the class
-    embeddings through the content of Eq.~\eqref{eq:design-content}, which teaches them to describe an object
-    in a useful way for the decoder.
+    embeddings through the content of Eq.~\eqref{eq:design-content}.
 \end{itemize}
 
 To summarize the integration, the complete processing of one frame at inference in Algorithm~\ref{alg:design-frame}
@@ -820,23 +819,21 @@ The reference point produced by the last layer is the one that is propagated int
 
 \paragraph{Comparison with the decoder of ViP3D}
 \label{subsec:design-compare}
-
-Table~\ref{tab:design-compare} sets the two decoders side by side. The reduction from six layers to two is
-possible because the queries no longer start from constants, and the work of moving a query onto its object
-is done before the decoder by the heatmap. The camera layer is, however, more expensive than a layer of ViP3D,
-since it attends densely to whole feature maps instead of sampling one point per camera. The saving in depth
-and the cost of the dense attention are therefore not independent, and Section~\ref{sec:design-complexity}
-estimates both.
+In table~\ref{tab:design-compare}, the decoder of ViP3D is compared with the decoder of \modelname. 
+The reduction from six layers to two is possible because the queries no longer start from input-independent learned embeddings, 
+and the heatmap head provides a prior information about the position of the objects. The decoder of \modelname can be therefore more efficient. 
+The camera layer is, however, more expensive than a layer of ViP3D. 
 
 \begin{table}[htbp]
     \centering
+    \renewcommand{\arraystretch}{1.4}
     \caption{The decoder of ViP3D compared with the decoder of \modelname.}
     \label{tab:design-compare}
-    \begin{tabular}{>{\raggedright\arraybackslash}p{0.32\textwidth}
+    \begin{tabular}{>{\raggedright\arraybackslash\bfseries}p{0.32\textwidth}
                     >{\raggedright\arraybackslash}p{0.29\textwidth}
                     >{\raggedright\arraybackslash}p{0.29\textwidth}}
         \toprule
-        & ViP3D & \modelname \\
+        & \textbf{ViP3D} & \textbf{\modelname} \\
         \midrule
         Initialisation of empty slots & learned embedding, the same in every frame & strongest heatmap peaks
         of the current frame \\
@@ -845,25 +842,25 @@ estimates both.
         \ac{lidar} & not used & read at the reference point in layer 0 \\
         Camera & projective sampling, one point per camera and level & dense attention over one level,
         modulated by a Gaussian \\
-        Query seen by no camera & sampled features masked & output of layer 0 kept \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 
+
 % ============================================================================
-\subsection{Training}
+\subsection{Training methodology}
 \label{sec:design-training}
 % ============================================================================
 
 \paragraph{Loss}
 \label{subsec:design-loss}
 
-The model is trained on clips of $T$ consecutive frames, so that identities can be carried from one frame to
-the next and the tracking modules receive a learning signal. The loss of a clip is
+The model is trained on clips of $T$ consecutive frames with identities propagating from frame to frame. 
+The loss of a clip is
 
 \begin{equation}
-    \mathcal{L} = \sum_{t=1}^{T} \left( \sum_{l=0}^{1} \mathcal{L}_{\mathrm{det}}^{t,l} +
+    \mathcal{L} = \sum_{t=1}^{T} \left( \left[ \sum_{l=0}^{1} \mathcal{L}_{\mathrm{det}}^{t,l} \right] +
     \lambda_{\mathrm{hm}}\, \mathcal{L}_{\mathrm{hm}}^{t} \right) + \mathcal{L}_{\mathrm{pred}},
     \label{eq:design-loss}
 \end{equation}
@@ -875,17 +872,17 @@ prediction loss of Eq.~\eqref{eq:design-predloss}. Each detection and heatmap te
 frame, the detection terms by the number of assigned slots and the heatmap term by the number of peaks, so that
 a crowded frame does not outweigh a sparse frame.
 
-\paragraph{Two-stage schedule}
+\paragraph{Multi-stage training schedule}
 \label{subsec:design-schedule}
 
-Training follows the two-stage recipe of TransFusion \cite{Bai2022TransFusion}, which satisfies NFR3.
+% TODO: add described in cha:experiments and eval
+Training is based around the two-stage recipe of TransFusion \cite{Bai2022TransFusion}, however with TransFusion being a single-frame detector,
+the staging of the training process can be adapted to be more suitable for our multi-frame trajectory prediction model. The stages are summarised as follows:
 
 \begin{itemize}
-    \item \textbf{Stage 1, \ac{lidar} only.} The camera input is absent. Layer 1 is bypassed and its outputs
-    are copies of those of layer 0, so the second set of prediction branches is already trained on a
-    meaningful representation when the camera layer is introduced. Everything else is trained, namely the
-    \ac{lidar} branch, the heatmap head, layer 0, both sets of prediction branches, the tracking modules and
-    the predictor.
+    \item \textbf{Stage 0, detection-only pretraining.} The \ac{lidar} feature backbone, the heatmap head, layer 0 and all the other components except the predictor are jointly pretrained on the detection 
+    task with the same loss of Eq.~\eqref{eq:design-loss} but omitting the prediction term as the trajectory predictions are not executed. This stage is optional, but it is found to improve the convergence of the model (see Chapter~\ref{chapter:experiments-and-evaluation}).
+    \item \textbf{Stage 1, \ac{lidar} only.} The camera input is absent. Layer 1 is bypassed and exerything else is trained on the detection and prediction tasks. If the stage 0 pretraining is performed, the \ac{lidar} backbone is trained on lower learning rate than the other components.
     \item \textbf{Stage 2, camera fusion.} Starting from the end of stage 1, the \ac{lidar} feature extractor
     is frozen and the camera layer is trained from its initialisation. The image backbone, pretrained for
     detection, is frozen as well, and the image neck is fine-tuned at a tenth of the learning rate. The
@@ -895,20 +892,9 @@ Training follows the two-stage recipe of TransFusion \cite{Bai2022TransFusion}, 
 
 Freezing the \ac{lidar} feature extractor means that the camera cannot degrade the geometric representation
 that the queries are built from. Fusion becomes a refinement of hypotheses that the point cloud has already
-formed, as intended in Section~\ref{sec:rw-positioning}. Algorithm~\ref{alg:design-train} summarises the
-processing of one training clip.
+formed. Algorithm~\ref{alg:design-train} summarises the processing of one training clip.
 
-Besides the surviving tracks, the \ac{qim} carries a few empty slots with the highest scores
-into the next frame during training, as false positives in the manner of MOTR \cite{Zeng2022MOTR}. These slots
-keep the identity $-1$, so in the next frame they are re-initialised from the heatmap like any other empty
-slot.
-
-%figure: Diagram of the two training stages. Stage 1: LiDAR branch, heatmap head, layer 0, branches, tracking and
-% predictor all trainable (one colour), camera path absent, layer 1 bypassed. Stage 2: LiDAR feature extractor and
-% image backbone frozen (grey, padlock), image neck and heatmap head at 0.1 of the learning rate (light colour),
-% SMCA layer newly trained (highlighted), layer 0, branches, tracking and predictor trainable.
-
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
     \caption{Training on one clip}
     \label{alg:design-train}
     \begin{algorithmic}[1]
@@ -937,88 +923,20 @@ slot.
     \end{algorithmic}
 \end{algorithm}
 
-
-% ============================================================================
-\section{Complexity Analysis}
-\label{sec:design-complexity}
-% ============================================================================
-
-Table~\ref{tab:design-complexity} estimates the time and memory complexity of each stage for one frame. Time
-is given as the number of multiply and accumulate operations, and the orders of magnitude are computed from
-the layer shapes of the configuration of Table~\ref{tab:design-notation}, with $Q \approx 300$. They estimate
-the arithmetic of each stage and are not measured run times, which Chapter~\ref{chapter:experiments-and-evaluation}
-reports.
-
-\begin{table}[htbp]
-    \centering
-    \caption{Estimated time and memory complexity of one frame. $N_{\mathrm{pts}}$ is the number of points,
-    $H_p W_p$ the pillar grid, $k$ the convolution kernel, $hw$ the positions of one camera feature map,
-    $N_a$ the active tracks, $n$ the size of the assignment problem, and $A$ and $M_{\mathrm{l}}$ the agents
-    and lanes of the predictor. Orders of magnitude refer to the configuration used.}
-    \label{tab:design-complexity}
-    \small
-    \begin{tabular}{>{\raggedright\arraybackslash}p{0.25\textwidth}
-                    >{\raggedright\arraybackslash}p{0.27\textwidth}
-                    >{\raggedright\arraybackslash}p{0.17\textwidth}
-                    >{\raggedright\arraybackslash}p{0.19\textwidth}}
-        \toprule
-        Stage & Time & Order of time & Memory \\
-        \midrule
-        Pillar encoding, scatter & $O(N_{\mathrm{pts}})$ & $10^{7}$ & $O(H_p W_p)$ \\
-        \ac{lidar} \ac{cnn} and neck & $O(H W C^2 k^2)$ & $10^{11}$ & $O(H W C)$ \\
-        Camera backbone and \ac{fpn} & $O(N_{\mathrm{cam}}\, H_{\mathrm{img}} W_{\mathrm{img}})$ & $10^{11}$ to $10^{12}$
-        & $O(N_{\mathrm{cam}}\, hw D)$ \\
-        Heatmap head & $O(H W C k^2)$ & $10^{9}$ & $O(N_{\mathrm{cls}} H W)$ \\
-        Query selection & $O(N_{\mathrm{cls}} H W + N_a)$ & $10^{6}$ & $O(N_{\mathrm{cls}} H W)$ \\
-        Self-attention, per layer & $O(Q^2 D)$ & $10^{7}$ & $O(Q^2)$ \\
-        Layer 0, \ac{bev} read & $O(Q P C D)$ & $10^{8}$ & $O(Q P C)$ \\
-        Layer 1, \ac{smca} & $O(N_{\mathrm{cam}}(Q\, hw D + hw D^2))$ & $10^{10}$ & $O(Q\, N_{\mathrm{cam}}\, hw)$ \\
-        Prediction branches & $O(Q D^2)$ & $10^{8}$ & $O(Q D)$ \\
-        Memory bank & $O(N_a L D)$ & $10^{6}$ & $O(N_a L D)$ \\
-        Query interaction & $O(N_a^2 D)$ & $10^{6}$ & $O(N_a^2)$ \\
-        Hungarian matching, training only & $O(n^3)$ & $10^{7}$ & $O(n^2)$ \\
-        Trajectory prediction & $O((A + M_{\mathrm{l}})^2 D)$ & $10^{7}$ & $O((A + M_{\mathrm{l}})^2)$ \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-Three observations follow from the table.
-
-\paragraph{The query path is cheap} The selection of queries from the heatmap is linear in the size of the
-grid and costs no more than a pooling and a partial sort, and the read of layer 0 is linear in the number of
-queries and independent of the grid. The contribution of this thesis to the query path therefore adds almost
-nothing to the cost of a frame. The heatmap head costs more, but it is a few convolutions over a map that the
-backbone has already produced.
-
-\paragraph{The feature extractors dominate the arithmetic} The two convolutional backbones account for the
-largest share of the operations. The camera backbone is the larger of the two, since it processes six images,
-and it is absent in stage 1, which makes the \ac{lidar}-only model considerably cheaper than the fused one
-independently of the decoder.
-
-\paragraph{The camera layer dominates the decoder and its memory} Removing four layers saves little, since a
-layer of ViP3D samples only a few points per query. The \ac{smca} layer instead forms, for each camera, an
-attention matrix of $8 \times Q \times hw$ entries, about $2 \times 10^{7}$ values, and a Gaussian mask of
-$Q \times N_{\mathrm{cam}} \times hw$ entries, about $1.5 \times 10^{7}$ values. These are the largest
-intermediate tensors of the decoder, and since the layer moves much data for comparatively little arithmetic,
-its run time is limited by memory traffic rather than by the operation count of the table. The shallower
-decoder is therefore not cheaper by construction, and whether it is faster than the six layers of ViP3D is a
-question for measurement.
-
-\paragraph{Communication} At inference the model runs on a single device and exchanges no data. Training is
-data-parallel, so each step exchanges the gradients of the trainable parameters among the devices, which is
-$O(\lvert \theta \rvert)$ per step and fewer parameters in stage 2, where the feature extractors are frozen.
-
+%figure: Diagram of the two training stages. Stage 1: LiDAR branch, heatmap head, layer 0, branches, tracking and
+% predictor all trainable (one colour), camera path absent, layer 1 bypassed. Stage 2: LiDAR feature extractor and
+% image backbone frozen (grey, padlock), image neck and heatmap head at 0.1 of the learning rate (light colour),
+% SMCA layer newly trained (highlighted), layer 0, branches, tracking and predictor trainable.
 
 % ============================================================================
 \section{Summary of the design}
 \label{sec:design-summary}
 % ============================================================================
 
-\modelname keeps the agent queries, the tracking modules and the trajectory predictor of ViP3D, and changes
-how a query begins and how it is refined. Empty slots are no longer filled from a learned constant but from
-the strongest peaks of a class-wise heatmap predicted from the \ac{lidar} \ac{bev} map, with suppression
-around active tracks so that initialisation concerns new objects only. The six camera layers of ViP3D are
-replaced by two layers, one reading the \ac{bev} map at the reference point and one attending to the cameras
-through spatially modulated attention, with the \ac{lidar} output kept for queries that no camera sees. The
-model is trained in two stages, the \ac{lidar} model first and the camera layer on top of the frozen
-\ac{lidar} feature extractor second. The realisation of this design is described in the following chapter
+Our model is based on the ViP3D architecture, which is a multi-sensor 3D object detection and tracking model.
+It retains the agent queries, tracking modules, and trajectory predictor of ViP3D, but modifies the query initialization and refinement process.
+Our model uses the strongest peaks of a class-wise heatmap predicted from the \ac{lidar} \ac{bev} map to fill empty slots not relying on universal learned embeddings. 
+This approach ensures that the initialization is based on the current frame's data, possibly allowing for more efficient detection, tracking, and prediction of trajectories.
+The design ensures that only new objects are initialized, with suppression around active tracks. The six camera layers of ViP3D are replaced by two layers:
+one that reads the \ac{bev} map at the reference point and another that attends to the cameras through spatially modulated attention. 
+The model is trained in multiple stages, starting with the \ac{lidar} model and then training the camera layer on top of the frozen \ac{lidar} feature extractor.

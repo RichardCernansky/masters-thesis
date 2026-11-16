@@ -61,30 +61,25 @@
 \contentsline {paragraph}{Layer 1, spatially modulated camera attention}{39}{section*.17}%
 \contentsline {paragraph}{Reference refinement}{40}{section*.18}%
 \contentsline {paragraph}{Comparison with the decoder of ViP3D}{40}{section*.19}%
-\contentsline {subsection}{\numberline {5.3.5}Training}{41}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.5}Training methodology}{41}{subsection.5.3.5}%
 \contentsline {paragraph}{Loss}{41}{section*.20}%
-\contentsline {paragraph}{Two-stage schedule}{41}{section*.21}%
-\contentsline {section}{\numberline {5.4}Complexity Analysis}{42}{section.5.4}%
-\contentsline {paragraph}{The query path is cheap}{42}{section*.22}%
-\contentsline {paragraph}{The feature extractors dominate the arithmetic}{42}{section*.23}%
-\contentsline {paragraph}{The camera layer dominates the decoder and its memory}{44}{section*.24}%
-\contentsline {paragraph}{Communication}{44}{section*.25}%
-\contentsline {section}{\numberline {5.5}Summary of the design}{45}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Implementation}{47}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{49}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Setup}{49}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{50}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{50}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{50}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Summary}{50}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusion}{51}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Summary}{51}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Future Work}{51}{section.8.2}%
-\contentsline {chapter}{Resumé}{51}{section.8.2}%
-\contentsline {chapter}{List of Abbreviations}{53}{table.8.1}%
-\contentsline {chapter}{List of Figures}{56}{chapter*.27}%
-\contentsline {chapter}{List of Tables}{57}{chapter*.28}%
-\contentsline {chapter}{References}{61}{chapter*.30}%
+\contentsline {paragraph}{Multi-stage training schedule}{41}{section*.21}%
+\contentsline {section}{\numberline {5.4}Summary of the design}{43}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Implementation}{45}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Experiments and Evaluation}{47}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Setup}{47}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Case Study - Experiment 01}{48}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Case Study - Experiment 02}{48}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Case Study - Experiment 03}{48}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Summary}{48}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusion}{49}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Summary}{49}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Future Work}{49}{section.8.2}%
+\contentsline {chapter}{Resumé}{49}{section.8.2}%
+\contentsline {chapter}{List of Abbreviations}{51}{table.8.1}%
+\contentsline {chapter}{List of Figures}{54}{chapter*.23}%
+\contentsline {chapter}{List of Tables}{55}{chapter*.24}%
+\contentsline {chapter}{References}{59}{chapter*.26}%
 \contentsline {chapter}{\numberline {A}Description of Digital Submission }{B-1}{appendix.A}%
 \contentsline {chapter}{\numberline {B}Technical Documentation}{B-3}{appendix.B}%
 \contentsline {section}{\numberline {B.1}Installation Manual}{B-3}{section.B.1}%
@@ -92,8 +87,8 @@
 \contentsline {section}{\numberline {B.3}Developer Manual}{B-3}{section.B.3}%
 \contentsline {chapter}{\numberline {C}Work Schedule}{B-1}{appendix.C}%
 \contentsline {section}{\numberline {C.1}Work Schedule for BP1/DP1}{B-1}{section.C.1}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.31}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP1/DP1:}{B-1}{section*.27}%
 \contentsline {section}{\numberline {C.2}Work Schedule for BP2/DP2}{B-2}{section.C.2}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.32}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for BP2/DP2:}{B-2}{section*.28}%
 \contentsline {section}{\numberline {C.3}Work Schedule for DP3}{B-2}{section.C.3}%
-\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.33}%
+\contentsline {paragraph}{Self-Evaluation of Work Schedule for DP3:}{B-2}{section*.29}%
